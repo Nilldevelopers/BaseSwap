@@ -1,0 +1,37 @@
+{
+  "name": "dex-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prepare": "husky install",
+    "test": ""
+  },
+  "dependencies": {
+    "@types/node": "20.9.0",
+    "@types/react": "18.2.37",
+    "@types/react-dom": "18.2.15",
+    "autoprefixer": "10.4.16",
+    "eslint": "8.53.0",
+    "eslint-config-next": "14.0.2",
+    "husky": "^8.0.3",
+    "lightweight-charts": "^4.1.1",
+    "next": "14.0.2",
+    "next-pwa": "^5.6.0",
+    "postcss": "8.4.31",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwindcss": "3.3.5",
+    "typescript": "5.2.2"
+  },
+  "devDependencies": {
+<<<<<<< HEAD
+    "@tailwindcss/typography": "^0.5.10",
+=======
+>>>>>>> 23eee4098c5c774a0669021e42d95c4ba669df2e
+    "daisyui": "^4.0.3"
+  }
+}

@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css?family=Barlow|Poppins|Inter:wght@500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+<<<<<<< HEAD
+=======
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: #1E1E1E;
+    --background-start-rgb:  43,45,66;
+    --background-end-rgb: 43,45,66;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+>>>>>>> 23eee4098c5c774a0669021e42d95c4ba669df2e
