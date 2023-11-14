@@ -3,7 +3,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 export default function Document() {
   return (
     <Html lang="en" data-theme="mytheme">
-        <Head >
+        <Head>
 
             <meta charSet="UTF-8"/>
             <meta
