@@ -5,7 +5,8 @@ module.exports = {
         fontFamily: {
             'Inter': ["Inter", "Sans-serif"],
             'Poppins': ["Poppins", "Sans-serif"],
-            'Barlow': ["Barlow", "Sans-serif"]
+            'Barlow': ["Barlow", "Sans-serif"],
+            'Arial': ["Arial", "Sans-serif"],
         },
         extend: {
             backgroundColor: {
@@ -24,12 +25,7 @@ module.exports = {
             ,
         }
     },
-    content: [
-        './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-        './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-        './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-        './src/views/**/*.{js,ts,jsx,tsx,mdx}',
-    ],
+
     daisyui:
         {
             themes: [
