@@ -1,12 +1,12 @@
 import React, {useMemo} from 'react';
 import {NextApiRequest, NextApiResponse} from "next";
-import Image from "next/image";
-import Info from "@/assets/icons/info.svg"
-import Usdt from "@/assets/icons/usdt.svg"
-import Tether from "@/assets/icons/tether.svg"
 
 
-const LiquidityTable = ({cols, rows}: { cols: string[], rows: any }) => {
+
+import ImageImporter from "@/plugin/ImageImporter";
+
+
+const LiquidityTable = ({cols, rows}: { cols: string[], rows: any[] }) => {
 
     // This is the important bit, we are caching the rendered output for each column
     const renderedColumns = useMemo(() => {
@@ -17,15 +17,14 @@ const LiquidityTable = ({cols, rows}: { cols: string[], rows: any }) => {
 
         return cols.map(renderer);
     }, [cols]);
-
     const renderedRows = useMemo(() => {
         const renderer = (rowData: any) => {
             // expensive formatting using the column data
             return rowData;
         }
 
-        return cols.map(renderer);
-    }, [cols]);
+        return rows.map(renderer);
+    }, [rows]);
 
     return (
         <div className="overflow-x-auto border-2 border-slate-600 rounded-[12px] bg-custom-cart">
@@ -39,8 +38,8 @@ const LiquidityTable = ({cols, rows}: { cols: string[], rows: any }) => {
                                        className="capitalize text-sm text-neutral font-['Inter'] font-normal not-italic">{colData}</th>
                         })
                     }
-                    <th></th>
-                    <th></th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
 
                 </tr>
                 </thead>
@@ -53,17 +52,15 @@ const LiquidityTable = ({cols, rows}: { cols: string[], rows: any }) => {
                                     <div className="avatar-group -space-x-6 rtl:space-x-reverse">
                                         <div className="avatar">
                                             <div className="w-7 h-7">
-                                                <Image src={Tether} alt={'tether icon'} width={24} height={24}/>
+                                                <ImageImporter src='/img/icons/tether.svg' w={24} h={24}/>
                                             </div>
                                         </div>
                                         <div className="avatar">
                                             <div className="w-7 h-7">
-                                                <Image src={Usdt} alt={'USDT icon'} width={24} height={24}/>
+                                                <ImageImporter src={'/img/icons/usdt.svg'} w={24} h={24}/>
                                             </div>
                                         </div>
-
                                     </div>
-
                                     <div className='flex flex-col gap-[4px]'>
                                 <span className="uppercase text-sm text-accent font-['Arial'] font-normal not-italic">
                                     USDT
@@ -83,28 +80,28 @@ const LiquidityTable = ({cols, rows}: { cols: string[], rows: any }) => {
                                 <div className='flex row gap-2 items-center'>
                                     <span
                                         className="text-sm text-accent font-['Arial'] font-normal not-italic"> $1,324</span>
-                                    <Image src={Info} alt={'info icon'} width={15} height={15}/>
+                                    <ImageImporter src={'/img/icons/info.svg'} w={24} h={24}/>
                                 </div>
                             </td>
                             <td>
                                 <div className='flex row gap-2 items-center'>
                                     <span
                                         className="text-sm text-accent font-['Arial'] font-normal not-italic"> $1,324</span>
-                                    <Image src={Info} alt={'info icon'} width={15} height={15}/>
+                                    <ImageImporter src={'/img/icons/info.svg'} w={24} h={24}/>
                                 </div>
                             </td>
                             <td>
                                 <div className='flex row gap-2 items-center'>
                                     <span
                                         className="text-sm text-accent font-['Arial'] font-normal not-italic"> $1,324</span>
-                                    <Image src={Info} alt={'info icon'} width={15} height={15}/>
+                                    <ImageImporter src={'/img/icons/info.svg'} w={24} h={24}/>
                                 </div>
                             </td>
                             <td>
                                 <div className='flex row gap-2 items-center'>
                                     <span
                                         className="text-sm text-accent font-['Arial'] font-normal not-italic"> $1,324</span>
-                                    <Image src={Info} alt={'info icon'} width={15} height={15}/>
+                                    <ImageImporter src={'/img/icons/info.svg'} w={24} h={24}/>
                                 </div>
                             </td>
                             <td>
@@ -126,8 +123,6 @@ const LiquidityTable = ({cols, rows}: { cols: string[], rows: any }) => {
                         </tr>
                     })
                 }
-
-
                 </tbody>
             </table>
         </div>

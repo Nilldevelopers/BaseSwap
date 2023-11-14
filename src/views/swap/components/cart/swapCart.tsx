@@ -1,10 +1,10 @@
 import React from 'react';
 import Image from "next/image";
-import SettingIcon from "@/assets/icons/setting.svg"
-import MiniChartIcon from "@/assets/icons/miniCartIcon.svg"
-import WalletIcon from "@/assets/icons/wallet.svg"
-import PenIcon from "@/assets/icons/pen.svg"
-import ArrowTopRight from "@/assets/icons/Arrow-top-right.svg"
+import SettingIcon from "../../../../../public/img/icons/setting.svg"
+import MiniChartIcon from "../../../../../public/img/icons/miniCartIcon.svg"
+import WalletIcon from "../../../../../public/img/icons/wallet.svg"
+import PenIcon from "../../../../../public/img/icons/pen.svg"
+import ArrowTopRight from "../../../../../public/img/icons/Arrow-top-right.svg"
 
 function SwapCart() {
     return (
