@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const ImageImporter = ({src, w, h}: { src: string, w: number, h: number }) => {
+const ImageImporter = ({src, w, h}: { src: string, w?: number, h?: number }) => {
     return (
         <Image
             src={src}

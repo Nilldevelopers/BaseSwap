@@ -14,12 +14,12 @@ export default function Document() {
                 name="description"
                 content="A web developer group is a team of professionals who specialize in creating, designing, and maintaining websites. This group includes web developers, web designers, front-end developers, back-end developers, and others. Web developers write the code that makes websites function, using programming languages such as HTML, CSS, and JavaScript. Web designers focus on the visual aspects of websites, such as layout and color schemes. Front-end developers create and maintain the parts of a website that users interact with directly, while back-end developers handle tasks such as data storage and security. The group works together to create websites that are visually appealing, user-friendly, and efficient. They use a variety of tools and technologies to ensure that websites are optimized for speed, accessibility, and search engine rankings."
             />
-            <meta name="copyright" content="NILL DEVELOPERS"/>
+            <meta name="copyright" content="Swap"/>
             <meta name="language" content="ES"/>
             <meta name="robots" content="index,follow"/>
             <meta name="revised" content="Sunday, July 18th, 2023, 5:15 pm"/>
             <meta name="abstract" content="nill developrs"/>
-            <meta name="topic" content="گروه توسعه نیل"/>
+            <meta name="topic" content="Swap application"/>
             <meta
                 name="summary"
                 content="A web developer group is a team of professionals who specialize in creating, designing, and maintaining websites. This group includes web developers, web designers, front-end developers, back-end developers, and others. Web developers write the code that makes websites function, using programming languages such as HTML, CSS, and JavaScript. Web designers focus on the visual aspects of websites, such as layout and color schemes. Front-end developers create and maintain the parts of a website that users interact with directly, while back-end developers handle tasks such as data storage and security. The group works together to create websites that are visually appealing, user-friendly, and efficient. They use a variety of tools and technologies to ensure that websites are optimized for speed, accessibility, and search engine rankings."
@@ -37,7 +37,7 @@ export default function Document() {
             <meta name="distribution" content="Global"/>
             <meta name="rating" content="General"/>
             <meta name="revisit-after" content="7 days"/>
-            <meta name="subtitle" content="گروه توسعه نیل"/>
+            <meta name="subtitle" content="swap"/>
             <meta name="target" content="all"/>
             <meta name="HandheldFriendly" content="True"/>
             <meta name="MobileOptimized" content="320"/>
@@ -50,7 +50,7 @@ export default function Document() {
                 name="syndication-source"
                 content="https://mashable.com/2008/12/24/free-brand-monitoring-tools/"
             />
-            <link rel="icon" href="/img/logo/NillLogo.png"/>
+            <link rel="icon" href="/img/logo/apple-touch-icon.png"/>
             <meta
                 name="original-source"
                 content="https://mashable.com/2008/12/24/free-brand-monitoring-tools/"
@@ -72,7 +72,7 @@ export default function Document() {
 
             <meta property="twitter:image" content="/img/banner/3.jpg"/>
             <meta property="twitter:card" content="/img/banner/blog_banner.jpg"/>
-            <meta property="twitter:title" content="NILL Developers"/>
+            <meta property="twitter:title" content="Swap"/>
             <meta
                 property="twitter:description"
                 content="A web developer group is a team of professionals who specialize in creating, designing, and maintaining websites. This group includes web developers, web designers, front-end developers, back-end developers, and others. Web developers write the code that makes websites function, using programming languages such as HTML, CSS, and JavaScript. Web designers focus on the visual aspects of websites, such as layout and color schemes. Front-end developers create and maintain the parts of a website that users interact with directly, while back-end developers handle tasks such as data storage and security. The group works together to create websites that are visually appealing, user-friendly, and efficient. They use a variety of tools and technologies to ensure that websites are optimized for speed, accessibility, and search engine rankings."

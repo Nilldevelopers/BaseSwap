@@ -18,6 +18,7 @@
 }
 
 body {
+
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -25,4 +26,15 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+body::-webkit-scrollbar{
+  width: 8px;
+  background: #2B2D42;
+}
+body::-webkit-scrollbar-thumb{
+  width: 8px ;
+  background: #EF233C;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
 }

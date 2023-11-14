@@ -2,15 +2,16 @@
 import { createChart, ColorType } from 'lightweight-charts';
 import React, { useEffect, useRef } from 'react';
 
-export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: "transparent" | undefined; lineColor?: "#2962FF" | undefined; textColor?: "black" | undefined; areaTopColor?: "#2962FF" | undefined; areaBottomColor?: "rgba(41, 98, 255, 0.28)" | undefined; } | undefined; }) => {
+
+export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: "transparent" | undefined; lineColor?: "#EF233C" | undefined; textColor?: "white" | undefined; areaTopColor?: "rgba(239,35,60,0.48)" | undefined; areaBottomColor?: "rgba(239,35,60,0)" | undefined; } | undefined; }) => {
     const {
         data,
         colors: {
             backgroundColor = 'transparent',
             lineColor = '#EF233C',
             textColor = 'white',
-            areaTopColor = '#EF233C',
-            areaBottomColor = '#EF233C',
+            areaTopColor = 'rgba(239,35,60,0.48)',
+            areaBottomColor = 'rgba(239,35,60,0)',
         } = {},
     } = props;
 
@@ -29,8 +30,13 @@ export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: 
                     background: { type: ColorType.Solid, color: backgroundColor },
                     textColor,
                 },
+                grid: {
+                    vertLines: { color: 'transparent' },
+                    horzLines: { color: 'transparent' },
+                },
                 width: 800,
                 height: 500,
+
             });
             chart.timeScale().fitContent();
 
@@ -57,7 +63,7 @@ export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: 
 };
 
 const initialData = [
-    { time: '2018-12-22', value: 32.51 },
+        { time: '2018-12-22', value: 32.51 },
     { time: '2018-12-23', value: 31.11 },
     { time: '2018-12-24', value: 27.02 },
     { time: '2018-12-25', value: 27.32 },
@@ -71,6 +77,8 @@ const initialData = [
 
 export function TVChartContainer() {
     return (
-        <ChartComponent data={initialData}></ChartComponent>
+        <section className="md:w-8/12 h-fit  mt-3 rounded-xl bg-custom-cart">
+            <ChartComponent data={initialData}></ChartComponent>
+        </section>
     );
 }
