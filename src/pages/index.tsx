@@ -1,5 +1,5 @@
 // import WelcomeComponent from "@/components/WelcomeComponent";
-import Swap from "@/views/swap";
+import SwapView from "@/views/swap/SwapView";
 import Layout from "@/components/layout/Layout";
 import React from "react";
 export default function Home() {
@@ -8,7 +8,7 @@ export default function Home() {
         <Layout title="swap">
             {/*<label htmlFor="welcome_modal" className="btn">open modal</label>*/}
             {/*<WelcomeComponent/>*/}
-            <Swap/>
+            <SwapView/>
         </Layout>
     )
 }
