@@ -7,13 +7,18 @@ module.exports = {
             'Poppins': ["Poppins", "Sans-serif"],
             'Barlow': ["Barlow", "Sans-serif"],
             'Arial': ["Arial", "Sans-serif"],
+            'Outfit': ["Outfit", "Sans-serif"],
         },
         extend: {
             backgroundColor: {
                 "custom-cart":
                     "rgba(237,242,244,0.02)",
                 "custom-red":
-                    'rgba(239, 35, 60, 1)'
+                    'rgba(239, 35, 60, 1)',
+                "tab-choose":'rgba(237, 242, 244, 0.08)'
+            },
+            borderColor:{
+                "accent-dark":"rgba(237, 242, 244, 0.08)"
             }
             ,
             backgroundImage: {

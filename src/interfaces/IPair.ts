@@ -1,0 +1,30 @@
+export interface IPair {
+    account_gauge_balance: bigint
+    account_gauge_earned: bigint
+    account_lp_balance: bigint
+    account_token0_balance: bigint
+    account_token1_balance: bigint
+    bribe: string
+    claimable0: bigint
+    claimable1: bigint
+    decimals: bigint
+    emissions: bigint
+    emissions_token: string
+    emissions_token_decimals: bigint
+    fee: string
+    gauge: string
+    gauge_total_supply: bigint
+    name: string
+    pair_address: string
+    reserve0: bigint
+    reserve1: bigint
+    stable: boolean
+    symbol: string
+    token0: string
+    token0_decimals: bigint
+    token0_symbol: string
+    token1: string
+    token1_decimals: bigint
+    token1_symbol: string
+    total_supply: bigint
+}
