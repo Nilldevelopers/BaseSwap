@@ -3,8 +3,6 @@ import LiquidityTable from "@/views/liquidity/components/LiquidityTable";
 import dynamic from "next/dynamic";
 
 const LiquidityView = () => {
-
-
     return (
         <>
             <div className="container mx-auto px-4">
@@ -15,7 +13,8 @@ const LiquidityView = () => {
                 </div>
 
                 <div className='pt-10'>
-                    <LiquidityTable cols={['Name', 'ARP', 'Total Staked', 'My Staked', 'My Pool', 'Earnings']}/>
+                    <LiquidityTable rows={[1, 2, 3, 4, 5, 6]}
+                                    cols={['Name', 'ARP', 'Total Staked', 'My Staked', 'My Pool', 'Earnings']}/>
                 </div>
             </div>
         </>
