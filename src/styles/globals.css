@@ -38,3 +38,16 @@ body::-webkit-scrollbar-thumb{
   -moz-border-radius: 9px;
   border-radius: 9px;
 }
+#nprogress .bar {
+
+  background: #EF233C !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #EF233C !important;
+  border-left-color: #EF233C !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #EF233C, 0 0 5px #EF233C !important;
+}
