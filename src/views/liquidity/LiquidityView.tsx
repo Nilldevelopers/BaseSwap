@@ -20,7 +20,7 @@ const LiquidityView = () => {
                 <h1 className="text-accent font-['Inter'] font-bold text-[48px] capitalize leading-[48px] pt-14">liquidity</h1>
 
                 <div className="pt-12 flex flex-row flex-wrap justify-between items-center">
-                    <div className="flex flex-row items-center gap-[24px]">
+                    <div className="flex flex-row flex-wrap items-center gap-[24px]">
                         {/*<div>*/}
                         {/*    <div className="tabs tabs-boxed bg-transparent rounded-[18px] border border-1 border-accent-dark">*/}
                         {/*        <a className="tab h-auto !rounded-[18px] bg-tab-choose">*/}
@@ -56,7 +56,7 @@ const LiquidityView = () => {
                     </div>
                     <div>
 
-                        <label htmlFor="add_remove_liquidity_modal" className="btn btn-primary rounded-[18px] py-[13px] px-[20px]">
+                        <label htmlFor="add_remove_liquidity_modal" className="btn btn-primary rounded-[18px] py-[13px] px-[20px] mt-5 md:mt-0">
                             <span className="capitalize text-sm text-accent font-['Inter'] font-medium not-italic">
                                 Add/remove liquidity
                             </span>
