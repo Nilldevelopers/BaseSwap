@@ -34,7 +34,7 @@ export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: 
                     vertLines: { color: 'transparent' },
                     horzLines: { color: 'transparent' },
                 },
-                width: 800,
+                width: 200,
                 height: 500,
 
             });
@@ -77,7 +77,7 @@ const initialData = [
 
 export function TVChartContainer() {
     return (
-        <section className="md:w-8/12 h-fit  mt-3 rounded-xl bg-custom-cart">
+        <section className="md:w-8/12 w-full h-fit  mt-3 rounded-xl bg-custom-cart">
             <ChartComponent data={initialData}></ChartComponent>
         </section>
     );
