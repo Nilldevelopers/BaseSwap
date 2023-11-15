@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import dynamic from "next/dynamic";
 import {Inter} from 'next/font/google'
 import Head from "next/head";
@@ -26,4 +26,4 @@ function Layout({children, title}: PropsType) {
     );
 }
 
-export default dynamic(Promise.resolve(Layout), {ssr: false});
+export default dynamic(Promise.resolve(memo(Layout)), {ssr: false});

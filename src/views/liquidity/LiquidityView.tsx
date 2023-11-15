@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import LiquidityTable from "@/views/liquidity/components/LiquidityTable";
-import dynamic from "next/dynamic";
 import LiquidityAddRemoveModal from "@/views/liquidity/components/LiquidityAddRemoveModal";
 
 const LiquidityView = () => {
@@ -75,4 +74,4 @@ const LiquidityView = () => {
 };
 
 
-export default dynamic(Promise.resolve(LiquidityView), {ssr: false});
+export default LiquidityView;

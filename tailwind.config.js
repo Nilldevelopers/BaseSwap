@@ -1,6 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-
+    content:
+        [
+            './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+            './src/features/**/*.{js,ts,jsx,tsx,mdx}',
+            './src/views/**/*.{js,ts,jsx,tsx,mdx}',
+            './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+            './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+        ],
     theme: {
         fontFamily: {
             'Inter': ["Inter", "Sans-serif"],
@@ -39,13 +46,4 @@ module.exports = {
         }
     ,
     plugins: [require("@tailwindcss/typography"), require("daisyui")],
-    content:
-        [
-            './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-            './src/features/**/*.{js,ts,jsx,tsx,mdx}',
-            './src/views/**/*.{js,ts,jsx,tsx,mdx}',
-            './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-            './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-        ],
-
 }

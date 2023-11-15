@@ -1,9 +1,6 @@
-import React, {useMemo} from 'react';
-import {NextApiRequest, NextApiResponse} from "next";
-
-
-
+import React, {memo, useMemo} from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
+import dynamic from "next/dynamic";
 
 
 const LiquidityTable = ({cols, rows}: { cols: string[], rows: any[] }) => {
@@ -129,15 +126,5 @@ const LiquidityTable = ({cols, rows}: { cols: string[], rows: any[] }) => {
     );
 };
 
-export async function getServerSideProps({req, res}: { req: NextApiRequest, res: NextApiResponse }) {
-    res.setHeader(
-        'Cache-Control',
-        'public, s-maxage=10, stale-while-revalidate=59'
-    )
 
-    return {
-        props: {},
-    }
-}
-
-export default LiquidityTable;
+export default dynamic(Promise.resolve(memo(LiquidityTable)), {ssr: false});

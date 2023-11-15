@@ -1,16 +1,8 @@
 import React from 'react';
 import Image from "next/image";
-import SettingIcon from "../../../../../public/img/icons/setting.svg"
-import MiniChartIcon from "../../../../../public/img/icons/miniCartIcon.svg"
-import WalletIcon from "../../../../../public/img/icons/wallet.svg"
-import PenIcon from "../../../../../public/img/icons/pen.svg"
-import ArrowTopRight from "../../../../../public/img/icons/Arrow-top-right.svg"
-import ArrowBottomLeft from "../../../../../public/img/icons/arrow-left-bottom.svg"
-import InfoIcon from "../../../../../public/img/icons/info-circle-light.svg"
-import GasIcon from "../../../../../public/img/icons/gas.svg"
-import ArrowRight from "../../../../../public/img/icons/arrow-right.svg"
-import SwapArrow from "../../../../../public/img/icons/swap-arrow.svg"
-import ETHLogo from "../../../../../public/img/icons/usdt.svg"
+import ImageImporter from "@/plugin/ImageImporter";
+import {ImPodcast} from "react-icons/im";
+
 
 function SwapCart() {
     return (
@@ -20,14 +12,14 @@ function SwapCart() {
                     Swap
                 </h4>
                 <figure className="flex">
-                    <Image className="mx-1" src={SettingIcon} alt={"setting-button"}/>
-                    <Image className="ms-1" src={MiniChartIcon} alt={"mini-chart-button"}/>
+                    <ImageImporter w={20} h={20} className="mx-1" src={"/img/icons/setting.svg"} alt={"setting-button"}/>
+                    <ImageImporter w={20} h={20} className="ms-1" src={"/img/icons/miniCartIcon.svg"} alt={"mini-chart-button"}/>
                 </figure>
             </div>
             <div className="w-full bg-custom-cart p-2 flex flex-wrap items-center justify-between rounded-xl  mt-2">
                 <div className="flex flex-wrap w-full items-center justify-between">
                     <figure className="flex items-center justify-between ">
-                        <Image src={WalletIcon} alt={'wallet-icon'}/>
+                        <ImageImporter w={20} h={20} src={"/img/icons/wallet.svg"} alt={'wallet-icon'}/>
                         <span className="p-0.5 ms-0.5 border rounded-full border-green-400"> </span>
                         <figcaption className="text-white p-2">
                             <div className="font-bold">2.52370 ETH</div>
@@ -43,13 +35,13 @@ function SwapCart() {
                            className="range range-sm range-error bg-gray-500 rounded-md w-[82%]"/>
                     <div className="w-[15%] items-center  flex bg-custom-cart rounded-xl">
                         <span className="bg-gray-500 rounded-[5px] me-1 text-xs p-0.5"> 18% </span>
-                        <Image src={PenIcon} alt="pen-icon"/>
+                        <ImageImporter w={20} h={20} src={"/img/icons/pen.svg"} alt="pen-icon"/>
                     </div>
                 </div>
                 <div className="w-full flex flex-wrap bg-custom-cart mt-5 rounded-xl">
                     <div className="w-full flex p-2 justify-between ">
                         <figure className="flex ">
-                            <Image src={ArrowTopRight} alt={"ArrowTopRight"}/>
+                            <ImageImporter w={20} h={20} src={"/img/icons/Arrow-top-right.svg"} alt={"ArrowTopRight"}/>
                             <figcaption className="text-xs text-gray-500 ms-2">You Pay</figcaption>
                         </figure>
                         <span className="text-xs text-gray-500 ms-2">
@@ -59,7 +51,7 @@ function SwapCart() {
                     <div className="w-full p-2 flex justify-between items-center">
                         <span className="text-xl">0.6399</span>
                         <div className="flex">
-                            <Image src={ETHLogo} alt={"symbol"}/>
+                            <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
                             <select className="select select-bordered select-sm ms-1 w-28 max-w-xs">
                                 <option disabled selected>ETH</option>
                                 <option>ETH ETH</option>
@@ -73,13 +65,13 @@ function SwapCart() {
             </div>
             <div className="w-full flex relative justify-center items-center">
                 <button className="absolute active:scale-90 duration-100 ">
-                    <Image src={SwapArrow} alt={"SwapArrow"} width={40} className="flex -left-1 -top-1" />
+                    <ImageImporter  src={"/img/icons/swap-arrow.svg"} alt={"SwapArrow"} w={20} h={20} className="flex -left-1 -top-1" />
                 </button>
             </div>
             <div className="w-full bg-custom-cart p-2 flex flex-wrap items-center justify-between rounded-xl  mt-2">
                 <div className="flex flex-wrap w-full items-center justify-between">
                     <figure className="flex items-center justify-between ">
-                        <Image src={WalletIcon} alt={'wallet-icon'}/>
+                        <ImageImporter w={20} h={20} src={"/img/icons/wallet.svg"} alt={'wallet-icon'}/>
                         <span className="p-0.5 ms-0.5 border rounded-full border-red-600"> </span>
                         <figcaption className="text-white p-2">
                             <div className="font-bold">2.52370 ETH</div>
@@ -93,7 +85,7 @@ function SwapCart() {
                 <div className="w-full flex flex-wrap bg-custom-cart mt-5 rounded-xl">
                     <div className="w-full flex p-2 justify-between ">
                         <figure className="flex ">
-                            <Image src={ArrowBottomLeft} alt={"ArrowBottomLeft"}/>
+                            <ImageImporter w={20} h={20} src={"/img/icons/Arrow-top-right.svg"} alt={"ArrowBottomLeft"}/>
                             <figcaption className="text-xs text-gray-500 ms-2">You Receive</figcaption>
                         </figure>
                         <span className="text-xs text-gray-500 ms-2">
@@ -103,7 +95,7 @@ function SwapCart() {
                     <div className="w-full p-2 flex justify-between items-center">
                         <span className="text-xl">0.6399</span>
                         <div className="flex">
-                            <Image src={ETHLogo} alt={"symbol"}/>
+                            <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
                             <select className="select select-bordered select-sm ms-1 w-28 max-w-xs">
                                 <option disabled selected>ETH</option>
                                 <option>ETH ETH</option>
@@ -117,17 +109,17 @@ function SwapCart() {
             </div>
             <div className="w-full flex p-2 ">
                 <div className="w-2/3 flex">
-                    <Image src={InfoIcon} alt={"info-icon"}/>
+                    <ImageImporter w={20} h={20} src={"/img/icons/info-circle-light.svg"} alt={"info-icon"}/>
                     <div className="font-bold text-xs ps-2">
                         1 ETH = 6827.00011 aVAX
                     </div>
                 </div>
                 <div className="w-1/3 flex items-center justify-end ">
-                    <Image src={GasIcon} alt={"gas-icon"}/>
+                    <ImageImporter w={20} h={20} src={"/img/icons/gas.svg"} alt={"gas-icon"}/>
                     <div className="font-bold text-xs px-1.5 flex">
                         $8.99
                     </div>
-                    <Image src={ArrowRight} alt={"arrow-right"}/>
+                    <ImageImporter w={20} h={20} src={"/img/icons/arrow-right.svg"} alt={"arrow-right"}/>
                 </div>
             </div>
             <div className="w-full flex mt-2">

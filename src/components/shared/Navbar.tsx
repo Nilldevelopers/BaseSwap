@@ -1,11 +1,10 @@
-import React, {memo} from 'react';
-import Image from "next/image";
 import ConnectWalletButton from "@/components/extra/ConnectWalletButton";
 import {Inter} from 'next/font/google'
 import Link from "next/link";
 import {FaMoneyBillTransfer} from "react-icons/fa6";
 import {GrMoney} from "react-icons/gr";
 import {FaWallet} from "react-icons/fa";
+import ImageImporter from "@/plugin/ImageImporter";
 
 const inter = Inter({subsets: ['vietnamese']})
 const Navbar = () => {
@@ -13,9 +12,9 @@ const Navbar = () => {
         <>
             <header className={`w-full p-2  2xl:container 2xl:mx-auto flex ${inter.className}`}>
                 <figure className="flex justify-start items-center w-3/12 ">
-                    <Image src={'/img/logo/SwapLogo.svg'} className="p-1" alt={"swap-logo"} width={50} height={50}/>
-                    <Image src={'/img/logo/baseCoin.svg'} className="p-1 mt-2 md:block hidden" alt={"base-swap"}
-                           width={121} height={12}/>
+                    <ImageImporter src={'/img/logo/SwapLogo.svg'} className="p-1" alt={"swap-logo"} w={50} h={50}/>
+                    <ImageImporter src={'/img/logo/baseCoin.svg'} className="p-1 mt-2 md:block hidden" alt={"base-swap"}
+                                   w={121} h={12}/>
                 </figure>
                 <nav className="w-6/12 flex justify-center items-center">
                     <ul className="w-full md:flex hidden justify-center items-center relative">
@@ -51,7 +50,7 @@ const Navbar = () => {
                     <div id="tooltip-home" role="tooltip"
                          className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Home
-                        <div className="tooltip-arrow" data-popper-arrow></div>
+                        <div className="tooltip-arrow"></div>
                     </div>
                     <button data-tooltip-target="tooltip-wallet" type="button"
                             className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
@@ -61,7 +60,7 @@ const Navbar = () => {
                     <div id="tooltip-wallet" role="tooltip"
                          className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Wallet
-                        <div className="tooltip-arrow" data-popper-arrow></div>
+                        <div className="tooltip-arrow"></div>
                     </div>
                     <div className="flex items-center justify-center">
                         <button data-tooltip-target="tooltip-new" type="button"
@@ -77,7 +76,7 @@ const Navbar = () => {
                     <div id="tooltip-new" role="tooltip"
                          className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Create new item
-                        <div className="tooltip-arrow" data-popper-arrow></div>
+                        <div className="tooltip-arrow"></div>
                     </div>
                     <button data-tooltip-target="tooltip-settings" type="button"
                             className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
@@ -92,7 +91,7 @@ const Navbar = () => {
                     <div id="tooltip-settings" role="tooltip"
                          className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Settings
-                        <div className="tooltip-arrow" data-popper-arrow></div>
+                        <div className="tooltip-arrow"></div>
                     </div>
 
 
@@ -107,7 +106,7 @@ const Navbar = () => {
                     <div id="tooltip-profile" role="tooltip"
                          className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Liquidity
-                        <div className="tooltip-arrow" data-popper-arrow></div>
+                        <div className="tooltip-arrow"></div>
                     </div>
                 </div>
             </header>
@@ -116,4 +115,4 @@ const Navbar = () => {
     );
 };
 
-export default memo(Navbar);
+export default Navbar;

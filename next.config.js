@@ -7,6 +7,8 @@ const withPWA = require("next-pwa")({
     skipWaiting: true,
     runtimeCaching,
     buildExcludes: [/manifest.json$/],
+    scope: '/',
+    maximumFileSizeToCacheInBytes: 3000000,
     disable: !isProd,
 });
 
@@ -28,7 +30,31 @@ const nextConfig = {
     },
     images: {
         minimumCacheTTL: 60,
+
     },
+    compiler: {
+        styledComponents: true,
+        removeConsole: !isProd,
+    },
+    swcMinify: true,
+
+    webpack(config) {
+        config.module.rules.push({
+            test: /\.svg$/i,
+            issuer: { and: [/\.(js|ts|md)x?$/] },
+            use: [
+                {
+                    loader: '@svgr/webpack',
+                    options: {
+                        svgoConfig: { plugins: [{ removeViewBox: false }] },
+                    },
+                },
+            ],
+        });
+
+        return config;
+    },
+
 }
 
 module.exports = withPWA(nextConfig)
