@@ -19,29 +19,29 @@ const LiquidityView = () => {
             <div className="container mx-auto px-4">
                 <h1 className="text-accent font-['Inter'] font-bold text-[48px] capitalize leading-[48px] pt-14">liquidity</h1>
 
-                <div className="pt-12 flex flex-row justify-between items-center">
+                <div className="pt-12 flex flex-row flex-wrap justify-between items-center">
                     <div className="flex flex-row items-center gap-[24px]">
-                        <div>
-                            <div className="tabs tabs-boxed bg-transparent rounded-[18px] border border-1 border-accent-dark">
-                                <a className="tab h-auto !rounded-[18px] bg-tab-choose">
-                                    <div className="py-[11px] px-[25px]">
-                                        <span className="capitalize text-sm text-accent font-['Outfit'] font-medium not-italic">All</span>
-                                    </div>
-                                </a>
+                        {/*<div>*/}
+                        {/*    <div className="tabs tabs-boxed bg-transparent rounded-[18px] border border-1 border-accent-dark">*/}
+                        {/*        <a className="tab h-auto !rounded-[18px] bg-tab-choose">*/}
+                        {/*            <div className="py-[11px] px-[25px]">*/}
+                        {/*                <span className="capitalize text-sm text-accent font-['Outfit'] font-medium not-italic">All</span>*/}
+                        {/*            </div>*/}
+                        {/*        </a>*/}
 
-                                <a className="tab h-auto">
-                                    <div className="py-[11px] px-[25px]">
-                                        <span className="capitalize text-sm text-neutral font-['Outfit'] font-medium not-italic">Stable</span>
-                                    </div>
-                                </a>
-                                <a className="tab h-auto">
-                                    <div className="py-[11px] px-[25px]">
-                                        <span className="capitalize text-sm text-neutral font-['Outfit'] font-medium not-italic">Volatile</span>
-                                    </div>
-                                </a>
+                        {/*        <a className="tab h-auto">*/}
+                        {/*            <div className="py-[11px] px-[25px]">*/}
+                        {/*                <span className="capitalize text-sm text-neutral font-['Outfit'] font-medium not-italic">Stable</span>*/}
+                        {/*            </div>*/}
+                        {/*        </a>*/}
+                        {/*        <a className="tab h-auto">*/}
+                        {/*            <div className="py-[11px] px-[25px]">*/}
+                        {/*                <span className="capitalize text-sm text-neutral font-['Outfit'] font-medium not-italic">Volatile</span>*/}
+                        {/*            </div>*/}
+                        {/*        </a>*/}
 
-                            </div>
-                        </div>
+                        {/*    </div>*/}
+                        {/*</div>*/}
                         <div>
                             <input type="text" placeholder="Search Pair or Token" className="input input-bordered w-full max-w-xs bg-tab-choose rounded-[18px] h-auto py-[17px] border-none" />
                         </div>

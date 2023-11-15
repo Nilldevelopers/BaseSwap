@@ -20,14 +20,6 @@ module.exports = {
             borderColor:{
                 "accent-dark":"rgba(237, 242, 244, 0.08)"
             }
-            ,
-            backgroundImage: {
-                'gradient-radial':
-                    'radial-gradient(var(--tw-gradient-stops))',
-                'gradient-conic':
-                    'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-            }
-            ,
         }
     },
 
