@@ -18,7 +18,7 @@ export default function Document() {
             <meta name="language" content="ES"/>
             <meta name="robots" content="index,follow"/>
             <meta name="revised" content="Sunday, July 18th, 2023, 5:15 pm"/>
-            <meta name="abstract" content="nill developrs"/>
+            <meta name="abstract" content="Base Swap"/>
             <meta name="topic" content="Swap application"/>
             <meta
                 name="summary"

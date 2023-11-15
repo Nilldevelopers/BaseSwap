@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import LiquidityTable from "@/views/liquidity/components/LiquidityTable";
 import dynamic from "next/dynamic";
+import LiquidityAddRemoveModal from "@/views/liquidity/components/LiquidityAddRemoveModal";
 
 const LiquidityView = () => {
     const [showStakedOnly, setShowStakedOnly] = useState<boolean>(false);
@@ -54,11 +55,13 @@ const LiquidityView = () => {
                         </div>
                     </div>
                     <div>
-                        <button className='btn btn-primary rounded-[18px] py-[13px] px-[20px]'>
+
+                        <label htmlFor="add_remove_liquidity_modal" className="btn btn-primary rounded-[18px] py-[13px] px-[20px]">
                             <span className="capitalize text-sm text-accent font-['Inter'] font-medium not-italic">
                                 Add/remove liquidity
                             </span>
-                        </button>
+                        </label>
+                        <LiquidityAddRemoveModal/>
                     </div>
                 </div>
 
