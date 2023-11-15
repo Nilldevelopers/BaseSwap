@@ -15,7 +15,7 @@ export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: 
         } = {},
     } = props;
 
-    const chartContainerRef = useRef();
+    const chartContainerRef = useRef<any>();
 
     useEffect(
         () => {
