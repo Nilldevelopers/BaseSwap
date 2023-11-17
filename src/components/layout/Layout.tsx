@@ -19,7 +19,7 @@ function Layout({children, title}: PropsType) {
                 </title>
             </Head>
             <Navbar/>
-            <main className={`w-full  min-h-screen 2xl:container 2xl:mx-auto p-2 ${inter.className}`}>
+            <main className={`w-full font-['Inter']  min-h-screen 2xl:container 2xl:mx-auto p-2`}>
                 {children}
             </main>
         </>

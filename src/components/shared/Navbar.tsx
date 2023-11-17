@@ -10,7 +10,7 @@ const inter = Inter({subsets: ['vietnamese']})
 const Navbar = () => {
     return (
         <>
-            <header className={`w-full p-2  2xl:container 2xl:mx-auto flex ${inter.className}`}>
+            <header className={`w-full p-2 font-['Inter']  2xl:container 2xl:mx-auto flex`}>
                 <figure className="flex justify-start items-center w-3/12 ">
                     <ImageImporter src={'/img/logo/SwapLogo.svg'} className="p-1" alt={"swap-logo"} w={50} h={50}/>
                     <ImageImporter src={'/img/logo/baseCoin.svg'} className="p-1 mt-2 md:block hidden" alt={"base-swap"}
@@ -27,7 +27,7 @@ const Navbar = () => {
                         <li className="text-gray-400 duration-100 hover:text-white border-b border-b-transparent hover:border-b-white mx-3 cursor-pointer  group">
                             Socials
                             <ul className="w-fit border absolute top-full mt-3 p-2 opacity-0 group-hover:opacity-100 duration-200">
-                                سلام محمد و فردین
+                                سلام محمد و فردین فردا دست میکنم الان نتونستم!
                             </ul>
                         </li>
                     </ul>
