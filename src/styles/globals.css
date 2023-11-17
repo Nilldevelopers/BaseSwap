@@ -37,11 +37,11 @@
 /*    )*/
 /*    rgb(var(--background-start-rgb));*/
 /*}*/
-body::-webkit-scrollbar{
+*::-webkit-scrollbar{
   width: 8px;
   background: #2B2D42;
 }
-body::-webkit-scrollbar-thumb{
+*::-webkit-scrollbar-thumb{
   width: 8px ;
   background: #EF233C;
   -webkit-border-radius: 9px;

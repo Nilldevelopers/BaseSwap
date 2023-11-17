@@ -15,7 +15,7 @@ const LiquidityView = () => {
     };
     return (
         <>
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 mb-28">
                 <h1 className="text-accent font-['Inter'] font-bold text-[48px] capitalize leading-[48px] pt-14">liquidity</h1>
 
                 <div className="pt-12 flex flex-row flex-wrap justify-between items-center">
