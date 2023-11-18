@@ -1,10 +1,10 @@
-import swapSelectTokenReducer from "@/store/reducers/swapSelectTokenReducer";
 import choosePoolReducer from "@/store/reducers/choosePoolReducer";
-import modalSettingReducer from "@/store/reducers/modalSettingReducer";
+import {fetchAccount} from "@/store/reducers/walletReducer";
+
+
 
 const reducer = {
-    tokenList: swapSelectTokenReducer,
     choosePool: choosePoolReducer,
-    settingModalData: modalSettingReducer
+    walletData: fetchAccount
 };
 export default reducer
