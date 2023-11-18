@@ -3,35 +3,33 @@ import {alchemyProvider} from 'wagmi/providers/alchemy';
 import {publicProvider} from 'wagmi/providers/public';
 import '@rainbow-me/rainbowkit/styles.css';
 import {getDefaultWallets, RainbowKitProvider} from '@rainbow-me/rainbowkit';
-import {configureChains, createConfig, WagmiConfig} from 'wagmi';
-import {arbitrum, base, baseGoerli, mainnet, optimism, polygon, zora,} from 'wagmi/chains';
+import {Chain, configureChains, createConfig, WagmiConfig} from 'wagmi';
+import {baseGoerli} from 'wagmi/chains';
 import {myRainbowCustomTheme} from "@/themes/RainbowKitTheme";
 import {ReactNode} from "react";
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 const WagmiProvider = ({children}: { children: ReactNode }) => {
-    const {chains, publicClient} = configureChains(
-        [mainnet, polygon, optimism, arbitrum, base, zora,baseGoerli],
-        [
-            // alchemyProvider({apiKey: process.env.ALCHEMY_ID!}),
-            // publicProvider(),
-            jsonRpcProvider({
-                rpc: () => ({
-                    http: 'https://goerli.base.org',
-                }),
-            }),
-        ]
+
+    const {chains, publicClient, webSocketPublicClient} = configureChains(
+        [baseGoerli],
+      [
+        publicProvider()
+      ]
     );
+
     const {connectors} = getDefaultWallets({
-        appName: 've33-dex',
-        projectId: 'YOUR_PROJECT_ID',
+        appName: 'BaseSwap',
+        projectId: 'e798cef35d6a24a5ddf135ca3b9d57d7',
         chains
     });
+
     const wagmiConfig = createConfig({
-        autoConnect: true,
-        connectors,
-        publicClient,
-    })
+      autoConnect: true,
+      connectors,
+      publicClient,
+      webSocketPublicClient,
+    });
+
     return (
         <WagmiConfig config={wagmiConfig}>
             <RainbowKitProvider chains={chains} theme={myRainbowCustomTheme}>
