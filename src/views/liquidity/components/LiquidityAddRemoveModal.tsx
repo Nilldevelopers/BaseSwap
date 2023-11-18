@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
-import Link from "next/link";
 
 const LiquidityAddRemoveModal = () => {
     const [tabStatus, setTabStatus] = useState<"Deposit" | "Remove" | "Withdraw">("Remove")
@@ -8,12 +7,12 @@ const LiquidityAddRemoveModal = () => {
         <>
             <input type="checkbox" id="add_remove_liquidity_modal" className="modal-toggle"/>
             <div className="modal">
-                <div className="modal-box border overflow-hidden border-gray-600 py-3 px-0">
-                    <div className="font-bold justify-between px-2 items-center text-lg w-full flex flex-wrap">
+                <div className="modal-box border overflow-hidden border-gray-600 py-0 px-0">
+                    <div className="font-bold justify-between px-[16px] py-[18px] items-center text-lg w-full flex flex-wrap">
                         <div>
                             <label htmlFor="add_remove_liquidity_modal"
                                    className="btn btn-sm btn-circle btn-ghost right-2 top-2">
-                                <ImageImporter src={"/img/icons/arrow-back.svg"} alt={"arrow-back"} h={20} w={20}/>
+                                <ImageImporter src={"/img/icons/arrow-back.svg"} className='mr-[5px]' alt={"arrow-back"} h={20} w={20}/>
                             </label>
                             Manage Liquidity
                         </div>
@@ -44,9 +43,9 @@ const LiquidityAddRemoveModal = () => {
                                     <div className="w-full p-3 flex flex-wrap h-[350px] overflow-y-scroll">
 
                                         {
-                                            [1, 2, 3, 4, 5].map((item) => (
-                                                <div
-                                                    className="w-full flex flex-wrap rounded-xl border border-gray-600 my-1 p-2 py-3 items-center justify-between">
+                                            [1, 2, 3, 4, 5].map((item, index) => (
+                                                <div key={index}
+                                                     className="w-full flex flex-wrap rounded-[4px] border border-gray-600 my-1 px-[16px] py-[18px] items-center justify-between">
                                                     <div className="flex items-center justify-center w-full md:w-auto">
                                                         <div className="avatar-group -space-x-6 rtl:space-x-reverse">
                                                             <div className="avatar">
@@ -110,7 +109,7 @@ const LiquidityAddRemoveModal = () => {
                                         </div>
                                         <div className='w-full p-2 flex flex-wrap mt-5'>
                                             <div className="w-full py-1 ">
-                                                You'll receive at least
+                                                You will receive at least
                                             </div>
                                             <div className="w-full flex justify-between py-2">
                                                 <div className="flex items-center">
