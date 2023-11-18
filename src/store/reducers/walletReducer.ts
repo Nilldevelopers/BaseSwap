@@ -1,33 +1,52 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import {getAccount} from "@wagmi/core";
+// walletReducer.ts
 
+import {
+    FETCH_ACCOUNT_REQUEST,
+    FETCH_ACCOUNT_SUCCESS,
+    FETCH_ACCOUNT_FAILURE,
+    WalletActionTypes,
+} from '@/store/actions/walletAction';
+import { useAppSelector } from '@/hooks/useAppSelector'; // Adjust the path accordingly
+
+// Interface for the state
 interface WalletState {
-    account: string | null;
+    account: any; // Replace 'any' with the actual type of your account object
+    loading: boolean;
+    error: string | null;
 }
 
+// Initial state
 const initialState: WalletState = {
-    account: null,
+    account: {},
+    loading: false,
+    error: null,
 };
 
-// Define an async thunk for fetching account data
-export const fetchAccount = createAsyncThunk('wallet/fetchAccount', async () => {
-    const account = await getAccount();
-    return account;
-});
+// Reducer function
+const walletReducer = (state = initialState, action: WalletActionTypes): WalletState => {
 
-const walletSlice = createSlice({
-    name: 'wallet',
-    initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder.addCase(fetchAccount.fulfilled, (state, action) => {
-            // @ts-ignore
-            state.account = action.payload;
-        });
-    },
-});
+    switch (action.type) {
+        case FETCH_ACCOUNT_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            };
+        case FETCH_ACCOUNT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                account: action.payload,
+            };
+        case FETCH_ACCOUNT_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        default:
+            return state;
+    }
+};
 
-export default walletSlice.reducer;
-
-
-
+export default walletReducer;

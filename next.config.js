@@ -32,10 +32,10 @@ const nextConfig = {
         minimumCacheTTL: 60,
 
     },
-    compiler: {
-        styledComponents: true,
-        removeConsole: !isProd,
-    },
+    // compiler: {
+    //     styledComponents: true,
+    //     removeConsole: false,
+    // },
     swcMinify: true,
 
     webpack(config) {

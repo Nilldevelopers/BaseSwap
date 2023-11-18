@@ -1,10 +1,9 @@
-import choosePoolReducer from "@/store/reducers/choosePoolReducer";
-import {fetchAccount} from "@/store/reducers/walletReducer";
+// index.ts
 
-
+import walletReducer from "@/store/reducers/walletReducer";
 
 const reducer = {
-    choosePool: choosePoolReducer,
-    walletData: fetchAccount
+    wallet: walletReducer,
 };
-export default reducer
+
+export default reducer;

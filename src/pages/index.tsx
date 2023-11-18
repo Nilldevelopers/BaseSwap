@@ -1,31 +1,23 @@
-import Layout from "@/components/layout/Layout";
 import React, {useEffect} from "react";
+import Layout from "@/components/layout/Layout";
 import HomeView from "@/views/home/HomeView";
 import {useAppSelector} from "@/hooks/useAppSelector";
-
+import {fetchAccount} from "@/store/actions/walletAction";
 import {useAppDispatch} from "@/hooks/useAppDispatch";
-import {fetchAccount} from "@/store/reducers/walletReducer";
 
 
-
-export default function Home() {
+export default function Home(): React.JSX.Element {
     const dispatch = useAppDispatch()
-    const account = useAppSelector((state) => state.walletData.account);
-
+    const account = useAppSelector((state) => state.wallet.account);
+    const loading = useAppSelector((state) => state.wallet.loading);
+    const error = useAppSelector((state) => state.wallet.error);
     useEffect(() => {
-        // Dispatch the async thunk to fetch account data
-        dispatch(fetchAccount());
+        dispatch(fetchAccount() as any);
     }, [dispatch]);
 
-
-    // useEffect(() => {
-    //   const account = getAccount();
-    //   alert(account.address +"  =>  "+ account.status);
-    // }, [])
     return (
         <Layout title="swap">
-            <HomeView/>
-            {account}
+            <HomeView account={account} loading={loading} error={error}/>
         </Layout>
     )
 }

@@ -6,13 +6,14 @@ const LiquidityView = () => {
     const [showStakedOnly, setShowStakedOnly] = useState<boolean>(false);
     const handleStakedOnlyToggle = () => {
         setShowStakedOnly(prev => !prev);
-        if (!showStakedOnly){
+        if (!showStakedOnly) {
             // setFilteredPools(filterNonZeroBribe(allPools))
         }
-        if (showStakedOnly ){
+        if (showStakedOnly) {
             // setFilteredPools(allPools)
         }
     };
+
     return (
         <>
             <div className="container mx-auto px-4 mb-28">
@@ -42,20 +43,24 @@ const LiquidityView = () => {
                         {/*    </div>*/}
                         {/*</div>*/}
                         <div>
-                            <input type="text" placeholder="Search Pair or Token" className="input input-bordered w-full max-w-xs bg-tab-choose rounded-[18px] h-auto py-[17px] border-none" />
+                            <input type="text" placeholder="Search Pair or Token"
+                                   className="input input-bordered w-full max-w-xs bg-tab-choose rounded-[18px] h-auto py-[17px] border-none"/>
                         </div>
                         <div>
                             <div className="form-control">
                                 <label className="cursor-pointer label">
-                                    <input type="checkbox" className="toggle toggle-primary" onChange={handleStakedOnlyToggle} />
-                                    <span className="label-text pl-1 capitalize text-sm text-neutral font-['Outfit'] font-medium not-italic">Staked Only</span>
+                                    <input type="checkbox" className="toggle toggle-primary"
+                                           onChange={handleStakedOnlyToggle}/>
+                                    <span
+                                        className="label-text pl-1 capitalize text-sm text-neutral font-['Outfit'] font-medium not-italic">Staked Only</span>
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div>
 
-                        <label htmlFor="add_remove_liquidity_modal" className="btn btn-primary rounded-[18px] py-[13px] px-[20px] mt-5 md:mt-0">
+                        <label htmlFor="add_remove_liquidity_modal"
+                               className="btn btn-primary rounded-[18px] py-[13px] px-[20px] mt-5 md:mt-0">
                             <span className="capitalize text-sm text-accent font-['Inter'] font-medium not-italic">
                                 Add/remove liquidity
                             </span>
