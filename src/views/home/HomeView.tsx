@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import SwapCart from "@/views/home/components/cart/swapCart";
 import {TVChartContainer} from "@/views/home/components/chart/chartComponent";
 
