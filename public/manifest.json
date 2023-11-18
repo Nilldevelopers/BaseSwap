@@ -1,20 +1,20 @@
 {
-  "theme_color": "#fcbf49",
-  "background_color": "#1c1c1c",
+  "theme_color": "#EF233C",
+  "background_color": "#2B2D42",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "name": "Swap",
-  "short_name": "Swap ",
-  "description": "Swap application",
+  "short_name": "Base Swap",
+  "description": "Base Swap application",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "/img/logo/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/android-chrome-512x512.png",
+      "src": "/img/logo/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

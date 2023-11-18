@@ -68,7 +68,7 @@ export default function Document() {
             <meta httpEquiv="imagetoolbar" content="no"/>
             <meta httpEquiv="x-dns-prefetch-control" content="off"/>
             <link rel="manifest" href="/manifest.json"/>
-            <meta name="theme-color" content="#fcbf49"/>
+            <meta name="theme-color" content="#EF233C"/>
 
             <meta property="twitter:image" content="/img/banner/3.jpg"/>
             <meta property="twitter:card" content="/img/banner/blog_banner.jpg"/>

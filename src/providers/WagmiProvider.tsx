@@ -4,16 +4,22 @@ import {publicProvider} from 'wagmi/providers/public';
 import '@rainbow-me/rainbowkit/styles.css';
 import {getDefaultWallets, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import {configureChains, createConfig, WagmiConfig} from 'wagmi';
-import {arbitrum, base, mainnet, optimism, polygon, zora,} from 'wagmi/chains';
+import {arbitrum, base, baseGoerli, mainnet, optimism, polygon, zora,} from 'wagmi/chains';
 import {myRainbowCustomTheme} from "@/themes/RainbowKitTheme";
 import {ReactNode} from "react";
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 const WagmiProvider = ({children}: { children: ReactNode }) => {
     const {chains, publicClient} = configureChains(
-        [mainnet, polygon, optimism, arbitrum, base, zora],
+        [mainnet, polygon, optimism, arbitrum, base, zora,baseGoerli],
         [
-            alchemyProvider({apiKey: process.env.ALCHEMY_ID!}),
-            publicProvider()
+            // alchemyProvider({apiKey: process.env.ALCHEMY_ID!}),
+            // publicProvider(),
+            jsonRpcProvider({
+                rpc: () => ({
+                    http: 'https://goerli.base.org',
+                }),
+            }),
         ]
     );
     const {connectors} = getDefaultWallets({
@@ -24,7 +30,7 @@ const WagmiProvider = ({children}: { children: ReactNode }) => {
     const wagmiConfig = createConfig({
         autoConnect: true,
         connectors,
-        publicClient
+        publicClient,
     })
     return (
         <WagmiConfig config={wagmiConfig}>

@@ -103,7 +103,7 @@ const LiquidityAddRemoveModal = () => {
                                                 <div
                                                     className="w-full bg-custom-cart rounded-xl flex flex-wrap justify-between  p-2 ">
                                                     <input type="range" min={0} max="100"
-                                                           className="range range-sm range-error bg-gray-500 rounded-md"/>
+                                                           className="range range-sm range-error rounded-md"/>
                                                 </div>
                                             </div>
                                         </div>

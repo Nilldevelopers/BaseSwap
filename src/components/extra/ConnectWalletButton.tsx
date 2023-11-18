@@ -1,5 +1,5 @@
 import {ConnectButton} from '@rainbow-me/rainbowkit';
-import React from "react";
+import React, {memo} from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
@@ -38,17 +38,17 @@ const ConnectWalletButton = () => {
                         {(() => {
                             if (!connected) {
                                 return (
-                                    <button className="btn text-white w-48 bg-custom-red"
+                                    <button className="btn text-white w-32 bg-custom-red border-transparent"
                                             onClick={openConnectModal} type="button">
                                             <span>
-                                                Connect to Wallet
+                                                Connect
                                             </span>
                                     </button>
                                 );
                             }
                             if (chain.unsupported) {
                                 return (
-                                    <button className="btn mx-0 text-white w-48 font-bolder"
+                                    <button className="btn mx-0 text-white w-48 font-bolder border-transparent"
                                             onClick={openChainModal} type="button">
                                             <span>
                                                 Wrong network
@@ -66,7 +66,7 @@ const ConnectWalletButton = () => {
                                             backgroundColor: 'rgba(96, 122, 227, 0.15)',
                                             borderRadius: '12px'
                                         }}
-                                        className="btn mx-0 text-white w-fit font-bolder"
+                                        className="btn mx-0 text-white w-fit font-bolder border-transparent"
                                         type="button"
                                     >
                                         {chain.hasIcon && (
@@ -95,7 +95,7 @@ const ConnectWalletButton = () => {
                                             </span>
                                     </button>
                                     <button onClick={openAccountModal} type="button"
-                                            className="btn bg-transparent mx-0 text-white w-48 font-bolder"
+                                            className="btn bg-transparent border-transparent mx-0 text-white w-48 font-bolder"
                                             style={{
                                                 borderRadius: "12px",
                                                 border: "1px solid #D90429"
@@ -118,4 +118,4 @@ const ConnectWalletButton = () => {
     );
 };
 
-export default dynamic(Promise.resolve(ConnectWalletButton), {ssr: false});
+export default dynamic(Promise.resolve(memo(ConnectWalletButton)), {ssr: false});

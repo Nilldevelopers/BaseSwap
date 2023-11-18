@@ -32,7 +32,7 @@ function SwapCart() {
                 </div>
                 <div className="w-full bg-custom-cart rounded-xl flex flex-wrap justify-between  p-2 ">
                     <input type="range" min={0} max="100"
-                           className="range range-sm range-error bg-gray-500 rounded-md w-[82%]"/>
+                           className="range range-sm range-error rounded-md w-[82%]"/>
                     <div className="w-[15%] items-center  flex bg-custom-cart rounded-xl">
                         <span className="bg-gray-500 rounded-[5px] me-1 text-xs p-0.5"> 18% </span>
                         <ImageImporter w={20} h={20} src={"/img/icons/pen.svg"} alt="pen-icon"/>
