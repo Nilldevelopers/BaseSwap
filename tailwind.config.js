@@ -36,10 +36,12 @@ module.exports = {
                 {
                     mytheme: {
                         "primary": "#EF233C",
+                        "success":"#7FD482",
                         "secondary": "rgba(237, 242, 244, 0.03)",
                         "accent": "#EDF2F4",
                         "neutral": "#8D99AE",
                         "base-100": "#2B2D42",
+                        "base-200":"#3D4A51"
                     },
                 },
             ],

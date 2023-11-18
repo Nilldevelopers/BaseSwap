@@ -22,6 +22,12 @@ function Layout({children, title}: PropsType) {
             <main className={`w-full font-['Inter']  min-h-screen 2xl:container 2xl:mx-auto p-2`}>
                 {children}
             </main>
+            <div className="right-0 absolute mx-12 rounded-[6px] pb-10">
+                <div className="border border-base-200 rounded-[6px] py-[5px] px-[11px] w-fit flex flex-row gap-[10px]">
+                    <span className="capitalize text-success font-['Arial'] font-normal not-italic leading-0">Block Number:</span>
+                    <span className="capitalize text-success font-['Arial'] font-normal not-italic leading-0">17382826</span>
+                </div>
+            </div>
         </>
     );
 }
