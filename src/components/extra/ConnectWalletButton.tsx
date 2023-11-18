@@ -1,5 +1,5 @@
 import {ConnectButton} from '@rainbow-me/rainbowkit';
-import React, {memo} from "react";
+import React from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
@@ -40,7 +40,7 @@ const ConnectWalletButton = () => {
                                 return (
                                     <button className="btn text-white w-48 bg-custom-red"
                                             onClick={openConnectModal} type="button">
-                                            <span >
+                                            <span>
                                                 Connect to Wallet
                                             </span>
                                     </button>
@@ -50,7 +50,7 @@ const ConnectWalletButton = () => {
                                 return (
                                     <button className="btn mx-0 text-white w-48 font-bolder"
                                             onClick={openChainModal} type="button">
-                                            <span >
+                                            <span>
                                                 Wrong network
                                             </span>
                                     </button>
@@ -60,8 +60,13 @@ const ConnectWalletButton = () => {
                                 <div style={{display: 'flex', gap: 12}}>
                                     <button
                                         onClick={openChainModal}
-                                        style={{display: 'flex', alignItems: 'center'}}
-                                        className="btn mx-0 text-white w-48 font-bolder"
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            backgroundColor: 'rgba(96, 122, 227, 0.15)',
+                                            borderRadius: '12px'
+                                        }}
+                                        className="btn mx-0 text-white w-fit font-bolder"
                                         type="button"
                                     >
                                         {chain.hasIcon && (
@@ -72,7 +77,7 @@ const ConnectWalletButton = () => {
                                                     height: 20,
                                                     borderRadius: 999,
                                                     overflow: 'hidden',
-                                                    marginRight: 4,
+                                                    marginLeft: '7px'
                                                 }}
                                             >
                                                 {chain.iconUrl && (
@@ -85,12 +90,17 @@ const ConnectWalletButton = () => {
                                                 )}
                                             </div>
                                         )}
-                                        <span >
-                                        {chain.name}
+                                        <span>
+                                        {/*{chain.name}*/}
                                             </span>
                                     </button>
                                     <button onClick={openAccountModal} type="button"
-                                            className="btn mx-0 text-white w-48 font-bolder">
+                                            className="btn bg-transparent mx-0 text-white w-48 font-bolder"
+                                            style={{
+                                                borderRadius: "12px",
+                                                border: "1px solid #D90429"
+                                            }}
+                                    >
                                        <span>
                                         {account.displayName}
                                            {account.displayBalance
@@ -108,4 +118,4 @@ const ConnectWalletButton = () => {
     );
 };
 
-export default dynamic(Promise.resolve(memo(ConnectWalletButton)), {ssr: false});
+export default dynamic(Promise.resolve(ConnectWalletButton), {ssr: false});
