@@ -87,16 +87,16 @@ const LiquidityAddRemoveModal = () => {
                                             <div className="w-full flex p-1">
                                                 <div className="w-2/6 p-2 font-bold text-xl">50%</div>
                                                 <button
-                                                    className="w-1/6 p-2 hover:shadow flex items-center text-gray-400">20%
+                                                    className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">20%
                                                 </button>
                                                 <button
-                                                    className="w-1/6 p-2 hover:shadow flex items-center text-gray-400">50%
+                                                    className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">50%
                                                 </button>
                                                 <button
-                                                    className="w-1/6 p-2 hover:shadow flex items-center text-gray-400">75%
+                                                    className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">75%
                                                 </button>
                                                 <button
-                                                    className="w-1/6 p-2 hover:shadow flex items-center text-gray-400">MAX%
+                                                    className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">MAX%
                                                 </button>
                                             </div>
                                             <div className="w-full mt-5 flex flex-wrap">

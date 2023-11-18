@@ -16,7 +16,6 @@ export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: 
     } = props;
 
     const chartContainerRef = useRef<any>();
-
     useEffect(
         () => {
             const handleResize = () => {
@@ -34,8 +33,8 @@ export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: 
                     vertLines: { color: 'transparent' },
                     horzLines: { color: 'transparent' },
                 },
-                width: 200,
-                height: 500,
+                width: window.innerWidth > 500 ? window.innerWidth / 2 : window.innerWidth /1.2 ,
+                height: window.innerHeight > 500 ? window.innerHeight / 1.8 :  window.innerHeight / 3  ,
 
             });
             chart.timeScale().fitContent();
@@ -53,8 +52,10 @@ export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: 
         },
         [data, backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]
     );
+    useEffect(() => {
+    } , [])
 
-    // @ts-ignore
+        // @ts-ignore
     return (
         <div
             ref={chartContainerRef}
@@ -77,7 +78,7 @@ const initialData = [
 
 export function TVChartContainer() {
     return (
-        <section className="md:w-8/12 w-full h-fit  mt-3 rounded-xl bg-custom-cart">
+        <section className="md:w-8/12 w-full md:h-[500px]  mt-3 rounded-xl bg-custom-cart">
             <ChartComponent data={initialData}></ChartComponent>
         </section>
     );
