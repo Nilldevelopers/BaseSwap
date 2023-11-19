@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-const WelcomeComponent = () => {
+const WelcomeModal = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
 
     useEffect(() => {
@@ -42,4 +42,4 @@ const WelcomeComponent = () => {
     );
 };
 
-export default WelcomeComponent;
+export default WelcomeModal;

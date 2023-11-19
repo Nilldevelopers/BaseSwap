@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "@/layouts/BaseLayout";
 import HomeView from "@/views/home/HomeView";
 import useWallet from "@/hooks/contracts/useWallet";
-import WelcomeComponent from "@/views/home/components/modals/WelcomeComponent";
+import WelcomeModal from "@/views/home/components/modals/WelcomeModal";
 
 
 export default function Home(): React.JSX.Element {
@@ -10,7 +10,7 @@ export default function Home(): React.JSX.Element {
 
     return (
         <Layout title="swap">
-            <WelcomeComponent/>
+            <WelcomeModal/>
             <HomeView
                 blockNumber={walletData.blockNumber}
                 networkInfo={walletData.networkInfo}

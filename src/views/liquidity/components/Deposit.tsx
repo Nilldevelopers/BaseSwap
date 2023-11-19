@@ -30,15 +30,14 @@ const Deposit = () => {
                     <div className="w-full mt-5">
                         <div className="flex flex-row justify-between">
                             <div className="flex flex-row justify-between items-center">
-                                <label htmlFor="select_token_modal"
+                                <label htmlFor="select_first_token_modal"
                                        className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs flex flex-row gap-[10px]">
                                     <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
                                     <span>ETH</span>
                                 </label>
                                 <FaAngleDown/>
                                 <SelectTokenModal
-                                    className='h-96 w-fit'
-                                    tokenName="select_token_modal"
+                                    tokenName="select_first_token_modal"
                                     fetchSelectToken={(dataToken) => console.log(dataToken)}
                                     tokenList={[1, 2, 3, 4, 5, 6]}
                                 />
@@ -72,15 +71,14 @@ const Deposit = () => {
                     <div className="w-full mt-5">
                         <div className="flex flex-row justify-between">
                             <div className="flex flex-row justify-between items-center">
-                                <label htmlFor="select_token_modal"
+                                <label htmlFor="select_second_token_modal"
                                        className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs flex flex-row gap-[10px]">
                                     <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
                                     <span>ETH</span>
                                 </label>
                                 <FaAngleDown/>
                                 <SelectTokenModal
-                                    className='h-96 w-fit'
-                                    tokenName="select_token_modal"
+                                    tokenName="select_second_token_modal"
                                     fetchSelectToken={(dataToken) => console.log(dataToken)}
                                     tokenList={[1, 2, 3, 4, 5, 6]}
                                 />
