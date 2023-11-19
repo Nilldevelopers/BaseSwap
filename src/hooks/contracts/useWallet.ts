@@ -1,25 +1,52 @@
-// useWallet.ts
+import {getAccount} from "@wagmi/core";
+import {useEthersProvider} from "@/hooks/contracts/useEthersProvider";
+import {useEffect, useState} from "react";
 
-import {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from "@/store/store";
-import {fetchAccount} from "@/store/actions/walletAction";
-
-// Custom hook to encapsulate account fetching logic
 const useWallet = () => {
-    const dispatch = useDispatch();
-    const account = useSelector((state: RootState) => state.wallet.account);
-    const loading = useSelector((state: RootState) => state.wallet.loading);
-    const error = useSelector((state: RootState) => state.wallet.error);
+    const [networkInfo, setNetworkInfo] = useState<{
+        id: bigint,
+        name: string
+    }>({
+        id: BigInt(0),
+        name: ""
+    })
+    const [blockNumber, setBlockNumber] = useState<number>(0)
+    const account = getAccount();
+    const ethersProvider = useEthersProvider()
+    const fetchNetworkData = async (): Promise<void> => {
+        try {
+            const networkData = await ethersProvider.getNetwork().then(r => {
+                return {
+                    id: r.chainId,
+                    name: r.name
+                }
+            })
+            setNetworkInfo(networkData)
 
-    useEffect(() => {
-        dispatch(fetchAccount() as any);
-    }, [dispatch]);
+        } catch (error) {
+            console.error('Error fetching total supply:', error);
+        }
+    };
+    const fetchBlockData = async (): Promise<void> => {
+        try {
+            const blockNumber = await ethersProvider.getBlockNumber();
+            setBlockNumber(blockNumber)
+
+        } catch (error) {
+            console.error('Error fetching total supply:', error);
+        }
+    };
+
+    useEffect((): void => {
+        fetchNetworkData().then(res => console.log(res));
+        fetchBlockData().then(res => console.log(res));
+    }, [ethersProvider]);
+
 
     return {
-        account,
-        loading,
-        error,
+        walletInfo: account,
+        networkInfo,
+        blockNumber
     };
 };
 

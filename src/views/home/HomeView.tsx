@@ -3,7 +3,14 @@ import SwapCart from "@/views/home/components/cart/swapCart";
 import {TVChartContainer} from "@/views/home/components/chart/chartComponent";
 
 
-const HomeView = (props: { account: any, blockNumber: number | null }) => {
+const HomeView = (props: {
+    account: any,
+    blockNumber: number | null,
+    networkData: {
+        id: bigint,
+        name: string
+    }
+}) => {
 
     return (
         <>
