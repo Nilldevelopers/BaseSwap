@@ -3,8 +3,8 @@ import SwapCart from "@/views/home/components/cart/swapCart";
 import {TVChartContainer} from "@/views/home/components/chart/chartComponent";
 
 
-const HomeView = (props: { account: any, loading: boolean, error: string | null }) => {
-    console.log('Account Address:', props.account.address);
+const HomeView = (props: { account: any, blockNumber: number | null }) => {
+
     return (
         <>
             {/*<label htmlFor="welcome_modal" className="btn">open modal</label>*/}
