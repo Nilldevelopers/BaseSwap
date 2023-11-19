@@ -1,11 +1,10 @@
 import React from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
-import useWETH from "@/hooks/contracts/useWETH";
 import SelectTokenModal from "@/components/extra/SelectTokenModal";
 import {FaAngleDown} from "react-icons/fa";
 
 function SwapCart() {
-    const {write} = useWETH()
+
 
     return (
         <div className="md:w-4/12  p-2 flex flex-wrap">
