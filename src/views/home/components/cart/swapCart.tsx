@@ -2,7 +2,7 @@ import React from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
 import useWETH from "@/hooks/contracts/useWETH";
 import SelectTokenModal from "@/views/home/components/modals/SelectTokenModal";
-import { FaAngleDown } from "react-icons/fa";
+import {FaAngleDown} from "react-icons/fa";
 
 function SwapCart() {
     const {write} = useWETH()
@@ -62,8 +62,11 @@ function SwapCart() {
                                 <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
                                 <span>ETH</span>
                             </label>
-                            <FaAngleDown />
-                            <SelectTokenModal/>
+                            <FaAngleDown/>
+                            <SelectTokenModal
+                                fetchSelectToken={(dataToken) => console.log(dataToken)}
+                                tokenList={[1,2,3,4,5,6]}
+                            />
 
                             {/*<button*/}
                             {/*    disabled={!write}*/}
