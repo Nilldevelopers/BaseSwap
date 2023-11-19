@@ -59,10 +59,10 @@ const LiquidityView = () => {
                     </div>
                     <div>
 
-                        <label htmlFor="add_remove_liquidity_modal"
+                        <label htmlFor="deposit_modal"
                                className="btn btn-primary rounded-[18px] py-[13px] px-[20px] mt-5 md:mt-0">
                             <span className="capitalize text-sm text-accent font-['Inter'] font-medium not-italic">
-                                Add/remove liquidity
+                                Deposit liquidity
                             </span>
                         </label>
                         <LiquidityAddRemoveModal/>

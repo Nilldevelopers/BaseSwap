@@ -13,7 +13,7 @@ const SelectTokenModal = (props: {
     className?: string
 }) => {
     return (
-        <Modal className={props.className} tokenName={props.tokenName}>
+        <Modal className={props.className} modalName={props.tokenName} showSearchBox>
             <div className="grid grid-cols-3 gap-4">
                 <button
                     className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
