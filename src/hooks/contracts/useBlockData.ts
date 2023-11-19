@@ -1,26 +1,32 @@
 // useWallet.ts
 
-import {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from "@/store/store";
-import {fetchBlockNumber} from "@/store/actions/contractAction";
+import {useEffect, useState} from 'react';
+import {useEthersProvider} from "@/hooks/contracts/useEthersProvider";
 
 // Custom hook to encapsulate account fetching logic
-const useWallet = () => {
-    const dispatch = useDispatch();
-    const blockNumber = useSelector((state: RootState) => state.contract.blockNumber);
-    const loading = useSelector((state: RootState) => state.contract.loading);
-    const error = useSelector((state: RootState) => state.contract.error);
+const useBlockData = () => {
+    const [blockNumber, setBlockNumber] = useState<number>(0)
+    const data = useEthersProvider();
 
-    useEffect(() => {
-        dispatch(fetchBlockNumber() as any);
-    }, [dispatch]);
+    useEffect((): void => {
+        const fetchData = async (): Promise<void> => {
+            try {
+                const blockNumber = await data.getBlockNumber();
+                setBlockNumber(blockNumber)
+
+            } catch (error) {
+                console.error('Error fetching total supply:', error);
+            }
+        };
+        fetchData().then(res => console.log(res));
+
+    }, [data]);
+
 
     return {
         blockNumber,
-        loading,
-        error,
+
     };
 };
 
-export default useWallet;
+export default useBlockData;
