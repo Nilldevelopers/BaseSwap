@@ -8,13 +8,14 @@ interface IToken {
 const SelectTokenModal = (props: {
     tokenList: IToken[],
     fetchSelectToken: (data: IToken) => void,
-    tokenName:string
+    tokenName:string,
+    className?:string
 }) => {
     return (
         <>
             <input type="checkbox" id={props.tokenName} className="modal-toggle"/>
             <div className="modal">
-                <div className="modal-box">
+                <div className={`modal-box ${props.className}`}>
                     <div className="flex flex-col gap-[26px]">
                         <div className="flex flex-row items-center justify-between">
                             <input type="text" placeholder="Search by name,symbol or address"
@@ -27,37 +28,37 @@ const SelectTokenModal = (props: {
                         </div>
                         <div className="grid grid-cols-3 gap-4">
                             <button
-                                className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex flex-row items-center justify-center">
+                                className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
                                 <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
                                 <span
                                     className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">Ethereum</span>
                             </button>
                             <button
-                                className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex flex-row items-center justify-center">
+                                className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
                                 <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
                                 <span
                                     className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">Ethereum</span>
                             </button>
                             <button
-                                className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex flex-row items-center justify-center">
+                                className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
                                 <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
                                 <span
                                     className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">Ethereum</span>
                             </button>
                             <button
-                                className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex flex-row items-center justify-center">
+                                className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
                                 <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
                                 <span
                                     className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">Ethereum</span>
                             </button>
                             <button
-                                className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex flex-row items-center justify-center">
+                                className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
                                 <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
                                 <span
                                     className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">Ethereum</span>
                             </button>
                             <button
-                                className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex flex-row items-center justify-center">
+                                className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
                                 <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
                                 <span
                                     className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">Ethereum</span>

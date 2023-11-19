@@ -22,11 +22,11 @@ module.exports = {
                     "rgba(237,242,244,0.02)",
                 "custom-red":
                     'rgba(239, 35, 60, 1)',
-                "tab-choose":'rgba(237, 242, 244, 0.08)',
-                "swap-selection-input":"rgba(237, 242, 244, 0.03)"
+                "tab-choose": 'rgba(237, 242, 244, 0.08)',
+                "swap-selection-input": "rgba(237, 242, 244, 0.03)"
             },
-            borderColor:{
-                "accent-dark":"rgba(237, 242, 244, 0.08)"
+            borderColor: {
+                "accent-dark": "rgba(237, 242, 244, 0.08)"
             }
         }
     },
@@ -37,7 +37,7 @@ module.exports = {
                 {
                     mytheme: {
                         "primary": "#EF233C",
-                        "success":"#7FD482",
+                        "success": "#7FD482",
                         "secondary": "rgba(237, 242, 244, 0.03)",
                         "accent": "#EDF2F4",
                         "neutral": "#8D99AE",

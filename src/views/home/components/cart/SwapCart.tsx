@@ -1,7 +1,7 @@
 import React from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
 import useWETH from "@/hooks/contracts/useWETH";
-import SelectTokenModal from "@/views/home/components/modals/SelectTokenModal";
+import SelectTokenModal from "@/components/extra/SelectTokenModal";
 import {FaAngleDown} from "react-icons/fa";
 
 function SwapCart() {
