@@ -27,7 +27,7 @@ const Navbar = () => {
                         <li className="text-gray-400 duration-100 hover:text-white border-b border-b-transparent hover:border-b-white mx-3 cursor-pointer  group">
                             Socials
                             <ul className="w-fit border absolute top-full mt-3 p-2 opacity-0 group-hover:opacity-100 duration-200">
-                                سلام محمد و فردین فردا دست میکنم الان نتونستم!
+                               test social media
                             </ul>
                         </li>
                     </ul>
