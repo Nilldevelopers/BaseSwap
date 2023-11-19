@@ -1,4 +1,4 @@
-import Layout from "@/components/layout/Layout";
+import Layout from "@/layouts/BaseLayout";
 import dynamic from "next/dynamic";
 
 const LiquidityView = dynamic(() => import("@/views/liquidity/LiquidityView"), {ssr: false})

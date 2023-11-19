@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "@/components/layout/Layout";
+import Layout from "@/layouts/BaseLayout";
 import HomeView from "@/views/home/HomeView";
 import useWallet from "@/hooks/contracts/useWallet";
 
