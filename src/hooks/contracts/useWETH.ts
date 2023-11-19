@@ -9,7 +9,21 @@ function useWETH() {
         abi: wethABI,
         functionName: 'deposit',
     })
-
+    const {data, isLoading, isSuccess, write} = useContractWrite({
+        address: WETHADDRESS,
+        abi: wethABI,
+        functionName: 'deposit0',
+    })
+    const {data, isLoading, isSuccess, write} = useContractWrite({
+        address: WETHADDRESS,
+        abi: wethABI,
+        functionName: 'deposit1',
+    })
+    const {data, isLoading, isSuccess, write} = useContractWrite({
+        address: WETHADDRESS,
+        abi: wethABI,
+        functionName: 'deposit2',
+    })
     return {
         data,
         isLoading,
