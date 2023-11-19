@@ -1,10 +1,12 @@
 import React from 'react';
-import Image from "next/image";
 import ImageImporter from "@/plugin/ImageImporter";
-import {ImPodcast} from "react-icons/im";
-
+import useWETH from "@/hooks/contracts/useWETH";
+import SelectTokenModal from "@/views/home/components/modals/SelectTokenModal";
+import { FaAngleDown } from "react-icons/fa";
 
 function SwapCart() {
+    const {write} = useWETH()
+
     return (
         <div className="md:w-4/12  p-2 flex flex-wrap">
             <div className="w-full flex justify-between items-center">
@@ -12,8 +14,10 @@ function SwapCart() {
                     Swap
                 </h4>
                 <figure className="flex">
-                    <ImageImporter w={20} h={20} className="mx-1" src={"/img/icons/setting.svg"} alt={"setting-button"}/>
-                    <ImageImporter w={20} h={20} className="ms-1" src={"/img/icons/miniCartIcon.svg"} alt={"mini-chart-button"}/>
+                    <ImageImporter w={20} h={20} className="mx-1" src={"/img/icons/setting.svg"}
+                                   alt={"setting-button"}/>
+                    <ImageImporter w={20} h={20} className="ms-1" src={"/img/icons/miniCartIcon.svg"}
+                                   alt={"mini-chart-button"}/>
                 </figure>
             </div>
             <div className="w-full bg-custom-cart p-2 flex flex-wrap items-center justify-between rounded-xl  mt-2">
@@ -50,22 +54,36 @@ function SwapCart() {
                     </div>
                     <div className="w-full p-2 flex justify-between items-center">
                         <span className="text-xl">0.6399</span>
-                        <div className="flex">
-                            <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
-                            <select className="select bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs">
-                                <option disabled selected>ETH</option>
-                                <option>ETH ETH</option>
-                                <option>ETH ETH</option>
-                                <option>ETH ETH</option>
-                            </select>
+                        <div className="flex flex-row justify-center items-center">
 
+
+                            <label htmlFor="first_token_modal"
+                                   className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs flex flex-row gap-[10px]">
+                                <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
+                                <span>ETH</span>
+                            </label>
+                            <FaAngleDown />
+                            <SelectTokenModal/>
+
+                            {/*<button*/}
+                            {/*    disabled={!write}*/}
+                            {/*    onClick={() =>*/}
+                            {/*        write({*/}
+                            {/*            args: [],*/}
+                            {/*            value: parseEther('0.01'),*/}
+                            {/*        })*/}
+                            {/*    }*/}
+                            {/*>*/}
+                            {/*    Claim*/}
+                            {/*</button>*/}
                         </div>
                     </div>
                 </div>
             </div>
             <div className="w-full flex relative justify-center items-center">
                 <button className="absolute active:scale-90 duration-100 ">
-                    <ImageImporter  src={"/img/icons/swap-arrow.svg"} alt={"SwapArrow"} w={40} h={40} className="flex -left-1 -top-1" />
+                    <ImageImporter src={"/img/icons/swap-arrow.svg"} alt={"SwapArrow"} w={40} h={40}
+                                   className="flex -left-1 -top-1"/>
                 </button>
             </div>
             <div className="w-full bg-custom-cart p-2 flex flex-wrap items-center justify-between rounded-xl  mt-2">
@@ -85,7 +103,8 @@ function SwapCart() {
                 <div className="w-full flex flex-wrap bg-custom-cart mt-5 rounded-xl">
                     <div className="w-full flex p-2 justify-between ">
                         <figure className="flex ">
-                            <ImageImporter w={20} h={20} src={"/img/icons/arrow-left-bottom.svg"} alt={"ArrowBottomLeft"}/>
+                            <ImageImporter w={20} h={20} src={"/img/icons/arrow-left-bottom.svg"}
+                                           alt={"ArrowBottomLeft"}/>
                             <figcaption className="text-xs text-gray-500 ms-2">You Receive</figcaption>
                         </figure>
                         <span className="text-xs text-gray-500 ms-2">
@@ -96,7 +115,8 @@ function SwapCart() {
                         <span className="text-xl">0.6399</span>
                         <div className="flex">
                             <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
-                            <select className="select bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs">
+                            <select
+                                className="select bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs">
                                 <option disabled selected>ETH</option>
                                 <option>ETH ETH</option>
                                 <option>ETH ETH</option>
@@ -123,7 +143,7 @@ function SwapCart() {
                 </div>
             </div>
             <div className="w-full flex mt-2">
-                <button className="btn w-full bg-custom-red" >Swap</button>
+                <button className="btn w-full bg-custom-red">Swap</button>
             </div>
         </div>
     );

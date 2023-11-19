@@ -5,11 +5,13 @@ import {GetAccountResult} from "@wagmi/core";
 import {INetworkInfo} from "@/interfaces/INetworkInfo";
 
 
-const HomeView = (props:{
+const HomeView = (props: {
     walletInfo: GetAccountResult,
     networkInfo: INetworkInfo,
     blockNumber: number
 }) => {
+    console.log(props)
+
 
     return (
         <>
