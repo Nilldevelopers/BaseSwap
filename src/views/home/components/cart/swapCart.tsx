@@ -64,8 +64,9 @@ function SwapCart() {
                             </label>
                             <FaAngleDown/>
                             <SelectTokenModal
+                                tokenName="first_token_modal"
                                 fetchSelectToken={(dataToken) => console.log(dataToken)}
-                                tokenList={[1,2,3,4,5,6]}
+                                tokenList={[1, 2, 3, 4, 5, 6]}
                             />
 
                             {/*<button*/}
@@ -116,16 +117,20 @@ function SwapCart() {
                     </div>
                     <div className="w-full p-2 flex justify-between items-center">
                         <span className="text-xl">0.6399</span>
-                        <div className="flex">
-                            <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
-                            <select
-                                className="select bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs">
-                                <option disabled selected>ETH</option>
-                                <option>ETH ETH</option>
-                                <option>ETH ETH</option>
-                                <option>ETH ETH</option>
-                            </select>
-
+                        <div className="flex flex-row justify-center items-center">
+                            <label
+                                htmlFor="first_token_modal"
+                                className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs flex flex-row gap-[10px]"
+                            >
+                                <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
+                                <span>ETH</span>
+                            </label>
+                            <FaAngleDown/>
+                            <SelectTokenModal
+                                tokenName="first_token_modal"
+                                fetchSelectToken={(dataToken) => console.log(dataToken)}
+                                tokenList={[1, 2, 3, 4, 5, 6]}
+                            />
                         </div>
                     </div>
                 </div>

@@ -7,11 +7,12 @@ interface IToken {
 
 const SelectTokenModal = (props: {
     tokenList: IToken[],
-    fetchSelectToken: (data: IToken) => void
+    fetchSelectToken: (data: IToken) => void,
+    tokenName:string
 }) => {
     return (
         <>
-            <input type="checkbox" id="first_token_modal" className="modal-toggle"/>
+            <input type="checkbox" id={props.tokenName} className="modal-toggle"/>
             <div className="modal">
                 <div className="modal-box">
                     <div className="flex flex-col gap-[26px]">
@@ -20,12 +21,11 @@ const SelectTokenModal = (props: {
                                    className="input w-full max-w-xs bg-swap-selection-input rounded-[12px]"/>
                             <div className="modal-action mt-0">
 
-                                <label htmlFor="first_token_modal"
+                                <label htmlFor={props.tokenName}
                                        className="btn btn-sm btn-circle btn-ghost">✕</label>
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-4">
-
                             <button
                                 className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex flex-row items-center justify-center">
                                 <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
@@ -67,7 +67,7 @@ const SelectTokenModal = (props: {
 
                             {
                                 props.tokenList.map((data, index) => {
-                                    return <label key={index} htmlFor="first_token_modal"
+                                    return <label key={index} htmlFor={props.tokenName}
                                                   onClick={() => props.fetchSelectToken(data)}
                                                   className="flex flex-row items-center justify-between px-[16px] py-[5px] border border-2 border-transparent hover:border hover:border-2 hover:border-slate-600 hover:rounded-[12px] hover:duration-50 duration-50 modal-action mt-0">
                                         <div className="flex flex-row justify-center items-center gap-[8px]">
