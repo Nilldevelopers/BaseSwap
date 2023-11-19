@@ -1,12 +1,16 @@
-import {getAccount} from "@wagmi/core";
+import {getAccount, GetAccountResult} from "@wagmi/core";
 import {useEthersProvider} from "@/hooks/contracts/useEthersProvider";
 import {useEffect, useState} from "react";
+import {INetworkInfo} from "@/interfaces/INetworkInfo";
 
-const useWallet = () => {
-    const [networkInfo, setNetworkInfo] = useState<{
-        id: bigint,
-        name: string
-    }>({
+interface IWallet {
+    walletInfo: GetAccountResult,
+    networkInfo: INetworkInfo,
+    blockNumber: number
+}
+
+const useWallet = (): IWallet => {
+    const [networkInfo, setNetworkInfo] = useState<INetworkInfo>({
         id: BigInt(0),
         name: ""
     })

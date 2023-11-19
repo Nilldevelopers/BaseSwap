@@ -1,15 +1,14 @@
 import React from 'react';
 import SwapCart from "@/views/home/components/cart/swapCart";
 import {TVChartContainer} from "@/views/home/components/chart/chartComponent";
+import {GetAccountResult} from "@wagmi/core";
+import {INetworkInfo} from "@/interfaces/INetworkInfo";
 
 
-const HomeView = (props: {
-    account: any,
-    blockNumber: number | null,
-    networkData: {
-        id: bigint,
-        name: string
-    }
+const HomeView = (props:{
+    walletInfo: GetAccountResult,
+    networkInfo: INetworkInfo,
+    blockNumber: number
 }) => {
 
     return (
