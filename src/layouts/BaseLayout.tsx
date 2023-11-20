@@ -4,20 +4,6 @@ import Head from "next/head";
 import Navbar from "@/components/shared/Navbar";
 import Link from "next/link";
 import useWallet from "@/hooks/contracts/useWallet";
-import {Barlow, Outfit, Poppins} from 'next/font/google';
-
-const barlow = Barlow({
-    weight: ['100'],
-    subsets: ['latin'],
-});
-const poppins = Poppins({
-    weight: ['100'],
-    subsets: ['latin'],
-});
-const outfit = Outfit({
-    weight: ['100'],
-    subsets: ['latin']
-});
 
 
 type PropsType = {
@@ -25,7 +11,7 @@ type PropsType = {
     title: string
 }
 
-async function BaseLayout({children, title}: PropsType) {
+function BaseLayout({children, title}: PropsType) {
     const walletData = useWallet()
     return (
         <>
@@ -35,8 +21,7 @@ async function BaseLayout({children, title}: PropsType) {
                 </title>
             </Head>
             <Navbar/>
-            <main
-                className={`w-full font-['Inter']  min-h-screen 2xl:container 2xl:mx-auto p-2 ${barlow.className} ${poppins.className} ${outfit.className}`}>
+            <main className={`w-full font-['Inter']  min-h-screen 2xl:container 2xl:mx-auto p-2`}>
                 {children}
             </main>
             <Link passHref={true} href='/' className="right-0 absolute mx-12 rounded-[6px] pb-10">

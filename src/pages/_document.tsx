@@ -84,7 +84,7 @@ export default function Document() {
                 />
                 <meta property="og:url" content="http://localhost:3000"/>
                 <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin='use-credentials'/>
-                <link href="https://fonts.googleapis.com/css?family=Arial:wght@500&display=swap" rel="stylesheet"/>
+                <link href="https://fonts.googleapis.com/css?family=Barlow|Poppins|Inter|Arial|Outfit:wght@500&display=swap" rel="stylesheet"/>
             </Head>
             <body>
             <Main/>
