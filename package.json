@@ -31,6 +31,7 @@
     "lodash.merge": "^4.6.2",
     "next": "14.0.2",
     "next-compose-plugins": "^2.2.1",
+    "next-optimized-images": "^2.6.2",
     "next-pwa": "^5.6.0",
     "next-redux-wrapper": "^8.1.0",
     "nprogress": "^0.2.0",

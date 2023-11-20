@@ -8,6 +8,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin');
+const withOptimizedImages = require('next-optimized-images')
+
 const withPWA = require("next-pwa")({
     dest: "public",
     register: true,
@@ -20,6 +22,7 @@ const withPWA = require("next-pwa")({
 });
 
 const nextConfig = {
+    compress: true,
     reactStrictMode: true,
     images: {
         minimumCacheTTL: 60,
@@ -29,7 +32,7 @@ const nextConfig = {
         removeConsole: isProd,
     },
     swcMinify: true,
-    webpack(config,{ buildId, dev, isServer, defaultLoaders, webpack }) {
+    webpack(config, {buildId, dev, isServer, defaultLoaders, webpack}) {
         if (!isServer && isProd) {
             Object.assign(config.resolve.alias, {
                 'react': 'preact/compat',
@@ -64,7 +67,7 @@ const nextConfig = {
                 },
             ],
         });
-        config.resolve.fallback = { fs: false, net: false, tls: false }
+        config.resolve.fallback = {fs: false, net: false, tls: false}
         config.module.rules.push({
             test: /\.svg$/i,
             issuer: /\.[jt]sx?$/,
@@ -74,9 +77,9 @@ const nextConfig = {
         config.module.rules.push({
             test: /\.svg$/i,
             issuer: /\.[jt]sx?$/,
-            resourceQuery: { not: [/icon/] },
+            resourceQuery: {not: [/icon/]},
             loader: "next-image-loader",
-            options: { assetPrefix: "" },
+            options: {assetPrefix: ""},
         })
 
         return config;
@@ -84,7 +87,7 @@ const nextConfig = {
 }
 
 module.exports = withPlugins([
-    [withBundleAnalyzer(withPWA(nextConfig))],
+    [withBundleAnalyzer(withPWA(withOptimizedImages(nextConfig)))],
     // your other plugins here
 ])
 
