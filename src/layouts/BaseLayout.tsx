@@ -6,16 +6,26 @@ import Link from "next/link";
 import useWallet from "@/hooks/contracts/useWallet";
 import {Barlow, Outfit, Poppins} from 'next/font/google';
 
-const barlow = Barlow({weight: '100'});
-const poppins = Poppins({weight: '100'});
-const outfit = Outfit({weight: '100'});
+const barlow = Barlow({
+    weight: ['100'],
+    subsets: ['latin'],
+});
+const poppins = Poppins({
+    weight: ['100'],
+    subsets: ['latin'],
+});
+const outfit = Outfit({
+    weight: ['100'],
+    subsets: ['latin']
+});
+
 
 type PropsType = {
     children: React.ReactNode;
     title: string
 }
 
-function BaseLayout({children, title}: PropsType) {
+async function BaseLayout({children, title}: PropsType) {
     const walletData = useWallet()
     return (
         <>
