@@ -1,16 +1,16 @@
-const tailwindcss = require('tailwindcss');
-const autoprefixer = require('autoprefixer');
-const postcss = require('postcss-import');
-const postenv = require('postcss-preset-env');
-const cssnano = require('cssnano');
+const cssnano = [
+  'cssnano',
+  {
+    preset: 'advanced',
+    discardComments: { removeAll: true }
+  }
+]
 
 module.exports = {
-    plugins: [
-        postcss,
-        autoprefixer,
-        tailwindcss,
-        postenv,
-        process.env.NODE_ENV === 'production' ? cssnano : false
-
-    ]
+  plugins: [
+    'postcss-import',
+    'tailwindcss',
+    'autoprefixer',
+    ...(process.env.NODE_ENV === 'production' ? [cssnano] : [])
+  ]
 }
