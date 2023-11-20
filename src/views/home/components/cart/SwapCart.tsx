@@ -1,7 +1,8 @@
 import React from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
-import SelectTokenModal from "@/components/extra/SelectTokenModal";
 import {FaAngleDown} from "react-icons/fa";
+import dynamic from "next/dynamic";
+const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
 
 function SwapCart() {
 
@@ -156,4 +157,4 @@ function SwapCart() {
     );
 }
 
-export default SwapCart;    
+export default SwapCart;

@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
-import LiquidityTable from "@/views/liquidity/components/LiquidityTable";
-import LiquidityAddRemoveModal from "@/views/liquidity/components/LiquidityAddRemoveModal";
+import React, {useCallback, useState} from 'react';
+import dynamic from 'next/dynamic';
+
+const LiquidityTable = dynamic(() => import('@/views/liquidity/components/LiquidityTable'));
+const LiquidityAddRemoveModal = dynamic(() => import('@/views/liquidity/components/LiquidityAddRemoveModal'));
+
 
 const LiquidityView = () => {
 
     const [showStakedOnly, setShowStakedOnly] = useState<boolean>(false);
-    const handleStakedOnlyToggle = () => {
+    const handleStakedOnlyToggle = useCallback(() => {
         setShowStakedOnly(prev => !prev);
         if (!showStakedOnly) {
             // setFilteredPools(filterNonZeroBribe(allPools))
@@ -13,7 +16,7 @@ const LiquidityView = () => {
         if (showStakedOnly) {
             // setFilteredPools(allPools)
         }
-    };
+    }, [showStakedOnly]);
 
     return (
         <>

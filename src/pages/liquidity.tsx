@@ -5,7 +5,7 @@ const LiquidityView = dynamic(() => import("@/views/liquidity/LiquidityView"), {
 
 const Liquidity = () => {
     return (
-        <Layout title='liquidity page'>
+        <Layout title='Liquidity'>
             <LiquidityView/>
         </Layout>
     );

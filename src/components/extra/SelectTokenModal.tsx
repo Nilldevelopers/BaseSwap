@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {memo} from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
 import Modal from "@/components/extra/Modal";
+import dynamic from "next/dynamic";
 
 interface IToken {
 
@@ -88,4 +89,4 @@ const SelectTokenModal = (props: {
     );
 };
 
-export default SelectTokenModal;
+export default dynamic(Promise.resolve(memo(SelectTokenModal)), {ssr: false});

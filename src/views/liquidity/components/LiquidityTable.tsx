@@ -107,4 +107,4 @@ const LiquidityTable = ({cols, rows}: { cols: string[], rows: any[] }) => {
 };
 
 
-export default memo(LiquidityTable);
+export default LiquidityTable;
