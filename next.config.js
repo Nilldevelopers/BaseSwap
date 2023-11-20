@@ -3,11 +3,11 @@ const isProd = process.env.NODE_ENV === 'production'
 const runtimeCaching = require("next-pwa/cache");
 const withPlugins = require('next-compose-plugins')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
-    enabled: process.env.ANALYZE === 'true',
+    enabled: isProd,
     openAnalyzer: isProd,
 })
-
-
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin');
 const withPWA = require("next-pwa")({
     dest: "public",
     register: true,
@@ -15,37 +15,43 @@ const withPWA = require("next-pwa")({
     runtimeCaching,
     buildExcludes: [/manifest.json$/],
     scope: '/',
-    maximumFileSizeToCacheInBytes: 3000000,
+    maximumFileSizeToCacheInBytes: 10000,
     disable: !isProd,
 });
 
 const nextConfig = {
     reactStrictMode: true,
-    async headers() {
-        return [
-            {
-                source: '/liquidity',
-                headers: [
-                    {
-                        key: 'x-custom-header',
-                        value: 'recent value',
-                    },
-
-                ],
-            },
-        ]
-    },
     images: {
         minimumCacheTTL: 60,
-
     },
     compiler: {
         styledComponents: true,
         removeConsole: isProd,
     },
     swcMinify: true,
-
-    webpack(config) {
+    webpack(config,{ buildId, dev, isServer, defaultLoaders, webpack }) {
+        if (!isServer && isProd) {
+            Object.assign(config.resolve.alias, {
+                'react': 'preact/compat',
+                'react-dom/test-utils': 'preact/test-utils',
+                'react-dom': 'preact/compat',
+            })
+            config.plugins.push(
+                new CompressionPlugin({
+                    filename: '[path][base].gz',
+                    algorithm: 'gzip',
+                    test: /\.(js|css|html|svg)$/,
+                    threshold: 10240,
+                    minRatio: 0.8,
+                })
+            );
+        }
+        config.plugins.push(new DuplicatePackageCheckerPlugin())
+        config.resolve.alias['fast-deep-equal'] = resolve(
+            __dirname,
+            'node_modules',
+            'fast-deep-equal'
+        )
         config.module.rules.push({
             test: /\.svg$/i,
             issuer: {and: [/\.(js|ts|md)x?$/]},
@@ -58,10 +64,23 @@ const nextConfig = {
                 },
             ],
         });
+        config.resolve.fallback = { fs: false, net: false, tls: false }
+        config.module.rules.push({
+            test: /\.svg$/i,
+            issuer: /\.[jt]sx?$/,
+            resourceQuery: /icon/,
+            use: ["@svgr/webpack"],
+        })
+        config.module.rules.push({
+            test: /\.svg$/i,
+            issuer: /\.[jt]sx?$/,
+            resourceQuery: { not: [/icon/] },
+            loader: "next-image-loader",
+            options: { assetPrefix: "" },
+        })
 
         return config;
     },
-
 }
 
 module.exports = withPlugins([
@@ -73,6 +92,7 @@ module.exports = withPlugins([
 // Injected content via Sentry wizard below
 
 const {withSentryConfig} = require("@sentry/nextjs");
+const {resolve} = require("path");
 
 module.exports = withSentryConfig(
     module.exports,
