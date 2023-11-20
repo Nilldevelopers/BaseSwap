@@ -1,28 +1,8 @@
-import React, {memo, useMemo} from 'react';
+import React, {memo} from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
-import dynamic from "next/dynamic";
 
 
 const LiquidityTable = ({cols, rows}: { cols: string[], rows: any[] }) => {
-
-    // This is the important bit, we are caching the rendered output for each column
-    const renderedColumns = useMemo(() => {
-        const renderer = (columnData: string) => {
-            // expensive formatting using the column data
-            return columnData;
-        }
-
-        return cols.map(renderer);
-    }, [cols]);
-    const renderedRows = useMemo(() => {
-        const renderer = (rowData: any) => {
-            // expensive formatting using the column data
-            return rowData;
-        }
-
-        return rows.map(renderer);
-    }, [rows]);
-
     return (
         <div className="overflow-x-auto border-2 border-slate-600 rounded-[12px] bg-custom-cart">
             <table className="table table-auto min-w-full">
@@ -30,7 +10,7 @@ const LiquidityTable = ({cols, rows}: { cols: string[], rows: any[] }) => {
                 <thead className="border-b-slate-600 border-b-2">
                 <tr>
                     {
-                        renderedColumns.map((colData, index) => {
+                        cols.map((colData, index) => {
                             return <th key={index}
                                        className="capitalize text-sm text-neutral font-['Inter'] font-normal not-italic">{colData}</th>
                         })
@@ -42,7 +22,7 @@ const LiquidityTable = ({cols, rows}: { cols: string[], rows: any[] }) => {
                 </thead>
                 <tbody>
                 {
-                    renderedRows.map((data, index) => {
+                    rows.map((data, index) => {
                         return <tr key={index} className='border-none py-5 px-5'>
                             <td>
                                 <div className='flex flex-row items-center gap-[7px]'>
@@ -127,4 +107,4 @@ const LiquidityTable = ({cols, rows}: { cols: string[], rows: any[] }) => {
 };
 
 
-export default dynamic(Promise.resolve(memo(LiquidityTable)), {ssr: false});
+export default memo(LiquidityTable);

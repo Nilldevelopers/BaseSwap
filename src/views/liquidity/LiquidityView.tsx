@@ -3,6 +3,7 @@ import LiquidityTable from "@/views/liquidity/components/LiquidityTable";
 import LiquidityAddRemoveModal from "@/views/liquidity/components/LiquidityAddRemoveModal";
 
 const LiquidityView = () => {
+
     const [showStakedOnly, setShowStakedOnly] = useState<boolean>(false);
     const handleStakedOnlyToggle = () => {
         setShowStakedOnly(prev => !prev);
@@ -21,27 +22,6 @@ const LiquidityView = () => {
 
                 <div className="pt-12 flex flex-row flex-wrap justify-between items-center">
                     <div className="flex flex-row flex-wrap items-center gap-[24px]">
-                        {/*<div>*/}
-                        {/*    <div className="tabs tabs-boxed bg-transparent rounded-[18px] border border-1 border-accent-dark">*/}
-                        {/*        <a className="tab h-auto !rounded-[18px] bg-tab-choose">*/}
-                        {/*            <div className="py-[11px] px-[25px]">*/}
-                        {/*                <span className="capitalize text-sm text-accent font-['Outfit'] font-medium not-italic">All</span>*/}
-                        {/*            </div>*/}
-                        {/*        </a>*/}
-
-                        {/*        <a className="tab h-auto">*/}
-                        {/*            <div className="py-[11px] px-[25px]">*/}
-                        {/*                <span className="capitalize text-sm text-neutral font-['Outfit'] font-medium not-italic">Stable</span>*/}
-                        {/*            </div>*/}
-                        {/*        </a>*/}
-                        {/*        <a className="tab h-auto">*/}
-                        {/*            <div className="py-[11px] px-[25px]">*/}
-                        {/*                <span className="capitalize text-sm text-neutral font-['Outfit'] font-medium not-italic">Volatile</span>*/}
-                        {/*            </div>*/}
-                        {/*        </a>*/}
-
-                        {/*    </div>*/}
-                        {/*</div>*/}
                         <div>
                             <input type="text" placeholder="Search Pair or Token"
                                    className="input input-bordered w-full max-w-xs bg-tab-choose rounded-[18px] h-auto py-[17px] border-none"/>

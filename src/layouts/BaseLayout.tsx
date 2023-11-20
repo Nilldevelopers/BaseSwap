@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import Navbar from "@/components/shared/Navbar";
@@ -34,4 +34,4 @@ function BaseLayout({children, title}: PropsType) {
     );
 }
 
-export default dynamic(Promise.resolve(memo(BaseLayout)), {ssr: false});
+export default dynamic(Promise.resolve(BaseLayout), {ssr: false});

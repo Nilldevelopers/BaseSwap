@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
-const runtimeCaching = require("next-pwa/cache");
 const isProd = process.env.NODE_ENV === 'production'
+const runtimeCaching = require("next-pwa/cache");
+const withPlugins = require('next-compose-plugins')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+    openAnalyzer: isProd,
+})
+
+
 const withPWA = require("next-pwa")({
     dest: "public",
     register: true,
@@ -41,12 +48,12 @@ const nextConfig = {
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/i,
-            issuer: { and: [/\.(js|ts|md)x?$/] },
+            issuer: {and: [/\.(js|ts|md)x?$/]},
             use: [
                 {
                     loader: '@svgr/webpack',
                     options: {
-                        svgoConfig: { plugins: [{ removeViewBox: false }] },
+                        svgoConfig: {plugins: [{removeViewBox: false}]},
                     },
                 },
             ],
@@ -57,7 +64,10 @@ const nextConfig = {
 
 }
 
-module.exports = withPWA(nextConfig)
+module.exports = withPlugins([
+    [withBundleAnalyzer(withPWA(nextConfig))],
+    // your other plugins here
+])
 
 
 // Injected content via Sentry wizard below
