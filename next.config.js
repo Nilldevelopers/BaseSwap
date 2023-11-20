@@ -9,6 +9,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin');
 const withOptimizedImages = require('next-optimized-images')
+const postcssConfig = require('./postcss.config.js');
 
 const withPWA = require("next-pwa")({
     dest: "public",
@@ -81,6 +82,19 @@ const nextConfig = {
             loader: "next-image-loader",
             options: {assetPrefix: ""},
         })
+        config.module.rules.push({
+            test: /\.css$/,
+            use: [
+                'style-loader',
+                'css-loader',
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                        postcssOptions: postcssConfig,
+                    },
+                },
+            ],
+        });
 
         return config;
     },
