@@ -75,6 +75,7 @@ const nextConfig = {
             resourceQuery: /icon/,
             use: ["@svgr/webpack"],
         })
+
         config.module.rules.push({
             test: /\.svg$/i,
             issuer: /\.[jt]sx?$/,
@@ -84,16 +85,7 @@ const nextConfig = {
         })
         config.module.rules.push({
             test: /\.css$/,
-            use: [
-                'style-loader',
-                'css-loader',
-                {
-                    loader: 'postcss-loader',
-                    options: {
-                        postcssOptions: postcssConfig,
-                    },
-                },
-            ],
+            use: ['style-loader', 'css-loader', 'postcss-loader'],
         });
 
         return config;
