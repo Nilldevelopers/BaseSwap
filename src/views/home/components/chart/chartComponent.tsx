@@ -19,11 +19,9 @@ export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: 
     useEffect(
         () => {
             const handleResize = () => {
-                // @ts-ignore
                 chart.applyOptions({ width: chartContainerRef.current.clientWidth });
             };
 
-            // @ts-ignore
             const chart = createChart(chartContainerRef.current, {
                 layout: {
                     background: { type: ColorType.Solid, color: backgroundColor },
@@ -33,8 +31,8 @@ export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: 
                     vertLines: { color: 'transparent' },
                     horzLines: { color: 'transparent' },
                 },
-                width: window.innerWidth > 500 ? window.innerWidth / 2 : window.innerWidth /1.2 ,
-                height: window.innerHeight > 500 ? window.innerHeight / 1.8 :  window.innerHeight / 3  ,
+                width: chartContainerRef.current.clientWidth ,
+                height: window.innerHeight > 500 ? 500  :  300  ,
 
             });
             chart.timeScale().fitContent();
@@ -55,7 +53,6 @@ export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: 
     useEffect(() => {
     } , [])
 
-        // @ts-ignore
     return (
         <div
             ref={chartContainerRef}
@@ -64,7 +61,7 @@ export const ChartComponent = (props: { data: any; colors?: { backgroundColor?: 
 };
 
 const initialData = [
-        { time: '2018-12-22', value: 32.51 },
+    { time: '2018-12-22', value: 32.51 },
     { time: '2018-12-23', value: 31.11 },
     { time: '2018-12-24', value: 27.02 },
     { time: '2018-12-25', value: 27.32 },
