@@ -1,5 +1,8 @@
 import React, {useCallback, useState} from 'react';
 import dynamic from 'next/dynamic';
+import FinalModal from "@/components/extra/finalModal";
+import Successfully from "@/components/notification/Successfully";
+import Failed from "@/components/notification/Failed";
 
 const LiquidityTable = dynamic(() => import('@/views/liquidity/components/LiquidityTable'));
 const LiquidityAddRemoveModal = dynamic(() => import('@/views/liquidity/components/LiquidityAddRemoveModal'));
@@ -41,6 +44,15 @@ const LiquidityView = () => {
                         </div>
                     </div>
                     <div>
+                        <label htmlFor="final_modal">final</label>
+                        <FinalModal/>
+                        /
+                        <label htmlFor="Successfully_modal">Successfully_modal</label>
+                        <Successfully/>
+                        /
+                        <label htmlFor="failed_modal">failed_modal</label>
+                        <Failed/>
+                        /
 
                         <label htmlFor="deposit_modal"
                                className="btn btn-primary rounded-[18px] py-[13px] px-[20px] mt-5 md:mt-0">
