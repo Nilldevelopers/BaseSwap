@@ -15,6 +15,7 @@ import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
 
 import WagmiProvider from "@/providers/WagmiProvider";
+import {useEffect} from "react";
 
 
 //Binding events.
@@ -26,6 +27,23 @@ NProgress.configure({showSpinner: true});
 
 
 export default function App({Component, pageProps}: AppProps) {
+    useEffect(() => {
+        const handleTouchStart = (event:any) => {
+            // Get the coordinates of the touch
+            const touchX = event.touches[0].clientX;
+            const touchY = event.touches[0].clientY;
+
+            // Log the coordinates (you can replace this with your specific logic)
+            console.log(`Touch started at X: ${touchX}, Y: ${touchY}`);
+        };
+
+        document.addEventListener('touchstart', handleTouchStart, { passive: true });
+
+        return () => {
+            // Clean up the event listener on component unmount
+            document.removeEventListener('touchstart', handleTouchStart);
+        };
+    }, []);
     return (
         <WagmiProvider>
             <Provider store={store}>
