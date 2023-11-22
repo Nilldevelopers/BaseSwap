@@ -15,6 +15,7 @@ import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
 
 import WagmiProvider from "@/providers/WagmiProvider";
+import { Analytics } from '@vercel/analytics/react';
 
 
 //Binding events.
@@ -31,6 +32,7 @@ export default function App({Component, pageProps}: AppProps) {
         <WagmiProvider>
             <Provider store={store}>
                 <Component {...pageProps} />
+                <Analytics/>
             </Provider>
         </WagmiProvider>
     )
