@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import dynamic from 'next/dynamic';
 
 const LiquidityTable = dynamic(() => import('@/views/liquidity/components/LiquidityTable'));
@@ -6,8 +6,34 @@ const LiquidityAddRemoveModal = dynamic(() => import('@/views/liquidity/componen
 
 
 const LiquidityView = () => {
-
+    const [showTable, setShowTable] = useState<boolean>(false);
     const [showStakedOnly, setShowStakedOnly] = useState<boolean>(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const container = containerRef.current;
+            if (container) {
+                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 20) {
+
+                    // Set showChart to true when you want to display the TVChartContainer
+                    setShowTable(true);
+                } else {
+                    // Hide the chart if the user is not at the bottom
+                    setShowTable(false);
+                }
+            }
+        };
+
+        const container = containerRef.current;
+        container?.addEventListener('scroll', handleScroll, {passive: true});
+
+        return () => {
+            container?.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+
     const handleStakedOnlyToggle = useCallback(() => {
         setShowStakedOnly(prev => !prev);
         if (!showStakedOnly) {
@@ -53,8 +79,9 @@ const LiquidityView = () => {
                 </div>
 
                 <div className='pt-10'>
-                    <LiquidityTable rows={[1, 2, 3, 4, 5, 6]}
-                                    cols={['Name', 'ARP', 'Total Staked', 'My Staked', 'My Pool', 'Earnings']}/>
+                    {showTable &&
+                        <LiquidityTable rows={[1, 2, 3, 4, 5, 6]}
+                                        cols={['Name', 'ARP', 'Total Staked', 'My Staked', 'My Pool', 'Earnings']}/>}
                 </div>
             </div>
         </>
