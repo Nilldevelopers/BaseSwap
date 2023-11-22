@@ -75,8 +75,8 @@ const initialData = [
 
 export function TVChartContainer() {
     return (
-        <section className="md:w-8/12 w-full md:h-[500px]  mt-3 rounded-xl bg-custom-cart">
+
             <ChartComponent data={initialData}></ChartComponent>
-        </section>
+
     );
 }

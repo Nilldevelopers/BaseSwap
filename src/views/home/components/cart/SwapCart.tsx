@@ -8,7 +8,7 @@ function SwapCart() {
 
 
     return (
-        <div className="md:w-4/12  p-2 flex flex-wrap">
+        <>
             <div className="w-full flex justify-between items-center">
                 <h4 className="text-xl font-bold text-white">
                     Swap
@@ -153,7 +153,7 @@ function SwapCart() {
             <div className="w-full flex mt-2">
                 <button className="btn w-full bg-custom-red">Swap</button>
             </div>
-        </div>
+        </>
     );
 }
 
