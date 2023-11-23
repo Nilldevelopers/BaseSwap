@@ -1,5 +1,3 @@
-
-import dynamic from "next/dynamic";
 import Head from "next/head";
 import Navbar from "@/components/shared/Navbar";
 import Link from "next/link";
@@ -36,4 +34,4 @@ function BaseLayout({children, title}: PropsType) {
     );
 }
 
-export default dynamic(Promise.resolve(BaseLayout), {ssr: false});
+export default BaseLayout;
