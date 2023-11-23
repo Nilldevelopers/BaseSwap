@@ -6,6 +6,7 @@ import {IChartData} from "@/interfaces/IChartData";
 
 
 const HomeView = (props: {
+    contractAddress: string,
     walletInfo: GetAccountResult,
     networkInfo: INetworkInfo,
     blockNumber: number,
@@ -13,7 +14,7 @@ const HomeView = (props: {
 }) => {
     return (
         <section className="w-full flex flex-wrap md:p-10 mb-28 md:pb-0">
-            <SwapCart/>
+            <SwapCart walletInfo={props.walletInfo} contractAddress={props.contractAddress}/>
             <ChartComponent data={props.chartData}/>
         </section>
     );

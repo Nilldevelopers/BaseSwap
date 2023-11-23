@@ -7,13 +7,14 @@ import ChartData from "@/data/chart/ChartData";
 
 const WelcomeModal = dynamic(() => import('@/views/home/components/modals/WelcomeModal'));
 
-export default function Home({chartData}: { chartData: IChartData[] }) {
+export default function Home({chartData, contractAddress}: { chartData: IChartData[], contractAddress: string }) {
     const walletData = useWallet()
 
     return (
         <Layout title="Swap">
             <WelcomeModal/>
             <HomeView
+                contractAddress={contractAddress}
                 chartData={chartData}
                 blockNumber={walletData.blockNumber}
                 networkInfo={walletData.networkInfo}
@@ -24,13 +25,13 @@ export default function Home({chartData}: { chartData: IChartData[] }) {
 }
 
 export async function getStaticProps() {
-    // Fetch your chart data using a dedicated API function or any other method
     const chartData: IChartData[] = ChartData;
+    const contractAddress = process.env.BTC_CONSTRACT_ADDRESS
 
     return {
         props: {
             chartData,
-            // Add other necessary props
+            contractAddress
         },
     };
-};
+}

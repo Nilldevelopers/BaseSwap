@@ -1,11 +1,29 @@
-
 import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
+import useERC20 from "@/hooks/contracts/useERC20";
+import {GetAccountResult} from "@wagmi/core";
+import {useEffect} from "react";
+
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
 
-function SwapCart() {
 
+function SwapCart(props: {
+    contractAddress: string,
+    walletInfo: GetAccountResult
+}) {
+
+
+    const test = useERC20({
+        walletAddress: props.walletInfo.address,
+        contractAddress: props.contractAddress as `0x${string}`,
+        watch: false
+    })
+
+    useEffect(() => {
+        console.info("There is swap data: ")
+        console.log(test.read.symbol.data)
+    }, [props.contractAddress, test.read.symbol.data])
 
     return (
         <section className="md:w-4/12  p-2 flex flex-wrap">
@@ -119,7 +137,7 @@ function SwapCart() {
                         <span className="text-xl">0.6399</span>
                         <div className="flex flex-row justify-center items-center">
                             <label
-                                htmlFor="first_token_modal"
+                                htmlFor="second_token_modal"
                                 className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs flex flex-row gap-[10px]"
                             >
                                 <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
@@ -127,7 +145,7 @@ function SwapCart() {
                             </label>
                             <FaAngleDown/>
                             <SelectTokenModal
-                                tokenName="first_token_modal"
+                                tokenName="second_token_modal"
                                 fetchSelectToken={(dataToken) => console.log(dataToken)}
                                 tokenList={[1, 2, 3, 4, 5, 6]}
                             />
@@ -158,3 +176,4 @@ function SwapCart() {
 }
 
 export default SwapCart;
+

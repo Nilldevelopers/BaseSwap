@@ -3,7 +3,6 @@ const isProd = process.env.NODE_ENV === 'production'
 const runtimeCaching = require("next-pwa/cache");
 
 
-
 const withPWA = require("next-pwa")({
     dest: "public",
     register: true,
@@ -21,10 +20,9 @@ const nextConfig = {
         removeConsole: isProd,
     },
     swcMinify: true,
-
 }
 
-module.exports=withPWA(nextConfig)
+module.exports = withPWA(nextConfig)
 
 // Injected content via Sentry wizard below
 
