@@ -1,20 +1,19 @@
 import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
-import useERC20 from "@/hooks/contracts/useERC20";
+import useToken from "@/hooks/contracts/useToken";
 import {GetAccountResult} from "@wagmi/core";
 import {useEffect} from "react";
 
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
 
-
-function SwapCart(props: {
+interface ISwapCart {
     contractAddress: string,
     walletInfo: GetAccountResult
-}) {
+}
 
-
-    const test = useERC20({
+function SwapCart(props: ISwapCart) {
+    const {read} = useToken({
         walletAddress: props.walletInfo.address,
         contractAddress: props.contractAddress as `0x${string}`,
         watch: false
@@ -22,8 +21,8 @@ function SwapCart(props: {
 
     useEffect(() => {
         console.info("There is swap data: ")
-        console.log(test.read.symbol.data)
-    }, [props.contractAddress, test.read.symbol.data])
+        console.log(read.symbol.data)
+    }, [props.contractAddress, read.symbol.data])
 
     return (
         <section className="md:w-4/12  p-2 flex flex-wrap">
