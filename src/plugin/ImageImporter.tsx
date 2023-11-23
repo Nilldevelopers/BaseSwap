@@ -1,4 +1,5 @@
 import Image from "next/image";
+import {memo} from "react";
 
 const ImageImporter = ({src, w, h, className, alt}: {
     src: string,
@@ -21,4 +22,4 @@ const ImageImporter = ({src, w, h, className, alt}: {
     );
 };
 
-export default ImageImporter;
+export default memo(ImageImporter);

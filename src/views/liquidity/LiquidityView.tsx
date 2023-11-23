@@ -1,14 +1,18 @@
 import {useCallback, useState} from 'react';
 import dynamic from 'next/dynamic';
 import FinalModal from "@/components/extra/finalModal";
+import {ILiquidityTable} from "@/interfaces/ILiquidityTable";
+import LiquidityTable from "@/views/liquidity/components/table/LiquidityTable";
 
-const LiquidityTable = dynamic(() => import('@/views/liquidity/components/LiquidityTable'));
+
 const LiquidityAddRemoveModal = dynamic(() => import('@/views/liquidity/components/LiquidityAddRemoveModal'));
 const Successfully = dynamic(() => import('@/components/notification/Successfully'));
 const Failed = dynamic(() => import('@/components/notification/Failed'));
 
 
-const LiquidityView = () => {
+const LiquidityView = (props: {
+    tableData: ILiquidityTable
+}) => {
     const [showStakedOnly, setShowStakedOnly] = useState<boolean>(false);
 
 
@@ -66,9 +70,10 @@ const LiquidityView = () => {
                 </div>
 
                 <div className='pt-10'>
-
-                    <LiquidityTable rows={[1, 2, 3, 4, 5, 6]}
-                                    cols={['Name', 'ARP', 'Total Staked', 'My Staked', 'My Pool', 'Earnings']}/>
+                    <LiquidityTable
+                        rows={props.tableData.rows}
+                        cols={props.tableData.cols}
+                    />
                 </div>
             </div>
         </>
