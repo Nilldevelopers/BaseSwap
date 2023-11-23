@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import  {memo} from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
 import Modal from "@/components/extra/Modal";
 import dynamic from "next/dynamic";

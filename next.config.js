@@ -4,7 +4,7 @@ const runtimeCaching = require("next-pwa/cache");
 const withPlugins = require('next-compose-plugins')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: isProd,
-    openAnalyzer: isProd,
+    openAnalyzer: false,
 })
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin');

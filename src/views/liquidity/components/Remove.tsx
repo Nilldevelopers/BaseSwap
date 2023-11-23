@@ -1,4 +1,4 @@
-import React from 'react';
+
 import ImageImporter from "@/plugin/ImageImporter";
 
 const Remove = ({callbackTabStatus}: { callbackTabStatus: (data: "Deposit" | "Remove" | "Withdraw") => void }) => {

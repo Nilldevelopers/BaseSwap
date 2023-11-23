@@ -1,4 +1,4 @@
-import React from 'react';
+
 import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import SelectTokenModal from "@/components/extra/SelectTokenModal";

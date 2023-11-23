@@ -1,0 +1,1 @@
+export interface IChartData {time: string, value: number}

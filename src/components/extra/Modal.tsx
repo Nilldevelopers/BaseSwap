@@ -1,16 +1,17 @@
-import React from 'react';
+import {FC, ReactNode} from "react";
+
 
 interface ModalProps {
     modalName: string;
     className?: string;
     showSearchBox?: boolean;
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = (props) => {
+const Modal: FC<ModalProps> = (props) => {
     return (
         <>
-            <input type="checkbox" id={props.modalName} className="modal-toggle" />
+            <input type="checkbox" id={props.modalName} className="modal-toggle"/>
             <div className="modal">
                 <div className={`modal-box ${props.className}`}>
                     <div className="flex flex-col gap-[26px]">
@@ -36,7 +37,7 @@ const Modal: React.FC<ModalProps> = (props) => {
                             </div>
                         )}
 
-                        <React.Fragment>{props.children}</React.Fragment>
+                        <>{props.children}</>
                     </div>
 
                 </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import Modal from "@/components/extra/Modal";
 import ImageImporter from "@/plugin/ImageImporter";
 import Link from "next/link";

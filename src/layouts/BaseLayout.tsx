@@ -1,13 +1,14 @@
-import React from 'react';
+
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import Navbar from "@/components/shared/Navbar";
 import Link from "next/link";
 import useWallet from "@/hooks/contracts/useWallet";
+import {ReactNode} from "react";
 
 
 type PropsType = {
-    children: React.ReactNode;
+    children: ReactNode;
     title: string
 }
 
