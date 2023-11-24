@@ -1,9 +1,11 @@
 import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
-import useToken from "@/hooks/contracts/useToken";
 import {GetAccountResult} from "@wagmi/core";
+
+// import useToken from "@/hooks/contracts/useToken";
 import {useEffect} from "react";
+import useRouter from "@/hooks/contracts/useRouter";
 
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
 
@@ -13,16 +15,21 @@ interface ISwapCart {
 }
 
 function SwapCart(props: ISwapCart) {
-    const {read} = useToken({
-        walletAddress: props.walletInfo.address,
-        contractAddress: props.contractAddress as `0x${string}`,
-        watch: false
-    })
+    // const {read} = useToken({
+    //     walletAddress: props.walletInfo.address,
+    //     contractAddress: props.contractAddress as `0x${string}`,
+    //     watch: false
+    // })
+    //
+    // useEffect(() => {
+    //     console.info("There is swap data: ")
+    //     console.log(read.symbol.data)
+    // }, [props.contractAddress, read.symbol.data])
 
+    const factory = useRouter('0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a').factory();
     useEffect(() => {
-        console.info("There is swap data: ")
-        console.log(read.symbol.data)
-    }, [props.contractAddress, read.symbol.data])
+        alert(factory.data);
+    }, []);
 
     return (
         <section className="md:w-4/12  p-2 flex flex-wrap">

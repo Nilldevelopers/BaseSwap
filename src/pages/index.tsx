@@ -26,7 +26,7 @@ export default function Home({chartData, contractAddress}: { chartData: IChartDa
 
 export async function getStaticProps() {
     const chartData: IChartData[] = ChartData;
-    const contractAddress = process.env.BTC_CONSTRACT_ADDRESS
+    const contractAddress = process.env.BTC_CONTRACT_ADDRESS
 
     return {
         props: {
