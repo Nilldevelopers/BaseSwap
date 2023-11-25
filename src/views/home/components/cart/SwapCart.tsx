@@ -26,11 +26,8 @@ function SwapCart(props: ISwapCart) {
     //     console.log(read.symbol.data)
     // }, [props.contractAddress, read.symbol.data])
 
-    const factory = useRouter('0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a').factory();
-    useEffect(() => {
-        // alert(factory.data);
-        console.log(factory.data)
-    }, []);
+
+
 
     return (
         <section className="md:w-4/12  p-2 flex flex-wrap">
