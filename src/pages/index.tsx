@@ -40,12 +40,12 @@ const Home: NextPage<HomeProps> = ({images, contractAddress, chartData, tokenDat
 
     return (
         <Layout title="Swap">
-            {
-                images.map((data: IGithubFetchResponseType, index: number) => {
-                    return <ImageImporter key={index} src={data.download_url as string} alt={data.name} w={121}
-                                          h={121}/>
-                })
-            }
+            {/*{*/}
+            {/*    images.map((data: IGithubFetchResponseType, index: number) => {*/}
+            {/*        return <ImageImporter key={index} src={data.download_url as string} alt={data.name} w={121}*/}
+            {/*                              h={121}/>*/}
+            {/*    })*/}
+            {/*}*/}
             <WelcomeModal/>
             <HomeView
                 tokenData={tokenData}
