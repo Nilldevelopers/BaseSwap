@@ -6,7 +6,7 @@ import {IChartData} from "@/interfaces/IChartData";
 import ChartData from "@/data/chart/ChartData";
 import {NextPage} from "next";
 import {fetchGitHubImages, IGithubFetchResponseType} from "@/utils/fetchGitHubImages";
-// import ImageImporter from "@/plugin/ImageImporter";
+import ImageImporter from "@/plugin/ImageImporter";
 
 const WelcomeModal = dynamic(() => import('@/views/home/components/modals/WelcomeModal'));
 
@@ -21,11 +21,11 @@ const Home: NextPage<HomeProps> = ({images, contractAddress, chartData}) => {
     console.log(images)
     return (
         <Layout title="Swap">
-            {/*{*/}
-            {/*    images.map((data: IGithubFetchResponseType, index: number) => {*/}
-            {/*        return <ImageImporter key={index} src={data.download_url as string} alt={data.name} w={121} h={121}/>*/}
-            {/*    })*/}
-            {/*}*/}
+            {
+                images.map((data: IGithubFetchResponseType, index: number) => {
+                    return <ImageImporter key={index} src={data.download_url as string} alt={data.name} w={121} h={121}/>
+                })
+            }
             <WelcomeModal/>
             <HomeView
                 contractAddress={contractAddress}
