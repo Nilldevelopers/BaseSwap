@@ -1,11 +1,10 @@
 import Layout from "@/layouts/BaseLayout";
-import dynamic from "next/dynamic";
-import {ILiquidityTable} from "@/interfaces/ILiquidityTable";
-import LiquidityTableData from "@/data/table/LiquidityTableData";
 import {fetchGitHubTokens} from "@/utils/fetchGitHubTokens";
 import {ITokenList} from "@/interfaces/ITokenList";
+import LiquidityView from "@/views/liquidity/LiquidityView";
+import liquidityTableData from "@/data/table/LiquidityTableData";
+import {ILiquidityTable} from "@/interfaces/ILiquidityTable";
 
-const LiquidityView = dynamic(() => import("@/views/liquidity/LiquidityView"), {ssr: false})
 
 const Liquidity = ({liquidityTableData, tokenData}: { liquidityTableData: ILiquidityTable, tokenData: ITokenList }) => {
     return (
@@ -16,7 +15,6 @@ const Liquidity = ({liquidityTableData, tokenData}: { liquidityTableData: ILiqui
 };
 
 export async function getServerSideProps() {
-    const liquidityTableData: ILiquidityTable = LiquidityTableData;
     try {
         const {tokens} = await fetchGitHubTokens();
 
@@ -32,8 +30,8 @@ export async function getServerSideProps() {
 
         return {
             props: {
-                liquidityTableData,
                 tokenData,
+                liquidityTableData,
             },
         };
     } catch (error) {
