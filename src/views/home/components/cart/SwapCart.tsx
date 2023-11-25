@@ -28,7 +28,8 @@ function SwapCart(props: ISwapCart) {
 
     const factory = useRouter('0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a').factory();
     useEffect(() => {
-        alert(factory.data);
+        // alert(factory.data);
+        console.log(factory.data)
     }, []);
 
     return (
