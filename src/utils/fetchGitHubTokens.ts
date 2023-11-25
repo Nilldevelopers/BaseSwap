@@ -1,11 +1,7 @@
-import {Octokit} from '@octokit/rest';
+import {Octokit} from "@octokit/rest";
 
-export interface IGithubFetchResponseType {
-    name: string,
-    download_url: string | null
-}
 
-export async function fetchGitHubImages() {
+export async function fetchGitHubTokens(){
     const octokit = new Octokit();
     const owner = process.env.REPO_OWNER!;
     const repo = process.env.REPO_NAME!;
@@ -14,18 +10,18 @@ export async function fetchGitHubImages() {
         const response = await octokit.repos.getContent({
             owner,
             repo,
-            path: '/icon', // path to the directory, empty for the root
+            path: '/token', // path to the directory, empty for the root
         });
 
         if (Array.isArray(response.data)) {
-            const images = response.data
-                .filter((item) => item.type === 'file' && item.name.match(/\.(jpg|jpeg|png|gif)$/i))
-                .map((item): IGithubFetchResponseType => ({
+            const tokens = response.data
+                .filter((item) => item.type === 'file' && item.name.match(/\.(json)$/i))
+                .map((item): any => ({
                     name: item.name,
                     download_url: item.download_url,
                 }));
 
-            return {images};
+            return {tokens};
         } else {
             throw new Error('Unexpected response from GitHub API');
         }

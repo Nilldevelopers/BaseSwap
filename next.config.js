@@ -21,7 +21,7 @@ const nextConfig = {
     },
     swcMinify: true,
     images: {
-        domains: ['raw.githubusercontent.com'],
+        domains: ['raw.githubusercontent.com','assets.coingecko.com','arbitrum.foundation','s2.coinmarketcap.com','ethereum-optimism.github.io'],
         minimumCacheTTL: 60,
     },
 

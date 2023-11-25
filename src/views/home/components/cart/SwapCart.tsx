@@ -2,29 +2,18 @@ import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
 import {GetAccountResult} from "@wagmi/core";
+import {ITokenList} from "@/interfaces/ITokenList";
 
-// import useToken from "@/hooks/contracts/useToken";
-import {useEffect} from "react";
-import useRouter from "@/hooks/contracts/useRouter";
 
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
 
 interface ISwapCart {
     contractAddress: string,
-    walletInfo: GetAccountResult
+    walletInfo: GetAccountResult,
+    tokenData: ITokenList
 }
 
 function SwapCart(props: ISwapCart) {
-    // const {read} = useToken({
-    //     walletAddress: props.walletInfo.address,
-    //     contractAddress: props.contractAddress as `0x${string}`,
-    //     watch: false
-    // })
-    //
-    // useEffect(() => {
-    //     console.info("There is swap data: ")
-    //     console.log(read.symbol.data)
-    // }, [props.contractAddress, read.symbol.data])
 
 
 
@@ -88,7 +77,7 @@ function SwapCart(props: ISwapCart) {
                             <SelectTokenModal
                                 tokenName="first_token_modal"
                                 fetchSelectToken={(dataToken) => console.log(dataToken)}
-                                tokenList={[1, 2, 3, 4, 5, 6]}
+                                tokenList={props.tokenData}
                             />
 
                             {/*<button*/}
@@ -151,7 +140,7 @@ function SwapCart(props: ISwapCart) {
                             <SelectTokenModal
                                 tokenName="second_token_modal"
                                 fetchSelectToken={(dataToken) => console.log(dataToken)}
-                                tokenList={[1, 2, 3, 4, 5, 6]}
+                                tokenList={props.tokenData}
                             />
                         </div>
                     </div>

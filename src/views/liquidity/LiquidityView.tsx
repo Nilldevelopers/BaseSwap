@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import FinalModal from "@/components/extra/finalModal";
 import {ILiquidityTable} from "@/interfaces/ILiquidityTable";
 import LiquidityTable from "@/views/liquidity/components/table/LiquidityTable";
+import {ITokenList} from "@/interfaces/ITokenList";
 
 
 const LiquidityAddRemoveModal = dynamic(() => import('@/views/liquidity/components/LiquidityAddRemoveModal'));
@@ -11,7 +12,8 @@ const Failed = dynamic(() => import('@/components/notification/Failed'));
 
 
 const LiquidityView = (props: {
-    tableData: ILiquidityTable
+    tableData: ILiquidityTable,
+    tokenData:ITokenList
 }) => {
     const [showStakedOnly, setShowStakedOnly] = useState<boolean>(false);
 
@@ -65,7 +67,7 @@ const LiquidityView = (props: {
                                 Deposit liquidity
                             </span>
                         </label>
-                        <LiquidityAddRemoveModal/>
+                        <LiquidityAddRemoveModal tokenData={props.tokenData}/>
                     </div>
                 </div>
 

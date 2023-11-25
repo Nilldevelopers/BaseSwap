@@ -3,6 +3,8 @@ import {GetAccountResult} from "@wagmi/core";
 import {INetworkInfo} from "@/interfaces/INetworkInfo";
 import ChartComponent from "@/views/home/components/chart/ChartComponent";
 import {IChartData} from "@/interfaces/IChartData";
+import {ITokenList} from "@/interfaces/ITokenList";
+import {tokenize} from "@csstools/css-tokenizer";
 
 
 const HomeView = (props: {
@@ -11,10 +13,11 @@ const HomeView = (props: {
     networkInfo: INetworkInfo,
     blockNumber: number,
     chartData: IChartData[] // Adjust the type according to your chart data structure
+    tokenData: ITokenList
 }) => {
     return (
         <section className="w-full flex flex-wrap md:p-10 mb-28 md:pb-0">
-            <SwapCart walletInfo={props.walletInfo} contractAddress={props.contractAddress}/>
+            <SwapCart tokenData={props.tokenData} walletInfo={props.walletInfo} contractAddress={props.contractAddress}/>
             <ChartComponent data={props.chartData}/>
         </section>
     );

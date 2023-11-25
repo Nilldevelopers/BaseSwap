@@ -1,9 +1,9 @@
-
 import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import SelectTokenModal from "@/components/extra/SelectTokenModal";
+import {ITokenList} from "@/interfaces/ITokenList";
 
-const Deposit = () => {
+const Deposit = (props: { tokenData: ITokenList }) => {
     return (
         <div className="w-full p-2 flex flex-wrap ">
             <div className="w-full h-[300px] md:h-[380px] overflow-y-scroll p-3">
@@ -39,7 +39,7 @@ const Deposit = () => {
                                 <SelectTokenModal
                                     tokenName="select_first_token_modal"
                                     fetchSelectToken={(dataToken) => console.log(dataToken)}
-                                    tokenList={[1, 2, 3, 4, 5, 6]}
+                                    tokenList={props.tokenData}
                                 />
                             </div>
                             <div>
@@ -80,7 +80,7 @@ const Deposit = () => {
                                 <SelectTokenModal
                                     tokenName="select_second_token_modal"
                                     fetchSelectToken={(dataToken) => console.log(dataToken)}
-                                    tokenList={[1, 2, 3, 4, 5, 6]}
+                                    tokenList={props.tokenData}
                                 />
                             </div>
                             <div>

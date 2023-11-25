@@ -1,13 +1,16 @@
 
 import Deposit from "@/views/liquidity/components/Deposit";
 import Modal from "@/components/extra/Modal";
+import {ITokenList} from "@/interfaces/ITokenList";
 
-const LiquidityAddRemoveModal = () => {
+const LiquidityAddRemoveModal = (props:{
+    tokenData:ITokenList
+}) => {
 
     return (
         <>
             <Modal modalName="deposit_modal">
-                <Deposit/>
+                <Deposit tokenData={props.tokenData}/>
             </Modal>
         </>
     );
