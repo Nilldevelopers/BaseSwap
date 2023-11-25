@@ -64,7 +64,7 @@ const ChartComponent = (props: {
 
     return (
         <div
-            className="md:w-8/12 w-full md:h-[500px]  mt-3 rounded-xl bg-custom-cart"
+            className="md:w-8/12 w-full z-[1] md:h-[500px]  mt-3 rounded-xl bg-custom-cart"
             ref={chartContainerRef}
         />
     );
