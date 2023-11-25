@@ -26,10 +26,12 @@ const SelectTokenModal = (props: {
         }, 500);
     };
 
-    const filteredTokens = props.tokenList?.tokens.filter(token => (
-        token.logoURI !== "ipfs://QmXttGpZrECX5qCyXbBQiqgQNytVGeZW5Anewvh2jc4psg" &&
-        token.name.includes(searchText)
-    ));
+    const filteredTokens = props.tokenList && props.tokenList.tokens
+        ? props.tokenList.tokens.filter(token => (
+            token.logoURI !== "ipfs://QmXttGpZrECX5qCyXbBQiqgQNytVGeZW5Anewvh2jc4psg" &&
+            token.name.includes(searchText)
+        ))
+        : [];
 
     return (
         <Modal className={props.className} modalName={props.tokenName} showSearchBox

@@ -1,22 +1,24 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import dynamic from 'next/dynamic';
-import FinalModal from "@/components/extra/finalModal";
-import {ILiquidityTable} from "@/interfaces/ILiquidityTable";
-import LiquidityTable from "@/views/liquidity/components/table/LiquidityTable";
-import {ITokenList} from "@/interfaces/ITokenList";
+import {ILiquidityTable} from '@/interfaces/ILiquidityTable';
+import {ITokenList} from '@/interfaces/ITokenList';
 
 
 const LiquidityAddRemoveModal = dynamic(() => import('@/views/liquidity/components/LiquidityAddRemoveModal'));
 const Successfully = dynamic(() => import('@/components/notification/Successfully'));
 const Failed = dynamic(() => import('@/components/notification/Failed'));
+const FinalModal = dynamic(() => import('@/components/extra/finalModal'));
+const LiquidityTable = dynamic(() => import('@/views/liquidity/components/LiquidityTable'), {
+    ssr: false,
+    loading: () => <progress className="progress w-56"></progress>,
+});
 
 
 const LiquidityView = (props: {
     tableData: ILiquidityTable,
-    tokenData:ITokenList
+    tokenData: ITokenList
 }) => {
     const [showStakedOnly, setShowStakedOnly] = useState<boolean>(false);
-
 
     const handleStakedOnlyToggle = useCallback(() => {
         setShowStakedOnly(prev => !prev);
@@ -27,6 +29,10 @@ const LiquidityView = (props: {
             // setFilteredPools(allPools)
         }
     }, [showStakedOnly]);
+
+    const memoizedTable = useMemo(() => {
+        return <LiquidityTable tableData={props.tableData} />;
+    }, [props.tableData]);
 
     return (
         <>
@@ -72,10 +78,9 @@ const LiquidityView = (props: {
                 </div>
 
                 <div className='pt-10'>
-                    <LiquidityTable
-                        rows={props.tableData.rows}
-                        cols={props.tableData.cols}
-                    />
+
+                        {memoizedTable}
+
                 </div>
             </div>
         </>

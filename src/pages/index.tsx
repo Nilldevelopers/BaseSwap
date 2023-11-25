@@ -6,9 +6,7 @@ import {IChartData} from "@/interfaces/IChartData";
 import ChartData from "@/data/chart/ChartData";
 import {NextPage} from "next";
 import {fetchGitHubImages, IGithubFetchResponseType} from "@/utils/fetchGitHubImages";
-import ImageImporter from "@/plugin/ImageImporter";
 import {fetchGitHubTokens} from "@/utils/fetchGitHubTokens";
-import {useEffect} from "react";
 import {ITokenList} from "@/interfaces/ITokenList";
 
 const WelcomeModal = dynamic(() => import('@/views/home/components/modals/WelcomeModal'));
@@ -65,7 +63,7 @@ export async function getServerSideProps() {
         const {tokens} = await fetchGitHubTokens();
 
         // Fetch data from the external URL
-        const response  = await fetch(tokens[0].download_url);
+        const response = await fetch(tokens[0].download_url);
 
         if (!response.ok) {
             throw new Error('Failed to fetch data');
