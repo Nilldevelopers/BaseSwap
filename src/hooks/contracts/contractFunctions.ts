@@ -3,15 +3,14 @@ import {wethABI} from "@/config/ABIs/wethABI";
 import {pairABI} from "@/config/ABIs/pairABI";
 import {pairFactoryABI} from "@/config/ABIs/pairFactoryABI";
 import {erc20ABI} from "@/config/ABIs/erc20ABI";
+import {Client, getContract} from "viem";
 
-import {getContract} from "viem";
-
-const routerContractAddress = process.env.ROUTER_CONTRACT_ADDRESS;
-const factoryContractAddress = process.env.FACTORY_CONTRACT_ADDRESS;
-const wethContractAddress = process.env.WETH_CONTRACT_ADDRESS;
+const routerContractAddress = process.env.ROUTER_CONTRACT_ADDRESS! as `0x${string}`;
+const factoryContractAddress = process.env.FACTORY_CONTRACT_ADDRESS! as `0x${string}`;
+const wethContractAddress = process.env.WETH_CONTRACT_ADDRESS! as `0x${string}`;
 
 
-function swapRouter(publicClient, contractAddress: `0x${string}` = routerContractAddress) {
+function swapRouter(publicClient: Client | undefined, contractAddress: `0x${string}` = routerContractAddress) {
     return getContract({
         address: contractAddress,
         abi: routerABI,
@@ -19,7 +18,7 @@ function swapRouter(publicClient, contractAddress: `0x${string}` = routerContrac
     })
 }
 
-function swapPairFactory(publicClient, contractAddress: `0x${string}` = factoryContractAddress) {
+function swapPairFactory(publicClient: Client | undefined, contractAddress: `0x${string}` = factoryContractAddress) {
     return getContract({
         address: contractAddress,
         abi: pairFactoryABI,
@@ -27,7 +26,7 @@ function swapPairFactory(publicClient, contractAddress: `0x${string}` = factoryC
     })
 }
 
-function weth(publicClient, contractAddress: `0x${string}` = wethContractAddress) {
+function weth(publicClient: Client | undefined, contractAddress: `0x${string}` = wethContractAddress) {
     return getContract({
         address: contractAddress,
         abi: wethABI,
@@ -35,7 +34,7 @@ function weth(publicClient, contractAddress: `0x${string}` = wethContractAddress
     })
 }
 
-function pair(publicClient, contractAddress: `0x${string}`) {
+function pair(publicClient: Client | undefined, contractAddress: `0x${string}`) {
     return getContract({
         address: contractAddress,
         abi: pairABI,
@@ -43,7 +42,7 @@ function pair(publicClient, contractAddress: `0x${string}`) {
     })
 }
 
-function erc20(publicClient, contractAddress: `0x${string}`) {
+function erc20(publicClient: Client | undefined, contractAddress: `0x${string}`) {
     return getContract({
         address: contractAddress,
         abi: erc20ABI,
@@ -51,4 +50,4 @@ function erc20(publicClient, contractAddress: `0x${string}`) {
     })
 }
 
-export default {swapRouter, swapPairFactory, weth, pair, erc20}
+export {swapRouter, swapPairFactory, weth, pair, erc20}
