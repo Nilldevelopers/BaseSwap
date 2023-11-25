@@ -4,27 +4,28 @@ import useWallet from "@/hooks/contracts/useWallet";
 import dynamic from "next/dynamic";
 import {IChartData} from "@/interfaces/IChartData";
 import ChartData from "@/data/chart/ChartData";
-import Image from "next/image";
-import {getImagesFromRepo} from "@/lib/github"; // Import the correct function
+import {NextPage} from "next";
+import {fetchGitHubImages, IGithubFetchResponseType} from "@/utils/fetchGitHubImages";
+import ImageImporter from "@/plugin/ImageImporter";
 
 const WelcomeModal = dynamic(() => import('@/views/home/components/modals/WelcomeModal'));
 
-export default function Home({chartData, contractAddress, images}: {
+interface HomeProps {
     chartData: IChartData[],
     contractAddress: string,
-    images: any[]
-}) {
-    const walletData = useWallet();
+    images: IGithubFetchResponseType[]
+}
 
+const Home: NextPage<HomeProps> = ({images, contractAddress, chartData}) => {
+    const walletData = useWallet();
+    console.log(images)
     return (
         <Layout title="Swap">
-            <ul>
-                {images.map((image: any) => (
-                    <li key={image.name}>
-                        <Image src={image.download_url} alt={image.name} height={20} width={20}/>
-                    </li>
-                ))}
-            </ul>
+            {
+                images.map((data: IGithubFetchResponseType, index: number) => {
+                    return <ImageImporter key={index} src={data.download_url as string} alt={data.name} w={121} h={121}/>
+                })
+            }
             <WelcomeModal/>
             <HomeView
                 contractAddress={contractAddress}
@@ -39,27 +40,24 @@ export default function Home({chartData, contractAddress, images}: {
 
 export async function getServerSideProps() {
     try {
-        const owner = 've33-dex';
-        const repo = 'SwapArchiveData';
-
-        const imagesData = await getImagesFromRepo(owner, repo);
-
+        const {images} = await fetchGitHubImages();
         return {
             props: {
+                images,
                 chartData: ChartData,
                 contractAddress: process.env.BTC_CONTRACT_ADDRESS,
-                images: imagesData,
             },
         };
     } catch (error) {
-        // @ts-ignore
-        console.error('Error fetching images:', error.message);
+        console.error(error);
         return {
             props: {
+                images: [],
                 chartData: ChartData,
                 contractAddress: process.env.BTC_CONTRACT_ADDRESS,
-                images: [],
             },
         };
     }
 }
+
+export default Home
