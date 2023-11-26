@@ -3,7 +3,7 @@ import ImageImporter from "@/plugin/ImageImporter";
 
 const Withdraw = () => {
     return (
-        <div className="w-full h-[300px] md:h-[380px] overflow-y-scroll p-3">
+        <div className="w-full h-[300px]  md:h-auto overflow-y-scroll -mt-7 p-3">
             <div
                 className="w-full border-gray-600 bg-custom-cart flex flex-wrap p-2 rounded-xl ">
                 <div className="w-full text-gray-400 p-1 ">

@@ -31,7 +31,9 @@ const LiquidityView = (props: {
     }, [showStakedOnly]);
 
     const memoizedTable = useMemo(() => {
-        return <LiquidityTable tableData={props.tableData} />;
+        return <section className="w-full overflow-x-scroll">
+            <LiquidityTable tableData={props.tableData} />
+        </section>;
     }, [props.tableData]);
 
     return (

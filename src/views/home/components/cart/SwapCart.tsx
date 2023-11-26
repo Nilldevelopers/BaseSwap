@@ -154,9 +154,9 @@ function SwapCart(props: ISwapCart) {
                         1 ETH = 6827.00011 aVAX
                     </div>
                 </div>
-                <button onClick={() => gasStatus ? setGasStatus(false) : setGasStatus(true)} className="w-1/3 flex btn items-center justify-end ">
+                <button onClick={() => gasStatus ? setGasStatus(false) : setGasStatus(true)} className="w-1/3 flex  p-1 bg-transparent items-center justify-center ">
                     <ImageImporter w={20} h={20} src={"/img/icons/gas.svg"} alt={"gas-icon"}/>
-                    <div className="font-bold text-xs px-1.5 flex">
+                    <div className="font-bold text-xs px-2 flex">
                         $8.99
                     </div>
                     <ImageImporter w={8} h={8} className={gasStatus ? "rotate-90 duration-300" : " duration-300 rotate-0"} src={"/img/icons/arrow-right.svg"} alt={"arrow-right"}/>

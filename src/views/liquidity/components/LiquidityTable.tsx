@@ -18,7 +18,7 @@ const LiquidityTable = (props: {
 
     return (
         <Fragment>
-            <table className="table table-auto min-w-full">
+            <table className="table table-auto !text-[2vw] min-w-full">
                 <thead className="border-b-slate-600 border-b-2">
                 <tr>
                     {
