@@ -1,12 +1,12 @@
 import Layout from "@/layouts/BaseLayout";
 import {fetchGitHubTokens} from "@/utils/fetchGitHubTokens";
-import {ITokenList} from "@/interfaces/ITokenList";
+import {IToken} from "@/interfaces/IToken";
 import LiquidityView from "@/views/liquidity/LiquidityView";
 import liquidityTableData from "@/data/table/LiquidityTableData";
 import {ILiquidityTable} from "@/interfaces/ILiquidityTable";
 
 
-const Liquidity = ({liquidityTableData, tokenData}: { liquidityTableData: ILiquidityTable, tokenData: ITokenList }) => {
+const Liquidity = ({liquidityTableData, tokenData}: { liquidityTableData: ILiquidityTable, tokenData: IToken }) => {
     return (
         <Layout title='Liquidity'>
             <LiquidityView tokenData={tokenData} tableData={liquidityTableData}/>
@@ -28,7 +28,7 @@ export async function getServerSideProps(context: any) {
         }
 
         // Parse the JSON data
-        const tokenData = await response.json() as ITokenList;
+        const tokenData = await response.json() as IToken;
 
         return {
             props: {

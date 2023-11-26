@@ -23,7 +23,7 @@ interface Token {
     };
 }
 
-export interface ITokenList {
+export interface IToken {
     name: string;
     timestamp: string;
     version: Version;

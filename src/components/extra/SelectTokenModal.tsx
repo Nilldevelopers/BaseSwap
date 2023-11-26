@@ -2,14 +2,14 @@ import {memo, useState} from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
 import Modal from "@/components/extra/Modal";
 import dynamic from "next/dynamic";
-import {ITokenList} from "@/interfaces/ITokenList";
+import {IToken} from "@/interfaces/IToken";
 
 interface IToken {
 
 }
 
 const SelectTokenModal = (props: {
-    tokenList: ITokenList,
+    tokenList: IToken,
     fetchSelectToken: (data: IToken) => void,
     tokenName: string,
     className?: string

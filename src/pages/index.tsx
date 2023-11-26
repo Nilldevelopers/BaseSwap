@@ -7,7 +7,7 @@ import ChartData from "@/data/chart/ChartData";
 import {NextPage} from "next";
 import {fetchGitHubImages, IGithubFetchResponseType} from "@/utils/fetchGitHubImages";
 import {fetchGitHubTokens} from "@/utils/fetchGitHubTokens";
-import {ITokenList} from "@/interfaces/ITokenList";
+import {IToken} from "@/interfaces/IToken";
 
 const WelcomeModal = dynamic(() => import('@/views/home/components/modals/WelcomeModal'));
 
@@ -15,7 +15,7 @@ interface HomeProps {
     chartData: IChartData[],
     contractAddress: string,
     images: IGithubFetchResponseType[]
-    tokenData: ITokenList
+    tokenData: IToken
 }
 
 const Home: NextPage<HomeProps> = ({images, contractAddress, chartData, tokenData}) => {
@@ -70,7 +70,7 @@ export async function getServerSideProps() {
         }
 
         // Parse the JSON data
-        const tokenData = await response.json() as ITokenList;
+        const tokenData = await response.json() as IToken;
 
         return {
             props: {

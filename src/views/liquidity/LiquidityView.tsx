@@ -1,7 +1,7 @@
 import {useCallback, useMemo, useState} from 'react';
 import dynamic from 'next/dynamic';
 import {ILiquidityTable} from '@/interfaces/ILiquidityTable';
-import {ITokenList} from '@/interfaces/ITokenList';
+import {IToken} from '@/interfaces/IToken';
 
 
 const LiquidityAddRemoveModal = dynamic(() => import('@/views/liquidity/components/LiquidityAddRemoveModal'));
@@ -16,7 +16,7 @@ const LiquidityTable = dynamic(() => import('@/views/liquidity/components/Liquid
 
 const LiquidityView = (props: {
     tableData: ILiquidityTable,
-    tokenData: ITokenList
+    tokenData: IToken
 }) => {
     const [showStakedOnly, setShowStakedOnly] = useState<boolean>(false);
 

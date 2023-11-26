@@ -2,7 +2,7 @@ import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
 import {GetAccountResult} from "@wagmi/core";
-import {ITokenList} from "@/interfaces/ITokenList";
+import {IToken} from "@/interfaces/IToken";
 import { useState } from "react";
 
 
@@ -11,7 +11,7 @@ const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenMod
 interface ISwapCart {
     contractAddress: string,
     walletInfo: GetAccountResult,
-    tokenData: ITokenList
+    tokenData: IToken
 }
 
 function SwapCart(props: ISwapCart) {
