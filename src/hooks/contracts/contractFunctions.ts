@@ -10,43 +10,48 @@ const factoryContractAddress = process.env.FACTORY_CONTRACT_ADDRESS! as `0x${str
 const wethContractAddress = process.env.WETH_CONTRACT_ADDRESS! as `0x${string}`;
 
 
-function swapRouter(publicClient: Client | undefined, contractAddress: `0x${string}` = routerContractAddress) {
+function swapRouter(publicClient: Client | undefined, walletClient: Client | undefined, contractAddress: `0x${string}` = routerContractAddress) {
     return getContract({
         address: contractAddress,
         abi: routerABI,
         publicClient: publicClient,
+        walletClient: walletClient
     })
 }
 
-function swapPairFactory(publicClient: Client | undefined, contractAddress: `0x${string}` = factoryContractAddress) {
+function swapPairFactory(publicClient: Client | undefined, walletClient: Client | undefined, contractAddress: `0x${string}` = factoryContractAddress) {
     return getContract({
         address: contractAddress,
         abi: pairFactoryABI,
         publicClient: publicClient,
+        walletClient: walletClient
     })
 }
 
-function weth(publicClient: Client | undefined, contractAddress: `0x${string}` = wethContractAddress) {
+function weth(publicClient: Client | undefined, walletClient: Client | undefined, contractAddress: `0x${string}` = wethContractAddress) {
     return getContract({
         address: contractAddress,
         abi: wethABI,
         publicClient: publicClient,
+        walletClient: walletClient
     })
 }
 
-function pair(publicClient: Client | undefined, contractAddress: `0x${string}`) {
+function pair(publicClient: Client | undefined, walletClient: Client | undefined, contractAddress: `0x${string}`) {
     return getContract({
         address: contractAddress,
         abi: pairABI,
         publicClient: publicClient,
+        walletClient: walletClient
     })
 }
 
-function erc20(publicClient: Client | undefined, contractAddress: `0x${string}`) {
+function erc20(publicClient: Client | undefined, walletClient: Client | undefined, contractAddress: `0x${string}`) {
     return getContract({
         address: contractAddress,
         abi: erc20ABI,
         publicClient: publicClient,
+        walletClient: walletClient
     })
 }
 
