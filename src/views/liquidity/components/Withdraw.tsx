@@ -38,7 +38,7 @@ const Withdraw = () => {
                 </div>
                 <div className="w-full flex justify-between py-2">
                     <div className="flex items-center">
-                        <ImageImporter src={'/img/icons/usdt.svg'} w={24} h={24}/>
+                        <ImageImporter src={'/img/icons/eth.svg'} w={24} h={24}/>
                         <span className="px-2">0.01243</span>
                         <span className="text-gray-400">Token0</span>
                     </div>
@@ -48,7 +48,7 @@ const Withdraw = () => {
                 </div>
                 <div className="w-full flex justify-between py-2">
                     <div className="flex items-center">
-                        <ImageImporter src={'/img/icons/usdt.svg'} w={24} h={24}/>
+                        <ImageImporter src={'/img/icons/eth.svg'} w={24} h={24}/>
                         <span className="px-2">0.01243</span>
                         <span className="text-gray-400">Token1</span>
                     </div>

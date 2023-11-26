@@ -47,7 +47,7 @@ const LiquidityTable = (props: {
                                             </div>
                                             <div className="avatar">
                                                 <div className="w-7 h-7">
-                                                    <ImageImporter src={'/img/icons/usdt.svg'} w={24} h={24}/>
+                                                    <ImageImporter src={'/img/icons/eth.svg'} w={24} h={24}/>
                                                 </div>
                                             </div>
                                         </div>

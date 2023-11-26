@@ -36,7 +36,7 @@ const SelectTokenModal = (props: {
             <div className="grid grid-cols-3 gap-4">
                 <button
                     className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
-                    <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
+                    <ImageImporter w={20} h={20} src={"/img/icons/eth.svg"} alt={"symbol"}/>
                     <span
                         className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">ETH</span>
                 </button>

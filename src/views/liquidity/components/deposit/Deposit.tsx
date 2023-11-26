@@ -5,30 +5,54 @@ import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import SelectTokenModal from "@/components/extra/SelectTokenModal";
 import {useEffect, useState} from "react";
-import {usePublicClient} from "wagmi";
+import {useBalance, usePublicClient, useWalletClient} from "wagmi";
 import {useEthersSigner} from "@/hooks/contracts/useEthersSigner";
 import {erc20} from "@/lib/ContractFunctions";
 import {formatEther} from "viem";
 
-const initialTokenValue: Token = {
+const initialToken0: Token = {
     address: `0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee`,
     chainId: 84531,
-    decimals: 0,
+    decimals: 18,
     extensions: {
         bridgeInfo: {}
     },
-    logoURI: "/img/icons/usdt.svg",
-    name: "ethereum",
+    logoURI: "/img/icons/eth.svg",
+    name: "Ethereum",
     symbol: "ETH"
 }
+
+const initialToken1: Token = {
+    address: `0xB66540499d050fFA30e5a5D275bDA0E1176F1963`,
+    chainId: 84531,
+    decimals: 18,
+    extensions: {
+        bridgeInfo: {}
+    },
+    logoURI: "https://raw.githubusercontent.com/ve33-dex/SwapArchiveData/main/icon/0xB66540499d050fFA30e5a5D275bDA0E1176F1963.png",
+    name: "BaseSwap",
+    symbol: "BASES"
+}
+
 const Deposit = (props: { tokenData: IToken }) => {
-    const [tokenA, setTokenA] = useState<Token>(initialTokenValue)
-    const [tokenB, setTokenB] = useState<Token>(initialTokenValue)
+    const [userAddress, setUserAddress] = useState<`ox${string}`>('0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' as `ox${string}`);
+    const [tokenA, setTokenA] = useState<Token>(initialToken0)
+    const [tokenB, setTokenB] = useState<Token>(initialToken1)
     const [balanceOfTokenA, setBalanceOfTokenA] = useState<bigint>(BigInt(0))
     const [balanceOfTokenB, setBalanceOfTokenB] = useState<bigint>(BigInt(0))
     const publicClient = usePublicClient();
-    const walletClient = useEthersSigner();
+    const walletClient = useWalletClient();
 
+
+    useEffect(() => {
+        if (walletClient.data) {
+            setUserAddress(walletClient.data.account.address as `ox${string}`);
+        }
+    }, [walletClient])
+
+    const { data:userETHBalance, isError, isLoading } = useBalance({
+        address: userAddress,
+    })
 
     useEffect(() => {
         const token0 = erc20(publicClient, walletClient, tokenA.address);
@@ -36,10 +60,19 @@ const Deposit = (props: { tokenData: IToken }) => {
         const fetchData = async () => {
             console.log(tokenA)
             try {
-                const balanceOfToken0 = await token0.read.balanceOf([walletClient!.address as `0x${string}`]);
-                const balanceOfToken1 = await token1.read.balanceOf([walletClient!.address as `0x${string}`]);
-                setBalanceOfTokenA(balanceOfToken0)
-                setBalanceOfTokenB(balanceOfToken1)
+                if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
+                    setBalanceOfTokenA(userETHBalance.value);
+                }else {
+                    const balanceOfToken0 = await token0.read.balanceOf([userAddress]);
+                    setBalanceOfTokenA(balanceOfToken0);
+                }
+
+                if (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
+                    setBalanceOfTokenB(userETHBalance.value);
+                }else {
+                    const balanceOfToken1 = await token1.read.balanceOf([userAddress]);
+                    setBalanceOfTokenB(balanceOfToken1);
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

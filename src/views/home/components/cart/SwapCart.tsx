@@ -71,7 +71,7 @@ function SwapCart(props: ISwapCart) {
 
                             <label htmlFor="first_token_modal"
                                    className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs flex flex-row gap-[10px]">
-                                <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
+                                <ImageImporter w={20} h={20} src={"/img/icons/eth.svg"} alt={"symbol"}/>
                                 <span>ETH</span>
                             </label>
                             <FaAngleDown/>
@@ -134,7 +134,7 @@ function SwapCart(props: ISwapCart) {
                                 htmlFor="second_token_modal"
                                 className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs flex flex-row gap-[10px]"
                             >
-                                <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
+                                <ImageImporter w={20} h={20} src={"/img/icons/eth.svg"} alt={"symbol"}/>
                                 <span>ETH</span>
                             </label>
                             <FaAngleDown/>
