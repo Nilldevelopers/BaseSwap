@@ -3,6 +3,7 @@ import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
 import {GetAccountResult} from "@wagmi/core";
 import {ITokenList} from "@/interfaces/ITokenList";
+import { useState } from "react";
 
 
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
@@ -15,7 +16,7 @@ interface ISwapCart {
 
 function SwapCart(props: ISwapCart) {
 
-
+  const [ gasStatus , setGasStatus] = useState<boolean>(false)
 
 
     return (
@@ -146,19 +147,48 @@ function SwapCart(props: ISwapCart) {
                     </div>
                 </div>
             </div>
-            <div className="w-full flex p-2 ">
+            <div className="w-full flex flex-wrap p-2 ">
                 <div className="w-2/3 flex items-center">
                     <ImageImporter w={20} h={20} src={"/img/icons/info-circle-light.svg"} alt={"info-icon"}/>
                     <div className="font-bold text-xs ps-2">
                         1 ETH = 6827.00011 aVAX
                     </div>
                 </div>
-                <div className="w-1/3 flex items-center justify-end ">
+                <button onClick={() => gasStatus ? setGasStatus(false) : setGasStatus(true)} className="w-1/3 flex  p-1 bg-transparent items-center justify-center ">
                     <ImageImporter w={20} h={20} src={"/img/icons/gas.svg"} alt={"gas-icon"}/>
-                    <div className="font-bold text-xs px-1.5 flex">
+                    <div className="font-bold text-xs px-2 flex">
                         $8.99
                     </div>
-                    <ImageImporter w={8} h={8} src={"/img/icons/arrow-right.svg"} alt={"arrow-right"}/>
+                    <ImageImporter w={8} h={8} className={gasStatus ? "rotate-90 duration-300" : " duration-300 rotate-0"} src={"/img/icons/arrow-right.svg"} alt={"arrow-right"}/>
+                </button>
+                <div className={`flex w-full flex-wrap my-4 content-start overflow-hidden duration-300 ${gasStatus ? "h-[340px] border-t" : "h-0"} `}>
+                    <div className="flex flex-wrap w-full justify-between items-center p-2 my-1 ">
+                      <div className="text-gray-400">Network fee</div>
+                      <div>~$0.13</div>
+                    </div>
+                    <div className="flex flex-wrap w-full justify-between items-center p-2 my-1 ">
+                      <div className="text-gray-400">Price impact</div>
+                      <div>-0.09%</div>
+                    </div>
+                    <div className="flex flex-wrap w-full justify-between items-center p-2 my-1 ">
+                      <div className="text-gray-400">Minimum output</div>
+                      <div>4.1124 Token1</div>
+                    </div>
+                    <div className="flex flex-wrap w-full justify-between items-center p-2 my-1 ">
+                      <div className="text-gray-400">Expected output</div>
+                      <div>4.38124 Token1</div>
+                    </div>
+                    <div className="flex flex-wrap w-full justify-between items-center p-2 my-1 mt-3 border-t ">
+                      <div className="text-gray-400">Routing source</div>
+                      <div>Uniswap</div>
+                    </div>
+                    <div className="flex flex-wrap w-full justify-between items-center p-2 my-3 ">
+                      <button className="btn btn-outline m-0  bg-transparent w-2/12 p-2 border rounded"></button>
+                      <div className="w-3/12 border"></div>
+                      <button className="btn btn-outline m-0  bg-transparent w-2/12 p-2 border rounded"></button>
+                      <div className="w-3/12 border"></div>
+                      <button className="btn btn-outline m-0  bg-transparent w-2/12 p-2 border rounded"></button>
+                    </div>
                 </div>
             </div>
             <div className="w-full flex mt-2">

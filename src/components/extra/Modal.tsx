@@ -15,7 +15,7 @@ const Modal: FC<ModalProps> = (props) => {
         <>
             <input type="checkbox" id={props.modalName} className="modal-toggle"/>
             <div className="modal">
-                <div className={`modal-box ${props.className}`}>
+                <div className={`modal-box p-2 text-xs ${props.className}`}>
                     <div className="flex flex-col gap-[26px]">
                         {props.showSearchBox && (
                             <div className="flex flex-row items-center justify-between">

@@ -10,9 +10,9 @@ function MobileNavigation():JSX.Element {
             <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
                 <button data-tooltip-target="tooltip-home" type="button"
                         className="inline-flex flex-col items-center justify-center px-5 rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                    <Link href={'/'} passHref={true}>
-                        <FaMoneyBillTransfer size={30}/>
-                        <span className="sr-only">Home</span>
+                    <Link href={'/'} passHref={true} className="flex items-center flex-wrap">
+                        <FaMoneyBillTransfer size={25}/>
+                        <span className="text-[10px]">Home</span>
                     </Link>
                 </button>
                 <div id="tooltip-home" role="tooltip"
@@ -21,9 +21,9 @@ function MobileNavigation():JSX.Element {
                     <div className="tooltip-arrow"></div>
                 </div>
                 <button data-tooltip-target="tooltip-wallet" type="button"
-                        className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                        className="inline-flex flex-col items-center justify-center px-5 rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <FaWallet size={20}/>
-                    <span className="sr-only">Wallet</span>
+                    <span className="text-[10px] ">Wallet</span>
                 </button>
                 <div id="tooltip-wallet" role="tooltip"
                      className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
@@ -54,7 +54,7 @@ function MobileNavigation():JSX.Element {
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                               d="M4 12.25V1m0 11.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M4 19v-2.25m6-13.5V1m0 2.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M10 19V7.75m6 4.5V1m0 11.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM16 19v-2"/>
                     </svg>
-                    <span className="sr-only">Settings</span>
+                    <span className="text-[10px] mt-1">Settings</span>
                 </button>
                 <div id="tooltip-settings" role="tooltip"
                      className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
@@ -65,9 +65,9 @@ function MobileNavigation():JSX.Element {
 
                 <button data-tooltip-target="tooltip-profile" type="button"
                         className="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                    <Link passHref={true} href='/liquidity'>
+                    <Link passHref={true} className="flex flex-wrap items-center justify-center" href='/liquidity'>
                         <GrMoney size={20}/>
-                        <span className="sr-only">Liquidity</span>
+                        <span className="text-[10px] mt-1">Liquidity</span>
                     </Link>
                 </button>
 

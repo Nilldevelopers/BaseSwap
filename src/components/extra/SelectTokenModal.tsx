@@ -57,9 +57,9 @@ const SelectTokenModal = (props: {
                 </button>
 
             </div>
-            <div className={`flex flex-col gap-[16px] overflow-y-auto h-60 ${filteredTokens.length<=0?'items-center justify-center':''}`}>
+            <div className={`flex flex-col gap-[16px] overflow-y-auto h-60 ${filteredTokens?.length<=0?'items-center justify-center':''}`}>
                 {
-                    !isLoading ? (filteredTokens.length > 0 ? (
+                    !isLoading ? (filteredTokens?.length > 0 ? (
                             filteredTokens.map((data, index) => {
                                 return <label key={index} htmlFor={props.tokenName}
                                               onClick={() => props.fetchSelectToken(data)}
