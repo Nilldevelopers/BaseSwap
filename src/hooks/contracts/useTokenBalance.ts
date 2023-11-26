@@ -3,7 +3,7 @@ import {usePublicClient} from "wagmi";
 import {useEthersSigner} from "@/hooks/contracts/useEthersSigner";
 import {erc20} from "@/lib/ContractFunctions";
 
-const FetchTokenBalance = (tokenAddress: `0x${string}`): bigint => {
+const useTokenBalance = (tokenAddress: `0x${string}`): bigint => {
     const [tokenBalanceOf, setTokenBalanceOf] = useState<bigint>(BigInt(0))
     const publicClient = usePublicClient();
     const walletClient = useEthersSigner();
@@ -24,4 +24,4 @@ const FetchTokenBalance = (tokenAddress: `0x${string}`): bigint => {
     return tokenBalanceOf
 };
 
-export default FetchTokenBalance;
+export default useTokenBalance;
