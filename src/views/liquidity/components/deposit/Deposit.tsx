@@ -5,7 +5,7 @@ import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import SelectTokenModal from "@/components/extra/SelectTokenModal";
 import {useEffect, useState} from "react";
-import {usePublicClient} from "wagmi";
+import {useBalance, usePublicClient} from "wagmi";
 import {useEthersSigner} from "@/hooks/contracts/useEthersSigner";
 import {erc20} from "@/lib/ContractFunctions";
 import {formatEther} from "viem";
@@ -28,13 +28,13 @@ const Deposit = (props: { tokenData: IToken }) => {
     const [balanceOfTokenB, setBalanceOfTokenB] = useState<bigint>(BigInt(0))
     const publicClient = usePublicClient();
     const walletClient = useEthersSigner();
-
+    const test = useBalance()
 
     useEffect(() => {
         const token0 = erc20(publicClient, walletClient, tokenA.address);
         const token1 = erc20(publicClient, walletClient, tokenB.address);
         const fetchData = async () => {
-            console.log(tokenA)
+
             try {
                 const balanceOfToken0 = await token0.read.balanceOf([walletClient!.address as `0x${string}`]);
                 const balanceOfToken1 = await token1.read.balanceOf([walletClient!.address as `0x${string}`]);
@@ -58,7 +58,8 @@ const Deposit = (props: { tokenData: IToken }) => {
                             <div className="text-gray-400 p-1 ">
                                 Balance:
                             </div>
-                            <div className="w-2/6 p-2 font-bold text-gray-400">{formatEther(balanceOfTokenA)}</div>
+                            <div
+                                className="w-2/6 p-2 font-bold text-gray-400">{tokenA.address === `0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee` ? '' : formatEther(balanceOfTokenA)}</div>
                         </div>
 
                         <div className="flex flex-row items-center gap-4">
