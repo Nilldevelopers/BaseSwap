@@ -8,9 +8,6 @@ import {NextPage} from "next";
 import {fetchGitHubImages, IGithubFetchResponseType} from "@/utils/fetchGitHubImages";
 import {fetchGitHubTokens} from "@/utils/fetchGitHubTokens";
 import {IToken} from "@/interfaces/IToken";
-import {usePublicClient, useWalletClient} from "wagmi";
-import {erc20} from "@/hooks/contracts/contractFunctions";
-import {useEffect} from "react";
 
 const WelcomeModal = dynamic(() => import('@/views/home/components/modals/WelcomeModal'));
 
@@ -39,23 +36,6 @@ const Home: NextPage<HomeProps> = ({images, contractAddress, chartData, tokenDat
     //     fetchData();
     // }, [tokens]);
     // console.log(tokenData)
-
-    const publicClient = usePublicClient();
-    const walletClient = useWalletClient();
-
-    const token1 = erc20(publicClient, walletClient, '0x8980BFa8feF4D248F45ae633d74C4C1c17CE730e');
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const result = await token1.read.balanceOf([walletClient.data.account.address]);
-                alert(result);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
-    }, [walletClient]);
 
 
     return (

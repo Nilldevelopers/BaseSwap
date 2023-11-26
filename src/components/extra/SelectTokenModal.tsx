@@ -2,15 +2,12 @@ import {memo, useState} from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
 import Modal from "@/components/extra/Modal";
 import dynamic from "next/dynamic";
-import {IToken} from "@/interfaces/IToken";
+import {IToken, Token} from "@/interfaces/IToken";
 
-interface IToken {
-
-}
 
 const SelectTokenModal = (props: {
     tokenList: IToken,
-    fetchSelectToken: (data: IToken) => void,
+    fetchSelectToken: (data: Token) => void,
     tokenName: string,
     className?: string
 }) => {
@@ -57,7 +54,8 @@ const SelectTokenModal = (props: {
                 </button>
 
             </div>
-            <div className={`flex flex-col gap-[16px] overflow-y-auto h-60 ${filteredTokens?.length<=0?'items-center justify-center':''}`}>
+            <div
+                className={`flex flex-col gap-[16px] overflow-y-auto h-60 ${filteredTokens?.length <= 0 ? 'items-center justify-center' : ''}`}>
                 {
                     !isLoading ? (filteredTokens?.length > 0 ? (
                             filteredTokens.map((data, index) => {
@@ -89,7 +87,9 @@ const SelectTokenModal = (props: {
                                 </label>
 
                             })
-                        ) : (<p className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">No items found</p>))
+                        ) : (
+                            <p className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">No items
+                                found</p>))
                         : <>
                             <div className="flex flex-col gap-4 w-52">
                                 <div className="flex gap-4 items-center">

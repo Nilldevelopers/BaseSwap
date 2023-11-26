@@ -4,6 +4,7 @@ import {pairABI} from "@/config/ABIs/pairABI";
 import {pairFactoryABI} from "@/config/ABIs/pairFactoryABI";
 import {erc20ABI} from "@/config/ABIs/erc20ABI";
 import {Client, getContract} from "viem";
+import {JsonRpcSigner} from "ethers";
 
 const routerContractAddress = process.env.ROUTER_CONTRACT_ADDRESS! as `0x${string}`;
 const factoryContractAddress = process.env.FACTORY_CONTRACT_ADDRESS! as `0x${string}`;
@@ -46,12 +47,12 @@ function pair(publicClient: Client | undefined, walletClient: Client | undefined
     })
 }
 
-function erc20(publicClient: Client | undefined, walletClient: Client | undefined, contractAddress: `0x${string}`) {
+function erc20(publicClient: Client | undefined, walletClient: JsonRpcSigner | undefined, contractAddress: `0x${string}`) {
     return getContract({
         address: contractAddress,
         abi: erc20ABI,
         publicClient: publicClient,
-        walletClient: walletClient
+        walletClient: walletClient as any
     })
 }
 

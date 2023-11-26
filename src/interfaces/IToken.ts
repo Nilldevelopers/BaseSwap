@@ -11,9 +11,8 @@ interface BridgeInfo {
     };
 }
 
-interface Token {
-    chainId: number;
-    address: string;
+export interface Token {    chainId: number;
+    address: `0x${string}`;
     name: string;
     symbol: string;
     decimals: number;
