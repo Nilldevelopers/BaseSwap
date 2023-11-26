@@ -5,7 +5,7 @@ import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import SelectTokenModal from "@/components/extra/SelectTokenModal";
 import {useEffect, useState} from "react";
-import {usePublicClient} from "wagmi";
+import {useBalance, usePublicClient, useWalletClient} from "wagmi";
 import {useEthersSigner} from "@/hooks/contracts/useEthersSigner";
 import {erc20} from "@/lib/ContractFunctions";
 import {formatEther} from "viem";
@@ -41,14 +41,24 @@ const Deposit = (props: { tokenData: IToken }) => {
     const [balanceOfTokenA, setBalanceOfTokenA] = useState<bigint>(BigInt(0))
     const [balanceOfTokenB, setBalanceOfTokenB] = useState<bigint>(BigInt(0))
     const publicClient = usePublicClient();
-    const walletClient = useEthersSigner();
+    const walletClient = useWalletClient();
 
+
+    useEffect(() => {
+        if (walletClient.data) {
+            setUserAddress(walletClient.data.account.address as `ox${string}`);
+        }
+    }, [walletClient])
+
+    const { data:userETHBalance, isError, isLoading } = useBalance({
+        address: userAddress,
+    })
 
     useEffect(() => {
         const token0 = erc20(publicClient, walletClient, tokenA.address);
         const token1 = erc20(publicClient, walletClient, tokenB.address);
         const fetchData = async () => {
-
+            console.log(tokenA)
             try {
                 if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
                     setBalanceOfTokenA(userETHBalance.value);
@@ -81,8 +91,7 @@ const Deposit = (props: { tokenData: IToken }) => {
                             <div className="text-gray-400 p-1 ">
                                 Balance:
                             </div>
-                            <div
-                                className="w-2/6 p-2 font-bold text-gray-400">{tokenA.address === `0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee` ? '' : formatEther(balanceOfTokenA)}</div>
+                            <div className="w-2/6 p-2 font-bold text-gray-400">{formatEther(balanceOfTokenA)}</div>
                         </div>
 
                         <div className="flex flex-row items-center gap-4">
