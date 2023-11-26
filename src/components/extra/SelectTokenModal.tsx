@@ -45,13 +45,13 @@ const SelectTokenModal = (props: {
                 </button>
                 <button
                     className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
-                    <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
+                    <ImageImporter w={20} h={20} src={"/img/logo/weth.png"} alt={"symbol"}/>
                     <span
                         className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">WETH</span>
                 </button>
                 <button
                     className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
-                    <ImageImporter w={20} h={20} src={"/img/icons/usdt.svg"} alt={"symbol"}/>
+                    <ImageImporter w={20} h={20} src={"/img/logo/SwapLogo.svg"} alt={"symbol"}/>
                     <span
                         className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">Bases</span>
                 </button>

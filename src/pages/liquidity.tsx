@@ -14,7 +14,9 @@ const Liquidity = ({liquidityTableData, tokenData}: { liquidityTableData: ILiqui
     );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: any) {
+    context.res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
+
     try {
         const {tokens} = await fetchGitHubTokens();
 

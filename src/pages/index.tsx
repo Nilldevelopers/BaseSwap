@@ -20,7 +20,7 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({images, contractAddress, chartData, tokenData}) => {
     const walletData = useWallet();
-
+    console.log(images)
     // useEffect(() => {
     //     const fetchData = async () => {
     //         try {
