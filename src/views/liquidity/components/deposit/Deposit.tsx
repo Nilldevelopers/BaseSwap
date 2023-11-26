@@ -43,6 +43,8 @@ const Deposit = (props: { tokenData: IToken }) => {
     const publicClient = usePublicClient();
     const walletClient = useWalletClient();
 
+    const [amountA, setAmountA] = useState<bigint>(BigInt(0));
+    const [amountB, setAmountB] = useState<bigint>(BigInt(0));
 
     useEffect(() => {
         if (walletClient.data) {
@@ -127,7 +129,7 @@ const Deposit = (props: { tokenData: IToken }) => {
                                 />
                             </div>
                             <div>
-                                <input defaultValue={20} type="number" placeholder="Type here"
+                                <input defaultValue={amountA.toString()} type="number" placeholder="Type here"
                                        className="input w-full max-w-xs bg-transparent"/>
                             </div>
                         </div>
@@ -177,7 +179,7 @@ const Deposit = (props: { tokenData: IToken }) => {
                                 />
                             </div>
                             <div>
-                                <input defaultValue={20} type="number" placeholder="Type here"
+                                <input defaultValue={amountB.toString()} type="number" placeholder="Type here"
                                        className="input w-full max-w-xs bg-transparent"/>
                             </div>
                         </div>
@@ -185,10 +187,10 @@ const Deposit = (props: { tokenData: IToken }) => {
 
                 </div>
                 <ReverseInfo/>
-                <Balance/>
+                {/*<Balance/>*/}
                 <div className="w-full my-2">
                     <button className="btn w-full bg-custom-red">
-                        <span className="capitalize">Enter an amount</span>
+                        <span className="capitalize">Add liquidity</span>
                     </button>
                 </div>
             </div>
