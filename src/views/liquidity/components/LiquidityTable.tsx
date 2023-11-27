@@ -1,4 +1,4 @@
-import {Fragment, memo, useState} from 'react';
+import {Fragment, memo} from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
 import {ILiquidityTable} from "@/interfaces/ILiquidityTable";
 import RemoveModal from "@/views/liquidity/components/RemoveModal";
@@ -7,16 +7,6 @@ import RemoveModal from "@/views/liquidity/components/RemoveModal";
 const LiquidityTable = (props: {
     tableData: ILiquidityTable,
 }) => {
-    const itemsPerPage = 10; // Adjust as needed
-    const [currentPage, setCurrentPage] = useState<number>(1);
-
-    // Calculate the start and end index for the current page
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    // Get the subset of rows to display on the current page
-    const visibleRows = props.tableData.rows.slice(startIndex, endIndex);
-
     return (
         <Fragment>
             <div className="overflow-x-auto border-2 border-slate-600 rounded-[12px] bg-custom-cart">
@@ -29,14 +19,11 @@ const LiquidityTable = (props: {
                                            className="capitalize text-sm text-neutral font-['Inter'] font-normal not-italic">{colData}</th>
                             })
                         }
-                        <th>&nbsp;</th>
-                        <th>&nbsp;</th>
-
                     </tr>
                     </thead>
                     <tbody>
                     {
-                        visibleRows.map((data, index) => {
+                        props.tableData.rows.map((data, index) => {
                             return <tr key={index} className='border-none py-5 px-5'>
                                 <td>
                                     <div className='flex flex-row items-center gap-[7px]'>
@@ -72,66 +59,36 @@ const LiquidityTable = (props: {
                                     <div className='flex row gap-2 items-center'>
                                      <span
                                          className="text-sm text-accent font-['Arial'] font-normal not-italic"> $1,324</span>
-                                        <ImageImporter src={'/img/icons/info.svg'} w={24} h={24}/>
+
                                     </div>
                                 </td>
                                 <td>
                                     <div className='flex row gap-2 items-center'>
                                      <span
                                          className="text-sm text-accent font-['Arial'] font-normal not-italic"> $1,324</span>
-                                        <ImageImporter src={'/img/icons/info.svg'} w={24} h={24}/>
+
                                     </div>
                                 </td>
                                 <td>
                                     <div className='flex row gap-2 items-center'>
                                      <span
                                          className="text-sm text-accent font-['Arial'] font-normal not-italic"> $1,324</span>
-                                        <ImageImporter src={'/img/icons/info.svg'} w={24} h={24}/>
+
                                     </div>
                                 </td>
                                 <td>
-                                    <div className='flex row gap-2 items-center'>
-                                     <span
-                                         className="text-sm text-accent font-['Arial'] font-normal not-italic"> $1,324</span>
-                                        <ImageImporter src={'/img/icons/info.svg'} w={24} h={24}/>
-                                    </div>
-                                </td>
-                                <td>
-
-
-
                                     <label htmlFor="remove_modal"
                                            className='btn bg-transparent rounded-[12px] py-[8px] px-[20px] border-neutral border-1 min-h-[2.5rem] h-[2.5rem]'>
                        <span
                            className="capitalize text-sm text-neutral font-['Inter'] font-normal not-italic">Remove</span>
-
                                     </label>
                                     <RemoveModal/>
-
                                 </td>
                             </tr>
                         })
                     }
                     </tbody>
-
-
                 </table>
-                {/* Render pagination controls */}
-                <div>
-                    <button
-                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                        disabled={currentPage === 1}
-                    >
-                        Previous Page
-                    </button>
-                    <span>Page {currentPage}</span>
-                    <button
-                        onClick={() => setCurrentPage(prev => Math.min(Math.ceil(props.tableData.rows.length / itemsPerPage), prev + 1))}
-                        disabled={currentPage === Math.ceil(props.tableData.rows.length / itemsPerPage)}
-                    >
-                        Next Page
-                    </button>
-                </div>
             </div>
         </Fragment>
     );
