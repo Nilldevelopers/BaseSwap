@@ -7,7 +7,6 @@ const WelcomeModal = () => {
     useEffect(() => {
         // Check if the modal has been shown before
         const hasModalBeenShown = localStorage.getItem('hasModalBeenShown');
-        localStorage.removeItem('hasModalBeenShown');
         if (!hasModalBeenShown) {
             // If the modal has not been shown, set showModal to true
             setShowModal(true);
