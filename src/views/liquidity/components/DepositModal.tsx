@@ -5,7 +5,7 @@ import {IToken} from "@/interfaces/IToken";
 import Withdraw from "@/views/liquidity/components/Withdraw";
 import Remove from "@/views/liquidity/components/Remove";
 
-const LiquidityAddRemoveModal = (props:{
+const DepositModal = (props:{
     tokenData:IToken
 }) => {
 
@@ -20,4 +20,4 @@ const LiquidityAddRemoveModal = (props:{
     );
 };
 
-export default LiquidityAddRemoveModal;
+export default DepositModal;

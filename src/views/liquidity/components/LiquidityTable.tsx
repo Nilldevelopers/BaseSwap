@@ -1,6 +1,7 @@
 import {Fragment, memo, useState} from 'react';
 import ImageImporter from "@/plugin/ImageImporter";
 import {ILiquidityTable} from "@/interfaces/ILiquidityTable";
+import RemoveModal from "@/views/liquidity/components/RemoveModal";
 
 
 const LiquidityTable = (props: {
@@ -97,19 +98,16 @@ const LiquidityTable = (props: {
                                 </td>
                                 <td>
 
-                                    <div className='flex flex-row gap-[7px]'>
-                                        <button
-                                            className='btn bg-transparent rounded-[12px] py-[8px] px-[20px] border-neutral border-1 min-h-[2.5rem] h-[2.5rem]'>
-                             <span
-                                 className="capitalize text-sm text-neutral font-['Inter'] font-normal not-italic">Manage</span>
-                                        </button>
-                                        <button
-                                            className="btn bg-transparent border-none py-[8px] px-[20px] border-neutral border-1 min-h-[2.5rem] h-[2.5rem]">
-                             <span className="capitalize text-sm text-neutral font-['Inter'] font-normal not-italic">
-                                 Claim Earnings
-                             </span>
-                                        </button>
-                                    </div>
+
+
+                                    <label htmlFor="remove_modal"
+                                           className='btn bg-transparent rounded-[12px] py-[8px] px-[20px] border-neutral border-1 min-h-[2.5rem] h-[2.5rem]'>
+                       <span
+                           className="capitalize text-sm text-neutral font-['Inter'] font-normal not-italic">Remove</span>
+
+                                    </label>
+                                    <RemoveModal/>
+
                                 </td>
                             </tr>
                         })

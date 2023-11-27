@@ -4,7 +4,7 @@ import {ILiquidityTable} from '@/interfaces/ILiquidityTable';
 import {IToken} from '@/interfaces/IToken';
 
 
-const LiquidityAddRemoveModal = dynamic(() => import('@/views/liquidity/components/LiquidityAddRemoveModal'));
+const LiquidityAddRemoveModal = dynamic(() => import('@/views/liquidity/components/DepositModal'));
 const Successfully = dynamic(() => import('@/components/notification/Successfully'));
 const Failed = dynamic(() => import('@/components/notification/Failed'));
 const FinalModal = dynamic(() => import('@/components/extra/finalModal'));
