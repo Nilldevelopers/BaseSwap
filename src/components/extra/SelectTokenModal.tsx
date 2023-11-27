@@ -3,6 +3,8 @@ import ImageImporter from "@/plugin/ImageImporter";
 import Modal from "@/components/extra/Modal";
 import dynamic from "next/dynamic";
 import {IToken, Token} from "@/interfaces/IToken";
+import {formatEther} from "viem";
+import FetchTokenBalance from "@/lib/FetchTokenBalance";
 
 
 const SelectTokenModal = (props: {
@@ -80,7 +82,9 @@ const SelectTokenModal = (props: {
                                     </div>
                                     <div className="flex flex-col">
                                     <span
-                                        className="capitalize text-[16px] text-accent font-['Arial'] font-normal not-italic">{data.decimals}</span>
+                                        className="capitalize text-[16px] text-accent font-['Arial'] font-normal not-italic">{
+                                        Number(formatEther(FetchTokenBalance(data))).toFixed(10)
+                                    }</span>
                                         {/*<span*/}
                                         {/*    className="uppercase text-[12px] text-neutral font-['Arial'] font-normal not-italic">$3.66</span>*/}
                                     </div>
