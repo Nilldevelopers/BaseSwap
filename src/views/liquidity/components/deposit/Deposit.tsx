@@ -122,7 +122,7 @@ const Deposit = (props: { tokenData: IToken }) => {
                             <div className="text-gray-400 p-1 ">
                                 Balance:
                             </div>
-                            <div className="w-2/6 p-2 font-bold text-gray-400">{Number(formatEther(balanceOfTokenA)).toFixed(10)}</div>
+                            <div className="w-2/6 p-2 font-bold text-gray-400">{formatEther(balanceOfTokenA).slice(0,6)}</div>
                         </div>
 
                         <div className="flex flex-row items-center gap-4">
@@ -172,7 +172,7 @@ const Deposit = (props: { tokenData: IToken }) => {
                             <div className="text-gray-400 p-1 ">
                                 Balance:
                             </div>
-                            <div className="w-2/6 p-2 font-bold text-gray-400">{Number(formatEther(balanceOfTokenB)).toFixed(10)}</div>
+                            <div className="w-2/6 p-2 font-bold text-gray-400">{formatEther(balanceOfTokenB).slice(0,6)}</div>
                         </div>
 
                         <div className="flex flex-row items-center gap-4">
