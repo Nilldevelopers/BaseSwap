@@ -17,6 +17,9 @@ module.exports = {
             'Outfit': ["Outfit", "Sans-serif"],
         },
         extend: {
+            backgroundImage:{
+                "hero-section1" : "url('../../public/hero1.png')"
+            },
             backgroundColor: {
                 "custom-cart":
                     "rgba(237,242,244,0.02)",
@@ -24,7 +27,7 @@ module.exports = {
                     'rgba(239, 35, 60, 1)',
                 "tab-choose": 'rgba(237, 242, 244, 0.08)',
                 "swap-selection-input": "rgba(237, 242, 244, 0.03)",
-                "success-gradient" : "linear-gradient(180deg, #7FD482 0%, rgba(237, 242, 244, 0.00) 100%)"
+                "success-gradient" : "linear-gradient(180deg, #7FD482 0%, rgba(237, 242, 244, 0.00) 100%)",
             },
             borderColor: {
                 "accent-dark": "rgba(237, 242, 244, 0.08)"
