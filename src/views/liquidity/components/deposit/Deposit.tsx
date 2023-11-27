@@ -37,7 +37,7 @@ const initialToken1: Token = {
 }
 
 const Deposit = (props: { tokenData: IToken }) => {
-    const [userAddress, setUserAddress] = useState<`ox${string}`>('0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' as `ox${string}`);
+    const [userAddress, setUserAddress] = useState<`0x${string}`>('0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
     const [tokenA, setTokenA] = useState<Token>(initialToken0)
     const [tokenB, setTokenB] = useState<Token>(initialToken1)
     const [balanceOfTokenA, setBalanceOfTokenA] = useState<bigint>(BigInt(0))
@@ -61,22 +61,25 @@ const Deposit = (props: { tokenData: IToken }) => {
     async function addLiquidity() {
         let token0Allowance = await token0.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
         let token1Allowance = await token1.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
-        if (token0Allowance < amountA) {
+        if (token0Allowance < parseFloat(amountA.toString())) {
+            // @ts-ignore
             let transaction = await token0.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountA]);
         }
-        if (token1Allowance < amountB) {
+        if (token1Allowance < parseFloat(amountB.toString())) {
+            // @ts-ignore
             let transaction = await token1.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountB]);
         }
-        if (token0Allowance >= amountA && token1Allowance >= amountB) {
-            console.log([tokenA.address, tokenB.address, amountA, amountB, amountA * BigInt(99) / BigInt(100), amountB * BigInt(99) / BigInt(100), userAddress, 17010009590])
-            let transaction = await router.write.addLiquidity([tokenA.address, tokenB.address, amountA, amountB, amountA * BigInt(99) / BigInt(100), amountB * BigInt(99) / BigInt(100), userAddress, 17110009590]);
+        if (token0Allowance >= parseFloat(amountA.toString()) && token1Allowance >= parseFloat(amountB.toString())) {
+            console.log([tokenA.address, tokenB.address, amountA, amountB, parseFloat(amountA.toString()) * 99 / 100, parseFloat(amountB.toString()) * 99 / 100, userAddress, 17010009590])
+            // @ts-ignore
+            let transaction = await router.write.addLiquidity([tokenA.address, tokenB.address, amountA, amountB,  parseFloat(amountA.toString()) * 99 / 100,  parseFloat(amountB.toString()) * 99 / 100, userAddress, 17110009590]);
         }
     }
 
 
     useEffect(() => {
         if (walletClient.data) {
-            setUserAddress(walletClient.data.account.address as `ox${string}`);
+            setUserAddress(walletClient.data.account.address as `0x${string}`);
         }
     }, [walletClient])
 
@@ -89,14 +92,14 @@ const Deposit = (props: { tokenData: IToken }) => {
             console.log(tokenA)
             try {
                 if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-                    setBalanceOfTokenA(userETHBalance.value);
+                    setBalanceOfTokenA(userETHBalance!.value);
                 }else {
                     const balanceOfToken0 = await token0.read.balanceOf([userAddress]);
                     setBalanceOfTokenA(balanceOfToken0);
                 }
 
                 if (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-                    setBalanceOfTokenB(userETHBalance.value);
+                    setBalanceOfTokenB(userETHBalance!.value);
                 }else {
                     const balanceOfToken1 = await token1.read.balanceOf([userAddress]);
                     setBalanceOfTokenB(balanceOfToken1);
@@ -155,7 +158,7 @@ const Deposit = (props: { tokenData: IToken }) => {
                                 />
                             </div>
                             <div>
-                                <input defaultValue={formatEther(amountA.toString())} type="number" placeholder="Type here"
+                                <input defaultValue={amountA.toString()} type="number" placeholder="Type here"
                                        className="input w-full max-w-xs bg-transparent"/>
                             </div>
                         </div>
@@ -205,7 +208,7 @@ const Deposit = (props: { tokenData: IToken }) => {
                                 />
                             </div>
                             <div>
-                                <input defaultValue={formatEther(amountB.toString())} type="number" placeholder="Type here"
+                                <input defaultValue={amountB.toString()} type="number" placeholder="Type here"
                                        className="input w-full max-w-xs bg-transparent"/>
                             </div>
                         </div>
