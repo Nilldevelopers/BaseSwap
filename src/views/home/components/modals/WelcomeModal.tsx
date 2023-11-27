@@ -7,7 +7,6 @@ const WelcomeModal = () => {
     useEffect(() => {
         // Check if the modal has been shown before
         const hasModalBeenShown = localStorage.getItem('hasModalBeenShown');
-        localStorage.removeItem('hasModalBeenShown');
         if (!hasModalBeenShown) {
             // If the modal has not been shown, set showModal to true
             setShowModal(true);
@@ -27,10 +26,15 @@ const WelcomeModal = () => {
             {showModal && (
                 <div className="modal p-1">
                     <div className="modal-box  w-11/12 max-w-7xl p-0">
-                        <SliderSwiper elements={[<HeroSelection1 key={1}/> , <HeroSelection2 key={2}/>]}/>
+                        <SliderSwiper
+                            event={handleCloseModal}
+                            htmlFor={"welcome_modal"}
+                            textBtn={" Skip Tutorial"}
+                            elements={[<HeroSelection1 key={1}/>, <HeroSelection2 key={2}/>]}
+                        />
                         <div className="modal-action">
                             <label htmlFor="welcome_modal"
-                                   className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                                   className="btn btn-sm z-10 btn-circle btn-ghost absolute right-2 top-2"
                                    onClick={handleCloseModal}>
                                 ✕
                             </label>
