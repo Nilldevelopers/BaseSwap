@@ -3,7 +3,9 @@ import {useEffect} from "react";
 import {useRouter} from "next/router";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-
+import { FaLinkedin } from "react-icons/fa";
+import {FaSquareXTwitter} from "react-icons/fa6";
+import {RiInstagramFill} from "react-icons/ri";
 const ConnectWalletButton = dynamic(() => import('@/components/extra/ConnectWalletButton'), {
     ssr: false,
     loading: () => <span className="loading loading-spinner loading-sm"></span>
@@ -71,7 +73,9 @@ function DesktopNavigation({navLinks}: { navLinks: INavbar[] }) {
                 <li className="text-gray-400 duration-100 hover:text-white border-b border-b-transparent hover:border-b-white mx-3 cursor-pointer  group">
                     Socials
                     <ul className="w-fit border absolute top-full mt-3 p-2 opacity-0 group-hover:opacity-100 duration-200">
-                        test social media
+                        <li><FaLinkedin /></li>
+                        <li><RiInstagramFill /></li>
+                        <li><FaSquareXTwitter /></li>
                     </ul>
                 </li>
             </ul>
