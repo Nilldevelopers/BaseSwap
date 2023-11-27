@@ -7,6 +7,7 @@ const WelcomeModal = () => {
     useEffect(() => {
         // Check if the modal has been shown before
         const hasModalBeenShown = localStorage.getItem('hasModalBeenShown');
+        localStorage.removeItem('hasModalBeenShown');
         if (!hasModalBeenShown) {
             // If the modal has not been shown, set showModal to true
             setShowModal(true);
@@ -44,7 +45,6 @@ const WelcomeModal = () => {
 
 const HeroSelection1 = () => {
     return(
-        <>
             <div className='p-3 md:p-0 md:w-1/3 md:h-2/3  flex flex-wrap items-center justify-center bg-opacity-10 backdrop-blur-sm rounded'>
                 <h3 className="m-0 font-bold w-full text-center p-2 border-b-2 border-red-500">
                     First Step
@@ -53,17 +53,10 @@ const HeroSelection1 = () => {
                     The swap page of a DEX aims to provide a seamless and transparent trading experience for users, empowering them to exchange cryptocurrencies in a secure and decentralized manner. It's a key feature of DEX platforms that distinguishes them from traditional centralized exchanges.
                 </p>
             </div>
-            <div className="w-full mb-2 md:m-0  text-center">
-                <button className="text-[15px] underline p-1 bg-transparent">
-                    Skip Tutorial
-                </button>
-            </div>
-        </>
     )
 }
 const HeroSelection2 = () => {
     return(
-        <>
             <div className='p-3 md:p-0 md:w-1/3 md:h-2/3  flex flex-wrap items-center justify-center bg-opacity-10 backdrop-blur-sm rounded'>
                 <h3 className="m-0 font-bold w-full text-center p-2 border-b-2 border-red-500">
                     Second Step
@@ -72,12 +65,6 @@ const HeroSelection2 = () => {
                     The swap page of a DEX aims to provide a seamless and transparent trading experience for users, empowering them to exchange cryptocurrencies in a secure and decentralized manner. It's a key feature of DEX platforms that distinguishes them from traditional centralized exchanges.
                 </p>
             </div>
-            <div className="w-full mb-2 md:m-0  text-center">
-                <button className="text-[15px] underline p-1 bg-transparent">
-                    Skip Tutorial
-                </button>
-            </div>
-        </>
     )
 }
 

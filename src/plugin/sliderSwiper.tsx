@@ -16,8 +16,13 @@ function SliderSwiper({elements} : IProps) {
             className="mySwiper h-[300px] md:h-[400px] 2xl:!h-[600px]"
         >
             {elements?.map((item , index) => (
-                <SwiperSlide key={index} className="md:bg-hero-section1 !flex flex-wrap justify-center items-center">
+                <SwiperSlide key={index} className="md:bg-hero-section1 !flex flex-wrap justify-center  items-center">
                     {item}
+                    <div className="w-full mb-2 md:m-0  text-center">
+                        <button className="text-[15px] underline p-1 bg-transparent">
+                            Skip Tutorial
+                        </button>
+                    </div>
                 </SwiperSlide>
             ))}
         </Swiper>    );
