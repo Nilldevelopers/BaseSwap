@@ -84,7 +84,7 @@ function SwapCart(props: ISwapCart) {
                             {/*<button*/}
                             {/*    disabled={!write}*/}
                             {/*    onClick={() =>*/}
-                            {/*        write({*/}`
+                            {/*        write({*/}
                             {/*            args: [],*/}
                             {/*            value: parseEther('0.01'),*/}
                             {/*        })*/}
