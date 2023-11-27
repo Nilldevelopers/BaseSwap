@@ -3,6 +3,8 @@ import type {AppProps} from 'next/app'
 import {Provider} from "react-redux";
 import {store} from "@/store/store";
 import Router from "next/router";
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /* Nprogress Requirements */
 import NProgress from "nprogress";
@@ -30,6 +32,7 @@ export default function App({Component, pageProps}: AppProps) {
     return (
         <WagmiProvider>
             <Provider store={store}>
+                <ToastContainer/>
                 <Component {...pageProps} />
             </Provider>
         </WagmiProvider>

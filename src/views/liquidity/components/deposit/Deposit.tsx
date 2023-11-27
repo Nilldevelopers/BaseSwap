@@ -1,16 +1,13 @@
 import {IToken, Token} from "@/interfaces/IToken";
 import ReverseInfo from "@/views/liquidity/components/deposit/ReverseInfo";
-import Balance from "@/views/liquidity/components/deposit/Balance";
 import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import SelectTokenModal from "@/components/extra/SelectTokenModal";
 import {useEffect, useState} from "react";
 import {useBalance, useBlockNumber, usePublicClient, useWalletClient} from "wagmi";
-import {useEthersSigner} from "@/hooks/contracts/useEthersSigner";
 import {erc20, swapPairFactory, swapRouter} from "@/lib/ContractFunctions";
 import {formatEther} from "viem";
-import {getAccount, getContract} from "@wagmi/core"
-import {erc20ABI} from "@/config/ABIs/erc20ABI";
+import {toast} from "react-toastify";
 
 const initialToken0: Token = {
     address: `0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee`,
@@ -56,7 +53,7 @@ const Deposit = (props: { tokenData: IToken }) => {
     const router = swapRouter(publicClient, walletClient.data, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a');
     const factory = swapPairFactory(publicClient, walletClient.data, '0xDFE9d201CC5865b45024C799Be47D11Db2E326ad');
 
-    const { data:blockNumber } = useBlockNumber();
+    const {data: blockNumber} = useBlockNumber();
 
     async function addLiquidity() {
         let token0Allowance = await token0.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
@@ -72,7 +69,7 @@ const Deposit = (props: { tokenData: IToken }) => {
         if (token0Allowance >= parseFloat(amountA.toString()) && token1Allowance >= parseFloat(amountB.toString())) {
             console.log([tokenA.address, tokenB.address, amountA, amountB, parseFloat(amountA.toString()) * 99 / 100, parseFloat(amountB.toString()) * 99 / 100, userAddress, 17010009590])
             // @ts-ignore
-            let transaction = await router.write.addLiquidity([tokenA.address, tokenB.address, amountA, amountB,  parseFloat(amountA.toString()) * 99 / 100,  parseFloat(amountB.toString()) * 99 / 100, userAddress, 17110009590]);
+            let transaction = await router.write.addLiquidity([tokenA.address, tokenB.address, amountA, amountB, parseFloat(amountA.toString()) * 99 / 100, parseFloat(amountB.toString()) * 99 / 100, userAddress, 17110009590]);
         }
     }
 
@@ -83,7 +80,7 @@ const Deposit = (props: { tokenData: IToken }) => {
         }
     }, [walletClient])
 
-    const { data:userETHBalance } = useBalance({
+    const {data: userETHBalance} = useBalance({
         address: userAddress,
     })
 
@@ -93,14 +90,14 @@ const Deposit = (props: { tokenData: IToken }) => {
             try {
                 if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
                     setBalanceOfTokenA(userETHBalance!.value);
-                }else {
+                } else {
                     const balanceOfToken0 = await token0.read.balanceOf([userAddress]);
                     setBalanceOfTokenA(balanceOfToken0);
                 }
 
                 if (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
                     setBalanceOfTokenB(userETHBalance!.value);
-                }else {
+                } else {
                     const balanceOfToken1 = await token1.read.balanceOf([userAddress]);
                     setBalanceOfTokenB(balanceOfToken1);
                 }
@@ -112,6 +109,7 @@ const Deposit = (props: { tokenData: IToken }) => {
         fetchBalance();
     }, [tokenA, tokenB, walletClient]);
 
+
     return (
         <div className="w-full p-2 flex flex-wrap ">
             <div className="w-full h-[300px] md:h-auto overflow-y-scroll px-2 -mt-7">
@@ -122,7 +120,8 @@ const Deposit = (props: { tokenData: IToken }) => {
                             <div className="text-gray-400 p-1 ">
                                 Balance:
                             </div>
-                            <div className="w-2/6 p-2 font-bold text-gray-400">{formatEther(balanceOfTokenA).slice(0,6)}</div>
+                            <div
+                                className="w-2/6 p-2 font-bold text-gray-400">{formatEther(balanceOfTokenA).slice(0, 6)}</div>
                         </div>
 
                         <div className="flex flex-row items-center gap-4">
@@ -172,21 +171,22 @@ const Deposit = (props: { tokenData: IToken }) => {
                             <div className="text-gray-400 p-1 ">
                                 Balance:
                             </div>
-                            <div className="w-2/6 p-2 font-bold text-gray-400">{formatEther(balanceOfTokenB).slice(0,6)}</div>
+                            <div
+                                className="w-2/6 p-2 font-bold text-gray-400">{formatEther(balanceOfTokenB).slice(0, 6)}</div>
                         </div>
 
                         <div className="flex flex-row items-center gap-4">
                             <button onClick={() => setAmountB(balanceOfTokenB * BigInt(80) / BigInt(100))}
-                                className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">20%
+                                    className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">20%
                             </button>
                             <button onClick={() => setAmountB(balanceOfTokenB * BigInt(50) / BigInt(100))}
-                                className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">50%
+                                    className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">50%
                             </button>
                             <button onClick={() => setAmountB(balanceOfTokenB * BigInt(25) / BigInt(100))}
-                                className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">75%
+                                    className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">75%
                             </button>
                             <button onClick={() => setAmountB(balanceOfTokenB)}
-                                className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">MAX
+                                    className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">MAX
                             </button>
                         </div>
                     </div>
@@ -203,7 +203,22 @@ const Deposit = (props: { tokenData: IToken }) => {
                                 </div>
                                 <SelectTokenModal
                                     tokenName={'token_2'}
-                                    fetchSelectToken={(dataToken) => setTokenB(dataToken)}
+                                    fetchSelectToken={(dataToken) => {
+                                        if (dataToken===tokenA) {
+                                            toast.error("Tokens can't be same!",{
+                                                position: "top-right",
+                                                autoClose: 5000,
+                                                hideProgressBar: false,
+                                                closeOnClick: true,
+                                                pauseOnHover: true,
+                                                draggable: true,
+                                                progress: undefined,
+                                                theme: "dark"
+                                            });
+                                        }else {
+                                            setTokenB(dataToken)
+                                        }
+                                    }}
                                     tokenList={props.tokenData}
                                 />
                             </div>
