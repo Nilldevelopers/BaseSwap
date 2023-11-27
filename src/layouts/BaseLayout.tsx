@@ -25,9 +25,9 @@ function BaseLayout({children, title}: PropsType) {
             </main>
             <Link passHref={true} href='/' className="right-0 absolute mx-12 rounded-[6px] pb-10">
                 <div className="rounded-[6px] py-[5px] px-[11px] w-fit flex flex-row gap-[10px]">
-                    <span className="capitalize text-success font-['Arial'] font-normal not-italic leading-0"></span>
-                    <span
-                        className="capitalize text-success font-['Arial'] font-normal not-italic leading-0">{walletData.blockNumber}</span>
+                    <div className="flex text-green-400  flex-wrap btn w-full justify-end items-center">
+                    {walletData.blockNumber}
+                    </div>
                 </div>
             </Link>
         </>

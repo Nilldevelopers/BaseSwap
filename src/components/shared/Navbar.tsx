@@ -72,10 +72,10 @@ function DesktopNavigation({navLinks}: { navLinks: INavbar[] }) {
                 ))}
                 <li className="text-gray-400 duration-100 hover:text-white border-b border-b-transparent hover:border-b-white mx-3 cursor-pointer  group">
                     Socials
-                    <ul className="w-fit border absolute top-full mt-3 p-2 opacity-0 group-hover:opacity-100 duration-200">
-                        <li><FaLinkedin /></li>
-                        <li><RiInstagramFill /></li>
-                        <li><FaSquareXTwitter /></li>
+                    <ul className="w-72 rounded-xl shadow p-3 -translate-x-2/3 bg-blue-950 bg-opacity-25 backdrop-blur-md absolute top-full mt-3  opacity-0 group-hover:opacity-100 duration-200 flex justify-between items-center">
+                        <li className="text-[2rem] text-custom-red"><FaLinkedin/></li>
+                        <li className="text-[2rem] text-custom-red"><RiInstagramFill/></li>
+                        <li className="text-[2rem] text-custom-red"><FaSquareXTwitter/></li>
                     </ul>
                 </li>
             </ul>
@@ -90,7 +90,6 @@ const Navbar = () => {
     const navLinks: INavbar[] = [
         {href: '/', label: 'Swap'},
         {href: '/liquidity', label: 'Liquidity'},
-        // Add more links as needed
     ];
     return (
         <>

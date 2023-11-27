@@ -3,7 +3,8 @@ import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
 import {GetAccountResult} from "@wagmi/core";
 import {IToken} from "@/interfaces/IToken";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
@@ -15,9 +16,24 @@ interface ISwapCart {
 }
 
 function SwapCart(props: ISwapCart) {
-
+    const [rangeValue , setRangeValue ] = useState<number>(0)
     const [ gasStatus , setGasStatus] = useState<boolean>(false)
+    const [selectFirstToken , setSelectFirstToken] = useState<Object>({
+        logoURI : "/img/icons/eth.svg",
+        symbol : "ETH"
+    })
+    const [selectSecondToken , setSelectSecondToken] = useState<Object>({
+        logoURI : "/img/icons/eth.svg",
+        symbol : "ETH"
+    })
 
+    const [historySelect , setHistorySelect] = useState<Object>({})
+
+    const changeOrder = () => {
+        setSelectSecondToken(selectFirstToken)
+        setSelectFirstToken(historySelect)   
+    }
+    useEffect(() => {setHistorySelect(selectSecondToken)} , [selectFirstToken,selectSecondToken])
 
     return (
         <section className="md:w-4/12  p-2 flex flex-wrap">
@@ -47,10 +63,14 @@ function SwapCart(props: ISwapCart) {
                 </span>
                 </div>
                 <div className="w-full bg-custom-cart rounded-xl flex flex-wrap justify-between  p-2 ">
-                    <input type="range" min={0} max="100"
+                    <input 
+                    onChange={(e) => setRangeValue(Number(e?.target.value))}
+                    type="range" 
+                    min={0} max="100"
+                    defaultValue={rangeValue}
                            className="range range-sm range-error  rounded-md w-[82%]"/>
                     <div className="w-[15%] items-center  flex bg-custom-cart rounded-xl">
-                        <span className="bg-gray-500 rounded-[5px] me-1 text-xs p-0.5"> 18% </span>
+                        <span className="bg-gray-500 rounded-[5px] me-1 text-xs p-0.5"> {rangeValue}% </span>
                         <ImageImporter w={20} h={20} src={"/img/icons/Edit.jpg"} alt="pen-icon"/>
                     </div>
                 </div>
@@ -65,19 +85,20 @@ function SwapCart(props: ISwapCart) {
                     </span>
                     </div>
                     <div className="w-full p-2 flex justify-between items-center">
-                        <span className="text-xl">0.6399</span>
+                        <input className="text-xl p-2 bg-transparent w-1/2 input" defaultValue={"0.6399"}/>
                         <div className="flex flex-row justify-center items-center">
-
-
                             <label htmlFor="first_token_modal"
-                                   className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs flex flex-row gap-[10px]">
-                                <ImageImporter w={20} h={20} src={"/img/icons/eth.svg"} alt={"symbol"}/>
-                                <span>ETH</span>
+                                   className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-auto max-w-xs flex flex-row gap-[10px]">
+                                <ImageImporter w={35} h={20} src={selectFirstToken?.logoURI} alt={"symbol"}/>
+                                <span>{selectFirstToken?.symbol}</span>
                             </label>
                             <FaAngleDown/>
                             <SelectTokenModal
                                 tokenName="first_token_modal"
-                                fetchSelectToken={(dataToken) => console.log(dataToken)}
+                                fetchSelectToken={(dataToken) => {
+                                    dataToken === selectSecondToken ? toast.error("token the same !") :
+                                    setSelectFirstToken(dataToken)
+                                }}
                                 tokenList={props.tokenData}
                             />
 
@@ -97,7 +118,9 @@ function SwapCart(props: ISwapCart) {
                 </div>
             </div>
             <div className="w-full flex relative justify-center items-center">
-                <button className="absolute active:scale-90 duration-100 ">
+                <button
+                onClick={changeOrder}
+                className="absolute active:scale-90 duration-100 ">
                     <ImageImporter src={"/img/icons/swap-arrow.svg"} alt={"SwapArrow"} w={40} h={40}
                                    className="flex -left-1 -top-1"/>
                 </button>
@@ -128,19 +151,23 @@ function SwapCart(props: ISwapCart) {
                     </span>
                     </div>
                     <div className="w-full p-2 flex justify-between items-center">
-                        <span className="text-xl">0.6399</span>
+                    <input className="text-xl p-2 bg-transparent w-1/2 input" defaultValue={"0.6399"}/>
                         <div className="flex flex-row justify-center items-center">
                             <label
                                 htmlFor="second_token_modal"
-                                className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs flex flex-row gap-[10px]"
+                                className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-auto max-w-xs flex flex-row gap-[10px]"
                             >
-                                <ImageImporter w={20} h={20} src={"/img/icons/eth.svg"} alt={"symbol"}/>
-                                <span>ETH</span>
+                                 <ImageImporter w={35} h={20} src={selectSecondToken?.logoURI} alt={"symbol"}/>
+                                <span>{selectSecondToken?.symbol}</span>
                             </label>
                             <FaAngleDown/>
                             <SelectTokenModal
                                 tokenName="second_token_modal"
-                                fetchSelectToken={(dataToken) => console.log(dataToken)}
+                                fetchSelectToken={(dataToken) => {
+                    
+                                    dataToken === selectFirstToken ? toast.error("token the same !") :
+                                    setSelectSecondToken(dataToken)
+                                }}
                                 tokenList={props.tokenData}
                             />
                         </div>
@@ -162,24 +189,24 @@ function SwapCart(props: ISwapCart) {
                     <ImageImporter w={8} h={8} className={gasStatus ? "rotate-90 duration-300" : " duration-300 rotate-0"} src={"/img/icons/arrow-right.svg"} alt={"arrow-right"}/>
                 </button>
                 {gasStatus && (
-                    <div className={`flex w-full flex-wrap border  content-start overflow-hidden duration-300 ${gasStatus ? "h-[340px] border-t my-4" : "h-0 p-0 my-4"} `}>
-                        <div className="flex flex-wrap w-full justify-between items-center p-2 my-1 ">
+                    <div className={`flex w-full flex-wrap text-xs  font-bold content-start overflow-hidden duration-300 ${gasStatus ? "h-[340px] border-t my-4" : "h-0 p-0 my-4"} `}>
+                        <div className="flex flex-wrap w-full justify-between items-center py-2 my-1 ">
                             <div className="text-gray-400">Network fee</div>
                             <div>~$0.13</div>
                         </div>
-                        <div className="flex flex-wrap w-full justify-between items-center p-2 my-1 ">
+                        <div className="flex flex-wrap w-full justify-between items-center py-2 my-1 ">
                             <div className="text-gray-400">Price impact</div>
                             <div>-0.09%</div>
                         </div>
-                        <div className="flex flex-wrap w-full justify-between items-center p-2 my-1 ">
+                        <div className="flex flex-wrap w-full justify-between items-center py-2 my-1 ">
                             <div className="text-gray-400">Minimum output</div>
                             <div>4.1124 Token1</div>
                         </div>
-                        <div className="flex flex-wrap w-full justify-between items-center p-2 my-1 ">
+                        <div className="flex flex-wrap w-full justify-between items-center py-2 my-1 ">
                             <div className="text-gray-400">Expected output</div>
                             <div>4.38124 Token1</div>
                         </div>
-                        <div className="flex flex-wrap w-full justify-between items-center p-2 my-1 mt-3 border-t ">
+                        <div className="flex flex-wrap w-full justify-between items-center py-2 my-1 mt-3 border-t ">
                             <div className="text-gray-400">Routing source</div>
                             <div>Uniswap</div>
                         </div>

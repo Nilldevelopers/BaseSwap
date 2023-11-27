@@ -60,8 +60,10 @@ const ChartComponent = (props: {
         [data, backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]
     );
     useEffect(() => {
+            console.log(data[0]?.time);
     }, [])
 
+    
     return (
         <div
             className="md:w-8/12 w-full z-[1] md:h-[500px]  mt-3 rounded-xl bg-custom-cart"

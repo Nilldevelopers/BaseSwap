@@ -7,6 +7,7 @@ module.exports = {
             './src/views/**/*.{js,ts,jsx,tsx,mdx}',
             './src/components/**/*.{js,ts,jsx,tsx,mdx}',
             './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+            './src/layouts/**/*.{js,ts,jsx,tsx,mdx}',    
             './src/plugin/**/*.{js,ts,jsx,tsx,mdx}',
         ],
     theme: {
@@ -18,6 +19,10 @@ module.exports = {
             'Outfit': ["Outfit", "Sans-serif"],
         },
         extend: {
+            textColor : {
+                "custom-red":
+                    'rgba(239, 35, 60, 1)',
+            },
             backgroundImage:{
                 "hero-section1" : "url('../../public/hero1.png')"
             },
