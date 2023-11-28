@@ -4,6 +4,7 @@ import {FC, ReactNode, useState} from "react";
 interface ModalProps {
     modalName: string;
     className?: string;
+    titleModal ?: string;
     showSearchBox?: boolean;
     children: ReactNode;
     callBackSearchText?: (data: string) => void
@@ -33,7 +34,8 @@ const Modal: FC<ModalProps> = (props) => {
                             </div>
                         )}
                         {!props.showSearchBox && (
-                            <div className="modal-action mt-0 flex justify-end">
+                            <div className="modal-action mt-0 flex justify-between items-center p-2">
+                                <span className="text-xl font-bold">{props?.titleModal}</span>
                                 <label htmlFor={props.modalName} className="btn btn-sm btn-circle btn-ghost">
                                     ✕
                                 </label>
