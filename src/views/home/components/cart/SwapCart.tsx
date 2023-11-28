@@ -2,7 +2,7 @@ import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
 import {GetAccountResult} from "@wagmi/core";
-import {IToken} from "@/interfaces/IToken";
+import {IToken, Token} from "@/interfaces/IToken";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -14,20 +14,36 @@ interface ISwapCart {
     walletInfo: GetAccountResult,
     tokenData: IToken
 }
+const initialToken0: Token = {
+    address: `0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee`,
+    chainId: 84531,
+    decimals: 18,
+    extensions: {
+        bridgeInfo: {}
+    },
+    logoURI: "/img/icons/eth.svg",
+    name: "Ethereum",
+    symbol: "ETH"
+}
+const initialToken1: Token = {
+    address: `0xB66540499d050fFA30e5a5D275bDA0E1176F1963`,
+    chainId: 84531,
+    decimals: 18,
+    extensions: {
+        bridgeInfo: {}
+    },
+    logoURI: "https://raw.githubusercontent.com/ve33-dex/SwapArchiveData/main/icon/0xB66540499d050fFA30e5a5D275bDA0E1176F1963.png",
+    name: "BaseSwap",
+    symbol: "BASES"
+}
 
 function SwapCart(props: ISwapCart) {
     const [rangeValue , setRangeValue ] = useState<number>(0)
     const [ gasStatus , setGasStatus] = useState<boolean>(false)
-    const [selectFirstToken , setSelectFirstToken] = useState<Object>({
-        logoURI : "/img/icons/eth.svg",
-        symbol : "ETH"
-    })
-    const [selectSecondToken , setSelectSecondToken] = useState<Object>({
-        logoURI : "/img/icons/eth.svg",
-        symbol : "ETH"
-    })
+    const [selectFirstToken , setSelectFirstToken] = useState<Token>(initialToken0)
+    const [selectSecondToken , setSelectSecondToken] = useState<Token>(initialToken1)
 
-    const [historySelect , setHistorySelect] = useState<Object>({})
+    const [historySelect , setHistorySelect] = useState<Token>(initialToken0)
 
     const changeOrder = () => {
         setSelectSecondToken(selectFirstToken)
@@ -89,8 +105,8 @@ function SwapCart(props: ISwapCart) {
                         <div className="flex flex-row justify-center items-center">
                             <label htmlFor="first_token_modal"
                                    className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-auto max-w-xs flex flex-row gap-[10px]">
-                                <ImageImporter w={35} h={20} src={selectFirstToken?.logoURI} alt={"symbol"}/>
-                                <span>{selectFirstToken?.symbol}</span>
+                                <ImageImporter w={35} h={20} src={selectFirstToken.logoURI} alt={"symbol"}/>
+                                <span>{selectFirstToken.symbol}</span>
                             </label>
                             <FaAngleDown/>
                             <SelectTokenModal
@@ -157,8 +173,8 @@ function SwapCart(props: ISwapCart) {
                                 htmlFor="second_token_modal"
                                 className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-auto max-w-xs flex flex-row gap-[10px]"
                             >
-                                 <ImageImporter w={35} h={20} src={selectSecondToken?.logoURI} alt={"symbol"}/>
-                                <span>{selectSecondToken?.symbol}</span>
+                                 <ImageImporter w={35} h={20} src={selectSecondToken.logoURI} alt={"symbol"}/>
+                                <span>{selectSecondToken.symbol}</span>
                             </label>
                             <FaAngleDown/>
                             <SelectTokenModal
