@@ -1,17 +1,14 @@
-import {useCallback, useMemo, useState} from 'react';
+import {useCallback, useState} from 'react';
 import dynamic from 'next/dynamic';
 import {ILiquidityTable} from '@/interfaces/ILiquidityTable';
 import {IToken} from '@/interfaces/IToken';
+import LiquidityTable from "@/views/liquidity/components/table/LiquidityTable";
 
 
-const LiquidityAddRemoveModal = dynamic(() => import('@/views/liquidity/components/DepositModal'));
+const LiquidityAddRemoveModal = dynamic(() => import('@/views/liquidity/components/modals/DepositModal'));
 const Successfully = dynamic(() => import('@/components/notification/Successfully'));
 const Failed = dynamic(() => import('@/components/notification/Failed'));
 const FinalModal = dynamic(() => import('@/components/extra/finalModal'));
-const LiquidityTable = dynamic(() => import('@/views/liquidity/components/LiquidityTable'), {
-    ssr: false,
-    loading: () => <progress className="progress w-56"></progress>,
-});
 
 
 const LiquidityView = (props: {
@@ -30,11 +27,6 @@ const LiquidityView = (props: {
         }
     }, [showStakedOnly]);
 
-    const memoizedTable = useMemo(() => {
-        return <section className="w-full overflow-x-scroll">
-            <LiquidityTable tableData={props.tableData} />
-        </section>;
-    }, [props.tableData]);
 
     return (
         <>
@@ -80,9 +72,9 @@ const LiquidityView = (props: {
                 </div>
 
                 <div className='pt-10'>
-
-                        {memoizedTable}
-
+                    <section className="w-full overflow-x-scroll">
+                        <LiquidityTable tableData={props.tableData}/>
+                    </section>
                 </div>
             </div>
         </>
