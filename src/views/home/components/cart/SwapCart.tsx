@@ -5,6 +5,7 @@ import {GetAccountResult} from "@wagmi/core";
 import {IToken, Token} from "@/interfaces/IToken";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import SettingModal from "@/views/home/components/modals/SettingModal";
 
 
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
@@ -51,6 +52,14 @@ function SwapCart(props: ISwapCart) {
     }
     useEffect(() => {setHistorySelect(selectSecondToken)} , [selectFirstToken,selectSecondToken])
 
+
+    // setting for swap cart
+
+
+    const [tolerance, setTolerance] = useState<any>(0)
+    const [speed, setSpeed] = useState<any>("Fast")
+    const [deadline, setDeadline] = useState<any>(0)
+
     return (
         <section className="md:w-4/12  p-2 flex flex-wrap">
             <div className="w-full flex justify-between items-center">
@@ -58,8 +67,25 @@ function SwapCart(props: ISwapCart) {
                     Swap
                 </h4>
                 <figure className="flex">
-                    <ImageImporter w={20} h={20} className="mx-1" src={"/img/icons/setting.svg"}
-                                   alt={"setting-button"}/>
+                    <button className="btn bg-transparent p-0 border-0 hover:bg-transparent ">
+                        <label htmlFor="setting-modal">
+                            <ImageImporter
+                                w={20}
+                                h={20}
+                                className="mx-1 cursor-pointer"
+                                src={"/img/icons/setting.svg"}
+                                alt={"setting-button"}
+                            />
+                        </label>
+                    </button>
+                    <SettingModal
+                        tolerance={tolerance}
+                        setTolerance={setTolerance}
+                        speed={speed}
+                        setSpeed={setSpeed}
+                        deadline={deadline}
+                        setDeadline={setDeadline}
+                    />
                     <ImageImporter w={20} h={20} className="ms-1" src={"/img/icons/miniCartIcon.svg"}
                                    alt={"mini-chart-button"}/>
                 </figure>
