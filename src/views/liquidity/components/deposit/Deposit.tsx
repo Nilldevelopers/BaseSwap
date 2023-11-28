@@ -142,9 +142,9 @@ const Deposit = (props: { tokenData: IToken }) => {
                     <div className="w-full mt-5">
                         <div className="flex flex-row-reverse justify-between">
                             <div className="flex flex-row justify-between items-center p-2">
-                                <label htmlFor={'token_1'}
-                                       className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs flex flex-row gap-[10px]">
-                                    <ImageImporter w={35} h={35} src={tokenA.logoURI} alt={"symbol"}/>
+                                <label htmlFor="token_1"
+                                       className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-auto max-w-xs flex flex-row gap-[10px]">
+                                    <ImageImporter w={35} h={20} src={tokenA.logoURI} alt={"symbol"}/>
                                     <span>{tokenA.symbol}</span>
                                 </label>
                                 <div className='mx-2'>
@@ -193,9 +193,9 @@ const Deposit = (props: { tokenData: IToken }) => {
                     <div className="w-full mt-5">
                         <div className="flex flex-row-reverse justify-between">
                             <div className="flex flex-row justify-between items-center p-2">
-                                <label htmlFor={'token_2'}
-                                       className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-20 max-w-xs flex flex-row gap-[10px]">
-                                    <ImageImporter w={35} h={35} src={tokenB.logoURI} alt={"symbol"}/>
+                                <label htmlFor="token_2"
+                                       className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-auto max-w-xs flex flex-row gap-[10px]">
+                                    <ImageImporter w={35} h={20} src={tokenB.logoURI} alt={"symbol"}/>
                                     <span>{tokenB.symbol}</span>
                                 </label>
                                 <div className='mx-2'>
