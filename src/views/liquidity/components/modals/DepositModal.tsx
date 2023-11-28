@@ -1,9 +1,7 @@
-
-import Deposit from "@/views/liquidity/components/deposit/Deposit";
-import Modal from "@/components/extra/Modal";
 import {IToken} from "@/interfaces/IToken";
-import Withdraw from "@/views/liquidity/components/Withdraw";
-import Remove from "@/views/liquidity/components/Remove";
+import Modal from "@/components/extra/Modal";
+import Deposit from "@/views/liquidity/components/deposit/Deposit";
+
 
 const DepositModal = (props:{
     tokenData:IToken

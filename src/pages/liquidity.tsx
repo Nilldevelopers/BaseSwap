@@ -6,17 +6,16 @@ import liquidityTableData from "@/data/table/LiquidityTableData";
 import {ILiquidityTable} from "@/interfaces/ILiquidityTable";
 
 
-const Liquidity = ({liquidityTableData, tokenData}: { liquidityTableData: ILiquidityTable, tokenData: IToken }) => {
+const Liquidity = ({liquidityTableData, tokenData,factoryAddress}: { liquidityTableData: ILiquidityTable, tokenData: IToken,factoryAddress:`0x${string}` }) => {
     return (
         <Layout title='Liquidity'>
-            <LiquidityView tokenData={tokenData} tableData={liquidityTableData}/>
+            <LiquidityView tokenData={tokenData} tableData={liquidityTableData} factoryAddress={factoryAddress}/>
         </Layout>
     );
 };
 
-export async function getServerSideProps(context: any) {
-    context.res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
-
+export async function getServerSideProps() {
+    const factoryAddress = process.env.FACTORY_CONTRACT_ADDRESS as `0x${string}`
     try {
         const {tokens} = await fetchGitHubTokens();
 
@@ -32,6 +31,7 @@ export async function getServerSideProps(context: any) {
 
         return {
             props: {
+                factoryAddress,
                 tokenData,
                 liquidityTableData,
             },
@@ -40,6 +40,7 @@ export async function getServerSideProps(context: any) {
         console.error(error);
         return {
             props: {
+                factoryAddress,
                 liquidityTableData,
             },
         };
