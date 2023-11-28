@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import {IToken, Token} from "@/interfaces/IToken";
 import {formatEther} from "viem";
 import FetchTokenBalance from "@/lib/FetchTokenBalance";
+import {SelectTokenModalButtonHardCodeData} from "@/data/token/SelectTokenModalButtonHardCodeData";
 
 
 const SelectTokenModal = (props: {
@@ -36,24 +37,30 @@ const SelectTokenModal = (props: {
         <Modal className={props.className} modalName={props.tokenName} showSearchBox
                callBackSearchText={handleChange}>
             <div className="grid grid-cols-3 gap-4">
-                <button
+                <label
+                    htmlFor={props.tokenName}
+                    onClick={() => props.fetchSelectToken(SelectTokenModalButtonHardCodeData.ethereum)}
                     className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
                     <ImageImporter w={20} h={20} src={"/img/icons/eth.svg"} alt={"symbol"}/>
                     <span
                         className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">ETH</span>
-                </button>
-                <button
+                </label>
+                <label
+                    htmlFor={props.tokenName}
+                    onClick={() => props.fetchSelectToken(SelectTokenModalButtonHardCodeData.wethereum)}
                     className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
                     <ImageImporter w={20} h={20} src={"/img/logo/weth.png"} alt={"symbol"}/>
                     <span
                         className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">WETH</span>
-                </button>
-                <button
+                </label>
+                <label
+                    htmlFor={props.tokenName}
+                    onClick={() => props.fetchSelectToken(SelectTokenModalButtonHardCodeData.base)}
                     className="btn border-2 border-slate-600 rounded-[12px] bg-custom-cart flex-row items-center justify-center flex-nowrap">
                     <ImageImporter w={20} h={20} src={"/img/logo/SwapLogo.svg"} alt={"symbol"}/>
                     <span
                         className="capitalize text-[17px] text-accent font-['Inter'] font-normal not-italic">Bases</span>
-                </button>
+                </label>
 
             </div>
             <div
