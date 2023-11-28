@@ -2,21 +2,21 @@ import {useCallback, useState} from 'react';
 import dynamic from 'next/dynamic';
 import {ILiquidityTable} from '@/interfaces/ILiquidityTable';
 import {IToken} from '@/interfaces/IToken';
-import LiquidityTable from "@/views/liquidity/components/table/LiquidityTable";
+import useLiquidity from "@/hooks/web3/useLiquidity";
 
 
 const LiquidityAddRemoveModal = dynamic(() => import('@/views/liquidity/components/modals/DepositModal'));
 const Successfully = dynamic(() => import('@/components/notification/Successfully'));
 const Failed = dynamic(() => import('@/components/notification/Failed'));
 const FinalModal = dynamic(() => import('@/components/extra/finalModal'));
-
+const LiquidityTable = dynamic(() => import("@/views/liquidity/components/table/LiquidityTable"));
 
 const LiquidityView = (props: {
     tableData: ILiquidityTable,
-    tokenData: IToken
+    tokenData: IToken,
+    factoryAddress: `0x${string}`
 }) => {
     const [showStakedOnly, setShowStakedOnly] = useState<boolean>(false);
-
     const handleStakedOnlyToggle = useCallback(() => {
         setShowStakedOnly(prev => !prev);
         if (!showStakedOnly) {
@@ -26,6 +26,10 @@ const LiquidityView = (props: {
             // setFilteredPools(allPools)
         }
     }, [showStakedOnly]);
+
+
+    /* fetch pairs */
+    const liquidities = useLiquidity(props.factoryAddress)
 
 
     return (
@@ -73,7 +77,7 @@ const LiquidityView = (props: {
 
                 <div className='pt-10'>
                     <section className="w-full overflow-x-scroll">
-                        <LiquidityTable tableData={props.tableData}/>
+                        <LiquidityTable cols={props.tableData.cols} rows={liquidities}/>
                     </section>
                 </div>
             </div>

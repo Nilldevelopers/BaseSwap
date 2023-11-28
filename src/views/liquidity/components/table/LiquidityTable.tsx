@@ -1,20 +1,18 @@
-import {Fragment, memo, useMemo} from 'react';
-import {ILiquidityTable} from "@/interfaces/ILiquidityTable";
+import {Fragment} from 'react';
 import dynamic from "next/dynamic";
+import {ILiquidity} from "@/interfaces/ILiquidity";
 
 
-const TableRows = dynamic(() => import("@/views/liquidity/components/table/TableRows"),{
+const TableRows = dynamic(() => import("@/views/liquidity/components/table/TableRows"), {
     ssr: false,
     loading: () => <progress className="progress w-56"></progress>,
 });
 
 const LiquidityTable = (props: {
-    tableData: ILiquidityTable,
+    cols: string[],
+    rows: ILiquidity[]
 }) => {
 
-    const memoizedRow = useMemo(() => {
-        return <TableRows rows={props.tableData.rows} cols={props.tableData.cols}/>;
-    }, [props.tableData]);
 
     return (
         <Fragment>
@@ -23,7 +21,7 @@ const LiquidityTable = (props: {
                     <thead className="border-b-slate-600 border-b-2">
                     <tr>
                         {
-                            props.tableData.cols.map((colData, index) => {
+                            props.cols.map((colData, index) => {
                                 return <th key={index}
                                            className="capitalize text-sm text-neutral font-['Inter'] font-normal not-italic">{colData}</th>
                             })
@@ -31,7 +29,7 @@ const LiquidityTable = (props: {
                     </tr>
                     </thead>
                     <tbody>
-                    {memoizedRow}
+                    <TableRows rows={props.rows}/>
                     </tbody>
                 </table>
             </div>

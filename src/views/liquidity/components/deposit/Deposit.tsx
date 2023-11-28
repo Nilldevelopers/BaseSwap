@@ -86,7 +86,7 @@ const Deposit = (props: { tokenData: IToken }) => {
 
     useEffect(() => {
         const fetchBalance = async () => {
-            console.log(tokenA)
+
             try {
                 if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
                     setBalanceOfTokenA(userETHBalance!.value);

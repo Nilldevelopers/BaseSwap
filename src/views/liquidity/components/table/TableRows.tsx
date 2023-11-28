@@ -1,17 +1,18 @@
 import ImageImporter from "@/plugin/ImageImporter";
-import {ILiquidityTable} from "@/interfaces/ILiquidityTable";
 import dynamic from "next/dynamic";
 import {memo} from "react";
+import {ILiquidity} from "@/interfaces/ILiquidity";
 
 const RemoveModal = dynamic(() => import("@/views/liquidity/components/modals/RemoveModal"), {
     ssr: false,
     loading: () => <progress className="progress w-56"></progress>,
 });
-const TableRows = (tableData: ILiquidityTable) => {
+const TableRows = (props: { rows: ILiquidity[] }) => {
+    console.log(props.rows)
 
     return <>
         {
-            tableData.rows.map((data, index) => {
+            props.rows.map((data, index) => {
                 return <tr key={index} className='border-none py-5 px-5'>
                     <td>
                         <div className='flex flex-row items-center gap-[7px]'>

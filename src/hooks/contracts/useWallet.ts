@@ -42,8 +42,8 @@ const useWallet = (): IWallet => {
     };
 
     useEffect((): void => {
-        fetchNetworkData().then(res => console.log(res));
-        fetchBlockData().then(res => console.log(res));
+        fetchNetworkData()
+        fetchBlockData()
     }, [ethersProvider]);
 
 
