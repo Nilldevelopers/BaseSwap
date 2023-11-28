@@ -1,12 +1,11 @@
 import Layout from "@/layouts/BaseLayout";
 import {fetchGitHubTokens} from "@/utils/fetchGitHubTokens";
 import {IToken} from "@/interfaces/IToken";
-// import LiquidityView from "@/views/liquidity/LiquidityView";
+import LiquidityView from "@/views/liquidity/LiquidityView";
 import liquidityTableData from "@/data/table/LiquidityTableData";
 import {ILiquidityTable} from "@/interfaces/ILiquidityTable";
-import dynamic from "next/dynamic";
 
-const LiquidityView = dynamic(() => import("@/views/liquidity/LiquidityView"));
+
 const Liquidity = ({liquidityTableData, tokenData}: { liquidityTableData: ILiquidityTable, tokenData: IToken }) => {
     return (
         <Layout title='Liquidity'>
