@@ -3,7 +3,7 @@ import ImageImporter from "@/plugin/ImageImporter";
 import {ILiquidity} from "@/interfaces/ILiquidity";
 
 const Withdraw = (props:{removedLiquidityData:ILiquidity}) => {
-    console.log(props.removedLiquidityData)
+    // console.log(props.removedLiquidityData)
     return (
         <div className="w-full h-[300px]  md:h-auto overflow-y-scroll -mt-7 p-3">
             <div

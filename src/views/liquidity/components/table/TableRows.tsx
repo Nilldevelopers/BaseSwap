@@ -1,10 +1,13 @@
 import ImageImporter from "@/plugin/ImageImporter";
 import dynamic from "next/dynamic";
-import {memo, useState} from "react";
+import {memo, useEffect, useState} from "react";
 import {ILiquidity} from "@/interfaces/ILiquidity";
 import {formatEther} from "viem";
 import {IToken} from "@/interfaces/IToken";
 import useWallet from "@/hooks/contracts/useWallet";
+import {usePublicClient, useWalletClient} from "wagmi";
+import {erc20, swapPairFactory} from "@/lib/ContractFunctions";
+import useBalanceOfLPTokens from "@/hooks/web3/useBalanceOfLPTokens";
 
 const RemoveModal = dynamic(() => import("@/views/liquidity/components/modals/RemoveModal"), {
     ssr: false,
@@ -12,19 +15,21 @@ const RemoveModal = dynamic(() => import("@/views/liquidity/components/modals/Re
 });
 
 const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
+    const balanceOfList=useBalanceOfLPTokens()
     const wallet = useWallet()
     const [selectedRow, setSelectedRow] = useState<ILiquidity>({
         token0: `0x000`,
         token1: `0x000`,
         data: [BigInt(0), BigInt(0), 0]
     })
+    console.log(balanceOfList)
 
     return <>
         {
             props.rows.map((data, index) => {
                 const token0 = props.tokenData.tokens.find((token) => token.address === data.token0);
                 const token1 = props.tokenData.tokens.find((token) => token.address === data.token1);
-                function getAmountOut(amountIn: bigint, reserveIn: bigint, reserveOut: bigint):bigint {
+                function getAmountOut(amountIn: bigint, reserveIn: bigint, reserveOut: bigint): bigint {
                     if (Number(amountIn) <= 0) {
                         return BigInt(0);
                     }
@@ -40,6 +45,8 @@ const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
 
                     return amountOut;
                 }
+
+
                 return <tr key={index} className='border-none py-5 px-5'>
                     <td>
                         <div className='flex flex-row items-center gap-[7px]'>
@@ -71,26 +78,26 @@ const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
                     </td>
                     <td>
                                              <span
-                                                 className="text-sm text-accent font-['Arial'] font-normal not-italic">1&nbsp;{token0 ? token0.symbol:'token0'}&nbsp;=&nbsp;{Number(formatEther(getAmountOut(BigInt(1000000000000000000),data.data[0],data.data[1]))).toFixed(7)}&nbsp;{token1 ? token1.symbol:'token1'}</span>
+                                                 className="text-sm text-accent font-['Arial'] font-normal not-italic">1&nbsp;{token0 ? token0.symbol : 'token0'}&nbsp;=&nbsp;{Number(formatEther(getAmountOut(BigInt(1000000000000000000), data.data[0], data.data[1]))).toFixed(7)}&nbsp;{token1 ? token1.symbol : 'token1'}</span>
                     </td>
                     <td>
                         <div className='flex row gap-2 items-center'>
                                      <span
-                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{Number(formatEther(data.data[0])).toFixed(7)}&nbsp;{token0 ? token0.symbol:'token0'}</span>
+                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{Number(formatEther(data.data[0])).toFixed(7)}&nbsp;{token0 ? token0.symbol : 'token0'}</span>
 
                         </div>
                     </td>
                     <td>
                         <div className='flex row gap-2 items-center'>
                                      <span
-                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{Number(formatEther(data.data[1])).toFixed(7)}&nbsp;{token1 ? token1.symbol:'token1'}</span>
+                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{Number(formatEther(data.data[1])).toFixed(7)}&nbsp;{token1 ? token1.symbol : 'token1'}</span>
 
                         </div>
                     </td>
                     <td>
                         <div className='flex row gap-2 items-center'>
                                      <span
-                                         className="text-sm text-accent font-['Arial'] font-normal not-italic"> $1,324</span>
+                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{balanceOfList[index].toFixed(2)}</span>
 
                         </div>
                     </td>
