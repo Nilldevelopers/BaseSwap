@@ -2,7 +2,6 @@ import {Fragment} from 'react';
 import dynamic from "next/dynamic";
 import {ILiquidity} from "@/interfaces/ILiquidity";
 import {IToken} from "@/interfaces/IToken";
-import useWallet from "@/hooks/contracts/useWallet";
 
 
 const TableRows = dynamic(() => import("@/views/liquidity/components/table/TableRows"), {
@@ -36,7 +35,8 @@ const WaitForWalletConnection = () => {
     return <>
         <article className="prose flex flex-row justify-center items-center">
             <span className="loading loading-spinner text-warning"></span>
-            <h3 className="mt-0 text-warning text-['Arial'] leading-[20px] font-normal not-italic capitalize ml-0 p-5">please connect your wallet</h3>
+            <h3 className="mt-0 text-warning text-['Arial'] leading-[20px] font-normal not-italic capitalize ml-0 p-5">please
+                connect your wallet</h3>
         </article>
     </>
 }
@@ -45,7 +45,6 @@ const LiquidityTable = (props: {
     rows: { data: ILiquidity[]; isLoading: boolean },
     tokenData: IToken,
 }) => {
-    const wallet = useWallet()
 
 
     return (
@@ -63,8 +62,8 @@ const LiquidityTable = (props: {
                     </tr>
                     </thead>
                     <tbody>
-                    {wallet.walletInfo.isConnected ? (props.rows.isLoading ? <LoadingSkeleton/> :
-                        <TableRows tokenData={props.tokenData} rows={props.rows.data}/>) : <WaitForWalletConnection/>}
+                    {props.rows.isLoading ? <LoadingSkeleton/> :
+                        <TableRows tokenData={props.tokenData} rows={props.rows.data}/>}
                     </tbody>
                 </table>
             </div>

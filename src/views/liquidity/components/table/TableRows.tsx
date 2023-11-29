@@ -4,6 +4,7 @@ import {memo, useState} from "react";
 import {ILiquidity} from "@/interfaces/ILiquidity";
 import {formatEther} from "viem";
 import {IToken} from "@/interfaces/IToken";
+import useWallet from "@/hooks/contracts/useWallet";
 
 const RemoveModal = dynamic(() => import("@/views/liquidity/components/modals/RemoveModal"), {
     ssr: false,
@@ -11,6 +12,7 @@ const RemoveModal = dynamic(() => import("@/views/liquidity/components/modals/Re
 });
 
 const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
+    const wallet = useWallet()
     const [selectedRow, setSelectedRow] = useState<ILiquidity>({
         token0: `0x000`,
         token1: `0x000`,
@@ -77,15 +79,24 @@ const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
                         </div>
                     </td>
                     <td>
-                        <label
-                            onClick={() => {
-                                setSelectedRow(data)
-                            }}
-                            htmlFor="remove_modal"
-                            className='btn bg-transparent rounded-[12px] py-[8px] px-[20px] border-neutral border-1 min-h-[2.5rem] h-[2.5rem]'>
+                        {wallet.walletInfo.isConnected ? <label
+                                onClick={() => {
+                                    setSelectedRow(data)
+                                }}
+                                htmlFor="remove_modal"
+                                className='btn bg-transparent rounded-[12px] py-[8px] px-[20px] border-neutral border-1 min-h-[2.5rem] h-[2.5rem]'>
                        <span
                            className="capitalize text-sm text-neutral font-['Inter'] font-normal not-italic">Remove</span>
-                        </label>
+                            </label>
+                            : <button
+                                className="bg-transparent rounded-[12px] py-[8px] px-[20px] border-neutral border-1 min-h-[2.5rem] h-[2.5rem] btn-disabled"
+                                tabIndex={-1}
+                                role="button" aria-disabled="true">
+                            <span
+                                className="capitalize text-sm text-neutral font-['Inter'] font-normal not-italic">please connect wallet</span>
+                            </button>
+                        }
+
                         <RemoveModal selectedRowData={selectedRow}/>
                     </td>
                 </tr>
