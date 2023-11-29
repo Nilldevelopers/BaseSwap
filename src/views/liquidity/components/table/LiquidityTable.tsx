@@ -2,6 +2,7 @@ import {Fragment} from 'react';
 import dynamic from "next/dynamic";
 import {ILiquidity} from "@/interfaces/ILiquidity";
 import {IToken} from "@/interfaces/IToken";
+import useWallet from "@/hooks/contracts/useWallet";
 
 
 const TableRows = dynamic(() => import("@/views/liquidity/components/table/TableRows"), {
@@ -9,11 +10,42 @@ const TableRows = dynamic(() => import("@/views/liquidity/components/table/Table
     loading: () => <progress className="progress w-56"></progress>,
 });
 
+const LoadingSkeleton = () => {
+    return <div className="flex flex-col">
+        <div className="flex flex-col gap-4 w-52 p-3">
+            <div className="flex gap-4 items-center">
+                <div className="skeleton w-16 h-16 rounded-full shrink-0"></div>
+                <div className="flex flex-col gap-4">
+                    <div className="skeleton h-4 w-20"></div>
+                    <div className="skeleton h-4 w-28"></div>
+                </div>
+            </div>
+        </div>
+        <div className="flex flex-col gap-4 w-52 p-3">
+            <div className="flex gap-4 items-center">
+                <div className="skeleton w-16 h-16 rounded-full shrink-0"></div>
+                <div className="flex flex-col gap-4">
+                    <div className="skeleton h-4 w-20"></div>
+                    <div className="skeleton h-4 w-28"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+const WaitForWalletConnection = () => {
+    return <>
+        <article className="prose flex flex-row justify-center items-center">
+            <span className="loading loading-spinner text-warning"></span>
+            <h3 className="mt-0 text-warning text-['Arial'] leading-[20px] font-normal not-italic capitalize ml-0 p-5">please connect your wallet</h3>
+        </article>
+    </>
+}
 const LiquidityTable = (props: {
     cols: string[],
-    rows: ILiquidity[],
+    rows: { data: ILiquidity[]; isLoading: boolean },
     tokenData: IToken,
 }) => {
+    const wallet = useWallet()
 
 
     return (
@@ -31,7 +63,8 @@ const LiquidityTable = (props: {
                     </tr>
                     </thead>
                     <tbody>
-                    <TableRows tokenData={props.tokenData} rows={props.rows}/>
+                    {wallet.walletInfo.isConnected ? (props.rows.isLoading ? <LoadingSkeleton/> :
+                        <TableRows tokenData={props.tokenData} rows={props.rows.data}/>) : <WaitForWalletConnection/>}
                     </tbody>
                 </table>
             </div>

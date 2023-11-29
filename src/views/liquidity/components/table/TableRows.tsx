@@ -9,7 +9,7 @@ const RemoveModal = dynamic(() => import("@/views/liquidity/components/modals/Re
     ssr: false,
     loading: () => <progress className="progress w-56"></progress>,
 });
-const initialState = [{image: '', name: ''}];
+
 const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
     return <>
         {

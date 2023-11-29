@@ -1,14 +1,14 @@
-import {usePublicClient, useWalletClient} from "wagmi";
-import {pair, swapPairFactory} from "@/lib/ContractFunctions";
-import {useEffect, useState} from "react";
-import {ILiquidity} from "@/interfaces/ILiquidity";
+import { usePublicClient, useWalletClient } from "wagmi";
+import { pair, swapPairFactory } from "@/lib/ContractFunctions";
+import { useEffect, useState } from "react";
+import { ILiquidity } from "@/interfaces/ILiquidity";
 
-
-function useLiquidity(factoryAddress: `0x${string}`): ILiquidity[] {
+function useLiquidity(factoryAddress: `0x${string}`): { data: ILiquidity[]; isLoading: boolean } {
     const publicClient = usePublicClient();
     const walletClient = useWalletClient();
     const factory = swapPairFactory(publicClient, walletClient.data, factoryAddress);
     const [liquidityDataArray, setLiquidityDataArray] = useState<ILiquidity[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,13 +36,15 @@ function useLiquidity(factoryAddress: `0x${string}`): ILiquidity[] {
                 setLiquidityDataArray(allLiquidityData);
             } catch (error) {
                 console.error('Error fetching data:', error);
+            } finally {
+                setIsLoading(false); // Set isLoading to false regardless of success or error
             }
         };
 
         fetchData();
     }, [factory, publicClient, walletClient]);
 
-    return liquidityDataArray;
+    return { data: liquidityDataArray, isLoading };
 }
 
 export default useLiquidity;
