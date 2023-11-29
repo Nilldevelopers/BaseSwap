@@ -1,6 +1,5 @@
 import Layout from "@/layouts/BaseLayout";
 import HomeView from "@/views/home/HomeView";
-import useWallet from "@/hooks/contracts/useWallet";
 import dynamic from "next/dynamic";
 import {IChartData} from "@/interfaces/IChartData";
 import ChartData from "@/data/chart/ChartData";
@@ -19,9 +18,6 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({images, contractAddress, chartData, tokenData}) => {
-    const walletData = useWallet();
-
-    console.log(images)
     // useEffect(() => {
     //     const fetchData = async () => {
     //         try {
@@ -51,9 +47,6 @@ const Home: NextPage<HomeProps> = ({images, contractAddress, chartData, tokenDat
                 tokenData={tokenData}
                 contractAddress={contractAddress}
                 chartData={chartData}
-                blockNumber={walletData.blockNumber}
-                networkInfo={walletData.networkInfo}
-                walletInfo={walletData.walletInfo}
             />
         </Layout>
     );

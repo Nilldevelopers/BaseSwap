@@ -9,15 +9,12 @@ import {tokenize} from "@csstools/css-tokenizer";
 
 const HomeView = (props: {
     contractAddress: string,
-    walletInfo: GetAccountResult,
-    networkInfo: INetworkInfo,
-    blockNumber: number,
     chartData: IChartData[] // Adjust the type according to your chart data structure
     tokenData: IToken
 }) => {
     return (
         <section className="w-full flex flex-wrap md:p-10 mb-28 md:pb-0">
-            <SwapCart tokenData={props.tokenData} walletInfo={props.walletInfo} contractAddress={props.contractAddress}/>
+            <SwapCart tokenData={props.tokenData} contractAddress={props.contractAddress}/>
             <ChartComponent data={props.chartData}/>
         </section>
     );
