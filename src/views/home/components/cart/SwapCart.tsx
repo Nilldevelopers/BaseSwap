@@ -3,12 +3,13 @@ import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
 import {GetAccountResult} from "@wagmi/core";
 import {IToken, Token} from "@/interfaces/IToken";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import {ChangeEvent, useEffect, useState} from "react";
+import {toast} from "react-toastify";
 import SettingModal from "@/views/home/components/modals/SettingModal";
 import {erc20, pair, swapPairFactory, swapRouter, weth} from "@/lib/ContractFunctions";
 import {useBalance, usePublicClient, useWalletClient} from "wagmi";
 import {formatEther} from "viem";
+
 
 
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
@@ -18,6 +19,7 @@ interface ISwapCart {
     walletInfo: GetAccountResult,
     tokenData: IToken
 }
+
 const initialToken0: Token = {
     address: `0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee`,
     chainId: 84531,
@@ -42,18 +44,20 @@ const initialToken1: Token = {
 }
 
 function SwapCart(props: ISwapCart) {
-    const [rangeValue , setRangeValue ] = useState<number>(0);
-    const [gasStatus , setGasStatus] = useState<boolean>(false);
-    const [tokenA , setTokenA] = useState<Token>(initialToken0);
-    const [tokenB , setTokenB] = useState<Token>(initialToken1);
+    const [rangeValue, setRangeValue] = useState<number>(0);
+    const [gasStatus, setGasStatus] = useState<boolean>(false);
+    const [tokenA, setTokenA] = useState<Token>(initialToken0);
+    const [tokenB, setTokenB] = useState<Token>(initialToken1);
 
-    const [historySelect , setHistorySelect] = useState<Token>(initialToken0);
+    const [historySelect, setHistorySelect] = useState<Token>(initialToken0);
 
     const changeOrder = () => {
         setTokenB(tokenA);
         setTokenA(historySelect);
     }
-    useEffect(() => {setHistorySelect(tokenB)} , [tokenA,tokenB]);
+    useEffect(() => {
+        setHistorySelect(tokenB)
+    }, [tokenA, tokenB]);
 
     const publicClient = usePublicClient();
     const walletClient = useWalletClient();
@@ -61,13 +65,13 @@ function SwapCart(props: ISwapCart) {
     const [balanceOfTokenA, setBalanceOfTokenA] = useState<bigint>(BigInt(0));
     const [balanceOfTokenB, setBalanceOfTokenB] = useState<bigint>(BigInt(0));
 
-    const [amountA, setAmountA] = useState<BigInt>(BigInt(1000000000000000000));
-    const [amountB, setAmountB] = useState<BigInt>(BigInt(0));
+    const [amountA, setAmountA] = useState<bigint>(BigInt(1000000000000000000));
+    const [amountB, setAmountB] = useState<bigint>(BigInt(0));
 
-    const [pairAddress , setPairAddress] = useState<`0x${string}`>('0x0000000000000000000000000000000000000000');
+    const [pairAddress, setPairAddress] = useState<`0x${string}`>('0x0000000000000000000000000000000000000000');
 
-    const [reserveA, setReserveA] = useState<BigInt>(BigInt(0));
-    const [reserveB, setReserveB] = useState<BigInt>(BigInt(0));
+    const [reserveA, setReserveA] = useState<bigint>(BigInt(0));
+    const [reserveB, setReserveB] = useState<bigint>(BigInt(0));
 
     const [userAddress, setUserAddress] = useState<`0x${string}`>('0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
 
@@ -78,38 +82,39 @@ function SwapCart(props: ISwapCart) {
     const router = swapRouter(publicClient, walletClient.data, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a');
     const wETH = weth(publicClient, walletClient.data, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80');
 
-    function getAmountOut(amountIn, reserveIn, reserveOut) {
+    function getAmountOut(amountIn: bigint, reserveIn: bigint, reserveOut: bigint):bigint {
         if (
-          (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
-            tokenB.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') ||
-          (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
-            tokenA.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80')
+            (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
+                tokenB.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') ||
+            (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
+                tokenA.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80')
         ) {
             return amountIn;
         }
 
-        if (amountIn <= 0n) {
-            return 0n;
+        if (Number(amountIn) <= 0) {
+            return BigInt(0);
         }
 
-        if (reserveIn <= 0n || reserveOut <= 0n) {
-            return 0n;
+        if (Number(reserveIn) <= 0 || Number(reserveOut) <= 0) {
+            return BigInt(0);
         }
 
-        const amountInWithFee = amountIn * 9975n;
-        const numerator = amountInWithFee * reserveOut;
-        const denominator = reserveIn * 10000n + amountInWithFee;
-        const amountOut = numerator / denominator;
+        const amountInWithFee = Number(amountIn) * 9975;
+        const numerator = amountInWithFee * Number(reserveOut);
+        const denominator = Number(reserveIn) * 10000 + amountInWithFee;
+        const amountOut = BigInt(numerator / denominator);
 
         return amountOut;
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         setAmountB(getAmountOut(amountA, reserveA, reserveB));
     }, [amountA])
 
-    useEffect(()=> {
+    useEffect(() => {
         const pairContract = pair(publicClient, walletClient.data, pairAddress);
+
         async function fetchReserve() {
             const token0 = await pairContract.read.token0();
             const token1 = await pairContract.read.token1();
@@ -143,23 +148,25 @@ function SwapCart(props: ISwapCart) {
 
             console.log(result, token0, token1, reserveA, reserveB, tokenA.address === token0, tokenB.address === token1);
         }
-        if(pairAddress != '0x0000000000000000000000000000000000000000') {
+
+        if (pairAddress != '0x0000000000000000000000000000000000000000') {
             fetchReserve();
         } else {
-            setReserveB(0n);
-            setReserveA(0n);
+            setReserveB(BigInt(0));
+            setReserveA(BigInt(0));
         }
     }, [pairAddress, tokenA, tokenB])
 
     useEffect(() => {
-        async function fetchPairAddress(token0Address, token1Address) {
+        async function fetchPairAddress(token0Address: `0x${string}`, token1Address: `0x${string}`) {
             const address = await factory.read.getPair([token0Address, token1Address]);
             console.log(address);
             setPairAddress(address);
         }
+
         if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
             fetchPairAddress('0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80', tokenB.address);
-        } else if(tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
+        } else if (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
             fetchPairAddress(tokenA.address, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80');
         } else {
             fetchPairAddress(tokenA.address, tokenB.address);
@@ -177,7 +184,7 @@ function SwapCart(props: ISwapCart) {
     })
 
     useEffect(() => {
-        setAmountA(balanceOfTokenA * BigInt(rangeValue) /  BigInt(100));
+        setAmountA(balanceOfTokenA * BigInt(rangeValue) / BigInt(100));
     }, [rangeValue, tokenA])
 
     useEffect(() => {
@@ -205,53 +212,58 @@ function SwapCart(props: ISwapCart) {
         fetchBalance();
     }, [tokenA, tokenB, walletClient]);
 
-    function updateInput(e) {
-        setAmountA(BigInt(e.target.value * 1000000000000000000));
+    function updateInput(e: ChangeEvent<HTMLInputElement>) {
+        setAmountA(BigInt(Number(e.target.value) * 1000000000000000000));
     }
 
     async function swapTokens() {
         if (pairAddress == '0x0000000000000000000000000000000000000000' &&
-          tokenA.address != '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
-          tokenB.address != '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
-          tokenA.address != '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80' &&
-          tokenB.address != '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'
+            tokenA.address != '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
+            tokenB.address != '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
+            tokenA.address != '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80' &&
+            tokenB.address != '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'
         ) {
             toast.error("The pair does not exist.");
-        }else if (amountA <= balanceOfTokenA) {
+        } else if (amountA <= balanceOfTokenA) {
             if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-                if(tokenB.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
+                if (tokenB.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
                     try {
+                        // @ts-ignore
                         let swapTransaction = wETH.write.deposit([], {value: amountA})
-                    }catch (e) {
+                    } catch (e) {
                         console.log(e)
                     }
                 } else {
                     try {
+                        // @ts-ignore
                         let swapTransaction = router.write.swapETHForExactTokens(
-                          [(amountB * 999n / 1000n), ['0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80', tokenB.address], userAddress, Date.now() + deadline * 60],
-                          {value: amountA}
+                            [(Number(amountB) * 999 / 1000), ['0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80', tokenB.address], userAddress, Date.now() + deadline * 60],
+                            {value: amountA}
                         )
-                    }catch (e) {
+                    } catch (e) {
                         console.log(e)
                     }
                 }
-            } else if(tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-                if(tokenA.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
+            } else if (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
+                if (tokenA.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
                     try {
+                        // @ts-ignore
                         let swapTransaction = wETH.write.withdraw([amountA])
-                    }catch (e) {
+                    } catch (e) {
                         console.log(e)
                     }
                 } else {
                     try {
                         let allowance = await token0.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
                         if (allowance < amountA) {
+                            // @ts-ignore
                             let approveTransaction = token0.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountA]);
                         }
+                        // @ts-ignore
                         let swapTransaction = router.write.swapTokensForExactETH(
-                          [(amountB * 999n / 1000n), amountA, [tokenA.address, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'], userAddress, Date.now() + deadline * 60]
+                            [(Number(amountB) * 999 / 1000), amountA, [tokenA.address, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'], userAddress, Date.now() + deadline * 60]
                         );
-                    }catch (e) {
+                    } catch (e) {
                         console.log(e)
                     }
                 }
@@ -259,12 +271,14 @@ function SwapCart(props: ISwapCart) {
                 try {
                     let allowance = await token0.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
                     if (allowance < amountA) {
+                        // @ts-ignore
                         let approveTransaction = token0.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountA]);
                     }
+                    // @ts-ignore
                     let swapTransaction = router.write.swapTokensForExactTokens(
-                      [(amountB * 999n / 1000n), amountA, [tokenA.address, tokenB.address], userAddress, Date.now() + deadline * 60]
+                        [(Number(amountB) * 999 / 1000), amountA, [tokenA.address, tokenB.address], userAddress, Date.now() + deadline * 60]
                     );
-                }catch (e) {
+                } catch (e) {
                     console.log(e)
                 }
             }
@@ -311,17 +325,18 @@ function SwapCart(props: ISwapCart) {
                         <ImageImporter w={20} h={20} src={"/img/icons/wallet.svg"} alt={'wallet-icon'}/>
                         <span className="p-0.5 ms-0.5 border rounded-full border-green-400"> </span>
                         <figcaption className="text-white p-2">
-                            <div className="font-bold">{Number(formatEther(balanceOfTokenA)).toFixed(10)} {tokenA.symbol}</div>
+                            <div
+                                className="font-bold">{Number(formatEther(balanceOfTokenA)).toFixed(10)} {tokenA.symbol}</div>
                         </figcaption>
                     </figure>
                 </div>
                 <div className="w-full bg-custom-cart rounded-xl flex flex-wrap justify-between  p-2 ">
-                    <input 
-                    onChange={(e) => setRangeValue(Number(e?.target.value))}
-                    type="range" 
-                    min={0} max="100"
-                    defaultValue={rangeValue}
-                           className="range range-sm range-error  rounded-md w-[82%]"/>
+                    <input
+                        onChange={(e) => setRangeValue(Number(e?.target.value))}
+                        type="range"
+                        min={0} max="100"
+                        defaultValue={rangeValue}
+                        className="range range-sm range-error  rounded-md w-[82%]"/>
                     <div className="w-[15%] items-center  flex bg-custom-cart rounded-xl">
                         <span className="bg-gray-500 rounded-[5px] me-1 text-xs p-0.5"> {rangeValue}% </span>
                         <ImageImporter w={20} h={20} src={"/img/icons/Edit.jpg"} alt="pen-icon"/>
@@ -335,7 +350,8 @@ function SwapCart(props: ISwapCart) {
                         </figure>
                     </div>
                     <div className="w-full p-2 flex justify-between items-center">
-                        <input className="text-xl p-2 bg-transparent w-1/2 input" value={Number(formatEther(amountA)).toFixed(10)} onChange={(e) => updateInput(e)}/>
+                        <input className="text-xl p-2 bg-transparent w-1/2 input"
+                               value={Number(formatEther(amountA)).toFixed(10)} onChange={(e) => updateInput(e)}/>
                         <div className="flex flex-row justify-center items-center">
                             <label htmlFor="first_token_modal"
                                    className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-auto max-w-xs flex flex-row gap-[10px]">
@@ -347,7 +363,7 @@ function SwapCart(props: ISwapCart) {
                                 tokenName="first_token_modal"
                                 fetchSelectToken={(dataToken) => {
                                     dataToken === tokenB ? toast.error("token the same !") :
-                                    setTokenA(dataToken)
+                                        setTokenA(dataToken)
                                 }}
                                 tokenList={props.tokenData}
                             />
@@ -357,8 +373,8 @@ function SwapCart(props: ISwapCart) {
             </div>
             <div className="w-full flex relative justify-center items-center">
                 <button
-                onClick={changeOrder}
-                className="absolute active:scale-90 duration-100 ">
+                    onClick={changeOrder}
+                    className="absolute active:scale-90 duration-100 ">
                     <ImageImporter src={"/img/icons/swap-arrow.svg"} alt={"SwapArrow"} w={40} h={40}
                                    className="flex -left-1 -top-1"/>
                 </button>
@@ -369,7 +385,8 @@ function SwapCart(props: ISwapCart) {
                         <ImageImporter w={20} h={20} src={"/img/icons/wallet.svg"} alt={'wallet-icon'}/>
                         <span className="p-0.5 ms-0.5 border rounded-full border-red-600"> </span>
                         <figcaption className="text-white p-2">
-                            <div className="font-bold">{Number(formatEther(balanceOfTokenB)).toFixed(10)} {tokenB.symbol}</div>
+                            <div
+                                className="font-bold">{Number(formatEther(balanceOfTokenB)).toFixed(10)} {tokenB.symbol}</div>
                         </figcaption>
                     </figure>
                 </div>
@@ -382,22 +399,23 @@ function SwapCart(props: ISwapCart) {
                         </figure>
                     </div>
                     <div className="w-full p-2 flex justify-between items-center">
-                        <div className="text-xl p-2 bg-transparent w-1/2"> {Number(formatEther(amountB)).toFixed(10)} </div>
+                        <div
+                            className="text-xl p-2 bg-transparent w-1/2"> {Number(formatEther(amountB)).toFixed(10)} </div>
                         <div className="flex flex-row justify-center items-center">
                             <label
                                 htmlFor="second_token_modal"
                                 className="bg-transparent active:bg-gray-700 select-bordered select-sm ms-1 w-auto max-w-xs flex flex-row gap-[10px]"
                             >
-                                 <ImageImporter w={35} h={20} src={tokenB.logoURI} alt={"symbol"}/>
+                                <ImageImporter w={35} h={20} src={tokenB.logoURI} alt={"symbol"}/>
                                 <span>{tokenB.symbol}</span>
                             </label>
                             <FaAngleDown/>
                             <SelectTokenModal
                                 tokenName="second_token_modal"
                                 fetchSelectToken={(dataToken) => {
-                    
+
                                     dataToken === tokenA ? toast.error("token the same !") :
-                                    setTokenB(dataToken)
+                                        setTokenB(dataToken)
                                 }}
                                 tokenList={props.tokenData}
                             />
@@ -409,18 +427,22 @@ function SwapCart(props: ISwapCart) {
                 <div className="w-2/3 flex items-center">
                     <ImageImporter w={20} h={20} src={"/img/icons/info-circle-light.svg"} alt={"info-icon"}/>
                     <div className="font-bold text-xs ps-2">
-                        1 {tokenA.symbol} = {Number(formatEther(getAmountOut(1000000000000000000n, reserveA, reserveB)))} {tokenB.symbol}
+                        1 {tokenA.symbol} = {formatEther(getAmountOut(BigInt(1000000000000000000), reserveA, reserveB))} {tokenB.symbol}
                     </div>
                 </div>
-                <button onClick={() => gasStatus ? setGasStatus(false) : setGasStatus(true)} className="w-1/3 flex  p-1 bg-transparent items-center justify-end ">
+                <button onClick={() => gasStatus ? setGasStatus(false) : setGasStatus(true)}
+                        className="w-1/3 flex  p-1 bg-transparent items-center justify-end ">
                     <ImageImporter w={20} h={20} src={"/img/icons/gas.svg"} alt={"gas-icon"}/>
                     <div className="font-bold text-xs px-2 flex">
                         $0.99
                     </div>
-                    <ImageImporter w={8} h={8} className={gasStatus ? "rotate-90 duration-300" : " duration-300 rotate-0"} src={"/img/icons/arrow-right.svg"} alt={"arrow-right"}/>
+                    <ImageImporter w={8} h={8}
+                                   className={gasStatus ? "rotate-90 duration-300" : " duration-300 rotate-0"}
+                                   src={"/img/icons/arrow-right.svg"} alt={"arrow-right"}/>
                 </button>
                 {gasStatus && (
-                    <div className={`flex w-full flex-wrap text-xs  font-bold content-start overflow-hidden duration-300 ${gasStatus ? "h-[200px] border-t my-4" : "h-0 p-0 my-4"} `}>
+                    <div
+                        className={`flex w-full flex-wrap text-xs  font-bold content-start overflow-hidden duration-300 ${gasStatus ? "h-[200px] border-t my-4" : "h-0 p-0 my-4"} `}>
                         <div className="flex flex-wrap w-full justify-between items-center py-2 my-1 ">
                             <div className="text-gray-400">Network fee</div>
                             <div>{'<'}$0.99</div>
@@ -431,7 +453,7 @@ function SwapCart(props: ISwapCart) {
                         </div>
                         <div className="flex flex-wrap w-full justify-between items-center py-2 my-1 ">
                             <div className="text-gray-400">Minimum output</div>
-                            <div>{Number(formatEther(amountB * 999n / 1000n)).toFixed(10)} {tokenB.symbol}</div>
+                            <div>{Number(formatEther(BigInt(Number(amountB) * 999 / 1000))).toFixed(10)} {tokenB.symbol}</div>
                         </div>
                         <div className="flex flex-wrap w-full justify-between items-center py-2 my-1 ">
                             <div className="text-gray-400">Expected output</div>
