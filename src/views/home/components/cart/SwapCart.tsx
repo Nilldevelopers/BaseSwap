@@ -120,7 +120,16 @@ function SwapCart(props: ISwapCart) {
                             <SelectTokenModal
                                 tokenName="first_token_modal"
                                 fetchSelectToken={(dataToken) => {
-                                    dataToken === tokenB ? toast.error("token the same !") :
+                                    dataToken === tokenB ? toast.error("token the same !",{
+                                            position: "top-right",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "dark"
+                                        }) :
                                         setTokenA(dataToken)
                                 }}
                                 tokenList={props.tokenData}
@@ -172,7 +181,16 @@ function SwapCart(props: ISwapCart) {
                                 tokenName="second_token_modal"
                                 fetchSelectToken={(dataToken) => {
 
-                                    dataToken === tokenA ? toast.error("token the same !") :
+                                    dataToken === tokenA ? toast.error("token the same !",{
+                                            position: "top-right",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "dark"
+                                        }) :
                                         setTokenB(dataToken)
                                 }}
                                 tokenList={props.tokenData}

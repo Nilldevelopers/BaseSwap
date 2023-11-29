@@ -161,7 +161,16 @@ function useSwap(tokenA: Token, tokenB: Token, deadline: number, rangeValue: num
             tokenA.address != '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80' &&
             tokenB.address != '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'
         ) {
-            toast.error("The pair does not exist.");
+            toast.error("The pair does not exist.",{
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark"
+            });
         } else if (amountA <= balanceOfTokenA) {
             if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
                 if (tokenB.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
