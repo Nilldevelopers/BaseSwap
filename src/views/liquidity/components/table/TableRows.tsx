@@ -1,12 +1,10 @@
 import ImageImporter from "@/plugin/ImageImporter";
 import dynamic from "next/dynamic";
-import {memo, useEffect, useState} from "react";
+import {memo, useState} from "react";
 import {ILiquidity} from "@/interfaces/ILiquidity";
 import {formatEther} from "viem";
 import {IToken} from "@/interfaces/IToken";
 import useWallet from "@/hooks/contracts/useWallet";
-import {usePublicClient, useWalletClient} from "wagmi";
-import {erc20, swapPairFactory} from "@/lib/ContractFunctions";
 import useBalanceOfLPTokens from "@/hooks/web3/useBalanceOfLPTokens";
 
 const RemoveModal = dynamic(() => import("@/views/liquidity/components/modals/RemoveModal"), {
@@ -15,7 +13,7 @@ const RemoveModal = dynamic(() => import("@/views/liquidity/components/modals/Re
 });
 
 const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
-    const balanceOfList=useBalanceOfLPTokens()
+    const balanceOfList = useBalanceOfLPTokens()
     const wallet = useWallet()
     const [selectedRow, setSelectedRow] = useState<ILiquidity>({
         token0: `0x000`,
@@ -29,6 +27,7 @@ const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
             props.rows.map((data, index) => {
                 const token0 = props.tokenData.tokens.find((token) => token.address === data.token0);
                 const token1 = props.tokenData.tokens.find((token) => token.address === data.token1);
+
                 function getAmountOut(amountIn: bigint, reserveIn: bigint, reserveOut: bigint): bigint {
                     if (Number(amountIn) <= 0) {
                         return BigInt(0);
@@ -97,7 +96,7 @@ const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
                     <td>
                         <div className='flex row gap-2 items-center'>
                                      <span
-                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{balanceOfList[index]}</span>
+                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{balanceOfList[index] ? 0 : balanceOfList[index]}</span>
 
                         </div>
                     </td>
