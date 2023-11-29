@@ -1,6 +1,6 @@
 import ImageImporter from "@/plugin/ImageImporter";
 import dynamic from "next/dynamic";
-import {memo} from "react";
+import {memo, useState} from "react";
 import {ILiquidity} from "@/interfaces/ILiquidity";
 import {formatEther} from "viem";
 import {IToken} from "@/interfaces/IToken";
@@ -11,6 +11,11 @@ const RemoveModal = dynamic(() => import("@/views/liquidity/components/modals/Re
 });
 
 const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
+    const [selectedRow, setSelectedRow] = useState<ILiquidity>({
+        token0: `0x000`,
+        token1: `0x000`,
+        data: [BigInt(0), BigInt(0), 0]
+    })
     return <>
         {
             props.rows.map((data, index) => {
@@ -72,12 +77,16 @@ const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
                         </div>
                     </td>
                     <td>
-                        <label htmlFor="remove_modal"
-                               className='btn bg-transparent rounded-[12px] py-[8px] px-[20px] border-neutral border-1 min-h-[2.5rem] h-[2.5rem]'>
+                        <label
+                            onClick={() => {
+                                setSelectedRow(data)
+                            }}
+                            htmlFor="remove_modal"
+                            className='btn bg-transparent rounded-[12px] py-[8px] px-[20px] border-neutral border-1 min-h-[2.5rem] h-[2.5rem]'>
                        <span
                            className="capitalize text-sm text-neutral font-['Inter'] font-normal not-italic">Remove</span>
                         </label>
-                        <RemoveModal/>
+                        <RemoveModal selectedRowData={selectedRow}/>
                     </td>
                 </tr>
 
