@@ -1,47 +1,18 @@
 import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
-import {GetAccountResult} from "@wagmi/core";
-import {IToken, Token} from "@/interfaces/IToken";
-import {ChangeEvent, useEffect, useState} from "react";
+import {Token} from "@/interfaces/IToken";
+import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import SettingModal from "@/views/home/components/modals/SettingModal";
-import {erc20, pair, swapPairFactory, swapRouter, weth} from "@/lib/ContractFunctions";
-import {useBalance, usePublicClient, useWalletClient} from "wagmi";
 import {formatEther} from "viem";
-
+import useSwap from "@/hooks/web3/useSwap";
+import {initialToken0, initialToken1} from "@/views/home/components/cart/initialSwap";
+import {ISwapCart} from "@/interfaces/ISwapCart";
 
 
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
 
-interface ISwapCart {
-    contractAddress: string,
-    walletInfo: GetAccountResult,
-    tokenData: IToken
-}
-
-const initialToken0: Token = {
-    address: `0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee`,
-    chainId: 84531,
-    decimals: 18,
-    extensions: {
-        bridgeInfo: {}
-    },
-    logoURI: "/img/icons/eth.svg",
-    name: "Ethereum",
-    symbol: "ETH"
-}
-const initialToken1: Token = {
-    address: `0xB66540499d050fFA30e5a5D275bDA0E1176F1963`,
-    chainId: 84531,
-    decimals: 18,
-    extensions: {
-        bridgeInfo: {}
-    },
-    logoURI: "https://raw.githubusercontent.com/ve33-dex/SwapArchiveData/main/icon/0xB66540499d050fFA30e5a5D275bDA0E1176F1963.png",
-    name: "BaseSwap",
-    symbol: "BASES"
-}
 
 function SwapCart(props: ISwapCart) {
     const [rangeValue, setRangeValue] = useState<number>(0);
@@ -59,235 +30,21 @@ function SwapCart(props: ISwapCart) {
         setHistorySelect(tokenB)
     }, [tokenA, tokenB]);
 
-    const publicClient = usePublicClient();
-    const walletClient = useWalletClient();
-
-    const [balanceOfTokenA, setBalanceOfTokenA] = useState<bigint>(BigInt(0));
-    const [balanceOfTokenB, setBalanceOfTokenB] = useState<bigint>(BigInt(0));
-
-    const [amountA, setAmountA] = useState<bigint>(BigInt(1000000000000000000));
-    const [amountB, setAmountB] = useState<bigint>(BigInt(0));
-
-    const [pairAddress, setPairAddress] = useState<`0x${string}`>('0x0000000000000000000000000000000000000000');
-
-    const [reserveA, setReserveA] = useState<bigint>(BigInt(0));
-    const [reserveB, setReserveB] = useState<bigint>(BigInt(0));
-
-    const [userAddress, setUserAddress] = useState<`0x${string}`>('0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
-
-    const token0 = erc20(publicClient, walletClient.data, tokenA.address);
-    const token1 = erc20(publicClient, walletClient.data, tokenB.address);
-
-    const factory = swapPairFactory(publicClient, walletClient.data, '0xDFE9d201CC5865b45024C799Be47D11Db2E326ad');
-    const router = swapRouter(publicClient, walletClient.data, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a');
-    const wETH = weth(publicClient, walletClient.data, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80');
-
-    function getAmountOut(amountIn: bigint, reserveIn: bigint, reserveOut: bigint):bigint {
-        if (
-            (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
-                tokenB.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') ||
-            (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
-                tokenA.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80')
-        ) {
-            return amountIn;
-        }
-
-        if (Number(amountIn) <= 0) {
-            return BigInt(0);
-        }
-
-        if (Number(reserveIn) <= 0 || Number(reserveOut) <= 0) {
-            return BigInt(0);
-        }
-
-        const amountInWithFee = Number(amountIn) * 9975;
-        const numerator = amountInWithFee * Number(reserveOut);
-        const denominator = Number(reserveIn) * 10000 + amountInWithFee;
-        const amountOut = BigInt(numerator / denominator);
-
-        return amountOut;
-    }
-
-    useEffect(() => {
-        setAmountB(getAmountOut(amountA, reserveA, reserveB));
-    }, [amountA])
-
-    useEffect(() => {
-        const pairContract = pair(publicClient, walletClient.data, pairAddress);
-
-        async function fetchReserve() {
-            const token0 = await pairContract.read.token0();
-            const token1 = await pairContract.read.token1();
-            const result = await pairContract.read.getReserves();
-
-            if (tokenA.address === token0) {
-                setReserveA(result[0]);
-            } else if (tokenA.address === token1) {
-                setReserveA(result[1]);
-            }
-
-            if (tokenB.address === token0) {
-                setReserveB(result[0]);
-            } else if (tokenB.address === token1) {
-                setReserveB(result[1]);
-            }
-
-            if (token0 === '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
-                if (tokenA.address === '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80' || tokenA.address === '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-                    setReserveA(result[0]);
-                } else if (tokenB.address === '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80' || tokenB.address === '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-                    setReserveB(result[0]);
-                }
-            } else if (token1 === '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
-                if (tokenA.address === '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80' || tokenA.address === '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-                    setReserveA(result[1]);
-                } else if (tokenB.address === '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80' || tokenB.address === '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-                    setReserveB(result[1]);
-                }
-            }
-
-            console.log(result, token0, token1, reserveA, reserveB, tokenA.address === token0, tokenB.address === token1);
-        }
-
-        if (pairAddress != '0x0000000000000000000000000000000000000000') {
-            fetchReserve();
-        } else {
-            setReserveB(BigInt(0));
-            setReserveA(BigInt(0));
-        }
-    }, [pairAddress, tokenA, tokenB])
-
-    useEffect(() => {
-        async function fetchPairAddress(token0Address: `0x${string}`, token1Address: `0x${string}`) {
-            const address = await factory.read.getPair([token0Address, token1Address]);
-            console.log(address);
-            setPairAddress(address);
-        }
-
-        if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-            fetchPairAddress('0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80', tokenB.address);
-        } else if (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-            fetchPairAddress(tokenA.address, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80');
-        } else {
-            fetchPairAddress(tokenA.address, tokenB.address);
-        }
-    }, [tokenA, tokenB]);
-
-    useEffect(() => {
-        if (walletClient.data) {
-            setUserAddress(walletClient.data.account.address as `0x${string}`);
-        }
-    }, [walletClient])
-
-    const {data: userETHBalance} = useBalance({
-        address: userAddress,
-    })
-
-    useEffect(() => {
-        setAmountA(balanceOfTokenA * BigInt(rangeValue) / BigInt(100));
-    }, [rangeValue, tokenA])
-
-    useEffect(() => {
-        const fetchBalance = async () => {
-
-            try {
-                if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-                    setBalanceOfTokenA(userETHBalance!.value);
-                } else {
-                    const balanceOfToken0 = await token0.read.balanceOf([userAddress]);
-                    setBalanceOfTokenA(balanceOfToken0);
-                }
-
-                if (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-                    setBalanceOfTokenB(userETHBalance!.value);
-                } else {
-                    const balanceOfToken1 = await token1.read.balanceOf([userAddress]);
-                    setBalanceOfTokenB(balanceOfToken1);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchBalance();
-    }, [tokenA, tokenB, walletClient]);
-
-    function updateInput(e: ChangeEvent<HTMLInputElement>) {
-        setAmountA(BigInt(Number(e.target.value) * 1000000000000000000));
-    }
-
-    async function swapTokens() {
-        if (pairAddress == '0x0000000000000000000000000000000000000000' &&
-            tokenA.address != '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
-            tokenB.address != '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
-            tokenA.address != '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80' &&
-            tokenB.address != '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'
-        ) {
-            toast.error("The pair does not exist.");
-        } else if (amountA <= balanceOfTokenA) {
-            if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-                if (tokenB.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
-                    try {
-                        // @ts-ignore
-                        let swapTransaction = wETH.write.deposit([], {value: amountA})
-                    } catch (e) {
-                        console.log(e)
-                    }
-                } else {
-                    try {
-                        // @ts-ignore
-                        let swapTransaction = router.write.swapETHForExactTokens(
-                            [(Number(amountB) * 999 / 1000), ['0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80', tokenB.address], userAddress, Date.now() + deadline * 60],
-                            {value: amountA}
-                        )
-                    } catch (e) {
-                        console.log(e)
-                    }
-                }
-            } else if (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
-                if (tokenA.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
-                    try {
-                        // @ts-ignore
-                        let swapTransaction = wETH.write.withdraw([amountA])
-                    } catch (e) {
-                        console.log(e)
-                    }
-                } else {
-                    try {
-                        let allowance = await token0.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
-                        if (allowance < amountA) {
-                            // @ts-ignore
-                            let approveTransaction = token0.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountA]);
-                        }
-                        // @ts-ignore
-                        let swapTransaction = router.write.swapTokensForExactETH(
-                            [(Number(amountB) * 999 / 1000), amountA, [tokenA.address, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'], userAddress, Date.now() + deadline * 60]
-                        );
-                    } catch (e) {
-                        console.log(e)
-                    }
-                }
-            } else {
-                try {
-                    let allowance = await token0.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
-                    if (allowance < amountA) {
-                        // @ts-ignore
-                        let approveTransaction = token0.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountA]);
-                    }
-                    // @ts-ignore
-                    let swapTransaction = router.write.swapTokensForExactTokens(
-                        [(Number(amountB) * 999 / 1000), amountA, [tokenA.address, tokenB.address], userAddress, Date.now() + deadline * 60]
-                    );
-                } catch (e) {
-                    console.log(e)
-                }
-            }
-        }
-    }
-
     const [tolerance, setTolerance] = useState<any>(0);
     const [speed, setSpeed] = useState<any>("Fast");
-    const [deadline, setDeadline] = useState<any>(5);
+    const [deadline, setDeadline] = useState<number>(5);
+    const {
+        balanceOfTokenA,
+        balanceOfTokenB,
+        amountA,
+        amountB,
+        swapTokens,
+        getAmountOut,
+        updateInput,
+        reserveA,
+        reserveB
+    } = useSwap(tokenA, tokenB, deadline, rangeValue)
+
 
     return (
         <section className="md:w-4/12  p-2 flex flex-wrap">

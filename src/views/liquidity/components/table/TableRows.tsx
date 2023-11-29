@@ -20,7 +20,7 @@ const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
         token1: `0x000`,
         data: [BigInt(0), BigInt(0), 0]
     })
-    console.log(balanceOfList)
+
 
     return <>
         {
