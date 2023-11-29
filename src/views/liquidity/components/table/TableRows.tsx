@@ -2,38 +2,44 @@ import ImageImporter from "@/plugin/ImageImporter";
 import dynamic from "next/dynamic";
 import {memo} from "react";
 import {ILiquidity} from "@/interfaces/ILiquidity";
+import {formatEther} from "viem";
+import {IToken} from "@/interfaces/IToken";
 
 const RemoveModal = dynamic(() => import("@/views/liquidity/components/modals/RemoveModal"), {
     ssr: false,
     loading: () => <progress className="progress w-56"></progress>,
 });
-const TableRows = (props: { rows: ILiquidity[] }) => {
-    console.log(props.rows)
-
+const initialState = [{image: '', name: ''}];
+const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
     return <>
         {
             props.rows.map((data, index) => {
+                const token0 = props.tokenData.tokens.find((token) => token.address === data.token0);
+                const token1 = props.tokenData.tokens.find((token) => token.address === data.token1);
+
                 return <tr key={index} className='border-none py-5 px-5'>
                     <td>
                         <div className='flex flex-row items-center gap-[7px]'>
                             <div className="avatar-group -space-x-6 rtl:space-x-reverse">
                                 <div className="avatar">
                                     <div className="w-7 h-7">
-                                        <ImageImporter src='/img/icons/tether.svg' w={24} h={24}/>
+                                        <ImageImporter src={token0 ? token0.logoURI : '/img/icons/tether.svg'} w={24}
+                                                       h={24}/>
                                     </div>
                                 </div>
                                 <div className="avatar">
                                     <div className="w-7 h-7">
-                                        <ImageImporter src={'/img/icons/eth.svg'} w={24} h={24}/>
+                                        <ImageImporter src={token1 ? token1.logoURI : '/img/icons/eth.svg'} w={24}
+                                                       h={24}/>
                                     </div>
                                 </div>
                             </div>
                             <div className='flex flex-col gap-[4px]'>
                                  <span className="uppercase text-sm text-accent font-['Arial'] font-normal not-italic">
-                                     USDT
+                                    {token0 ? token0.symbol : 'Token0'}
                                      <span
                                          className="text-neutral text-['Arial'] leading-[20px] font-normal not-italic">&nbsp;/&nbsp;</span>
-                                     ETH
+                                     {token1 ? token1.symbol : 'Token1'}
                                  </span>
                                 <span
                                     className="capitalize text-neutral leading-[12px] text-sm font-['Inter'] font-normal not-italic">Stable Pool</span>
@@ -47,14 +53,14 @@ const TableRows = (props: { rows: ILiquidity[] }) => {
                     <td>
                         <div className='flex row gap-2 items-center'>
                                      <span
-                                         className="text-sm text-accent font-['Arial'] font-normal not-italic"> $1,324</span>
+                                         className="text-sm text-accent font-['Arial'] font-normal not-italic"> ${formatEther(data.data[0]).slice(0, 6)}4</span>
 
                         </div>
                     </td>
                     <td>
                         <div className='flex row gap-2 items-center'>
                                      <span
-                                         className="text-sm text-accent font-['Arial'] font-normal not-italic"> $1,324</span>
+                                         className="text-sm text-accent font-['Arial'] font-normal not-italic"> ${formatEther(data.data[1]).slice(0, 6)}</span>
 
                         </div>
                     </td>

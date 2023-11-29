@@ -77,7 +77,7 @@ const LiquidityView = (props: {
 
                 <div className='pt-10'>
                     <section className="w-full overflow-x-scroll">
-                        <LiquidityTable cols={props.tableData.cols} rows={liquidities}/>
+                        <LiquidityTable tokenData={props.tokenData} cols={props.tableData.cols} rows={liquidities}/>
                     </section>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import {Fragment} from 'react';
 import dynamic from "next/dynamic";
 import {ILiquidity} from "@/interfaces/ILiquidity";
+import {IToken} from "@/interfaces/IToken";
 
 
 const TableRows = dynamic(() => import("@/views/liquidity/components/table/TableRows"), {
@@ -10,7 +11,8 @@ const TableRows = dynamic(() => import("@/views/liquidity/components/table/Table
 
 const LiquidityTable = (props: {
     cols: string[],
-    rows: ILiquidity[]
+    rows: ILiquidity[],
+    tokenData: IToken,
 }) => {
 
 
@@ -29,7 +31,7 @@ const LiquidityTable = (props: {
                     </tr>
                     </thead>
                     <tbody>
-                    <TableRows rows={props.rows}/>
+                    <TableRows tokenData={props.tokenData} rows={props.rows}/>
                     </tbody>
                 </table>
             </div>
