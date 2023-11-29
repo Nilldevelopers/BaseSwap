@@ -1,11 +1,11 @@
 import {useBalance, usePublicClient, useWalletClient} from "wagmi";
-import {ChangeEvent, useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {erc20, pair, swapPairFactory, swapRouter, weth} from "@/lib/ContractFunctions";
 import {Token} from "@/interfaces/IToken";
 import {toast} from "react-toastify";
 import useWallet from "@/hooks/contracts/useWallet";
 
-function useSwap(tokenA: Token, tokenB: Token, deadline: number, rangeValue: number) {
+function useSwap(tokenA: Token, tokenB: Token, deadline: number, amountA: bigint, amountB: bigint) {
     const walletData = useWallet()
     const publicClient = usePublicClient();
     const walletClient = useWalletClient();
@@ -13,8 +13,6 @@ function useSwap(tokenA: Token, tokenB: Token, deadline: number, rangeValue: num
     const [balanceOfTokenA, setBalanceOfTokenA] = useState<bigint>(BigInt(0));
     const [balanceOfTokenB, setBalanceOfTokenB] = useState<bigint>(BigInt(0));
 
-    const [amountA, setAmountA] = useState<bigint>(BigInt(1000000000000000000));
-    const [amountB, setAmountB] = useState<bigint>(BigInt(0));
 
     const [pairAddress, setPairAddress] = useState<`0x${string}`>('0x0000000000000000000000000000000000000000');
 
@@ -55,10 +53,6 @@ function useSwap(tokenA: Token, tokenB: Token, deadline: number, rangeValue: num
         return amountOut;
     }
 
-
-    useEffect(() => {
-        setAmountB(getAmountOut(amountA, reserveA, reserveB));
-    }, [amountA])
 
     useEffect(() => {
         const pairContract = pair(publicClient, walletClient.data, pairAddress);
@@ -150,9 +144,6 @@ function useSwap(tokenA: Token, tokenB: Token, deadline: number, rangeValue: num
         fetchBalance();
     }, [tokenA, tokenB, walletClient]);
 
-    function updateInput(e: ChangeEvent<HTMLInputElement>) {
-        setAmountA(BigInt(Number(e.target.value) * 1000000000000000000));
-    }
 
     async function swapTokens() {
         if (pairAddress == '0x0000000000000000000000000000000000000000' &&
@@ -161,7 +152,7 @@ function useSwap(tokenA: Token, tokenB: Token, deadline: number, rangeValue: num
             tokenA.address != '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80' &&
             tokenB.address != '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'
         ) {
-            toast.error("The pair does not exist.",{
+            toast.error("The pair does not exist.", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -232,17 +223,10 @@ function useSwap(tokenA: Token, tokenB: Token, deadline: number, rangeValue: num
         }
     }
 
-    useEffect(() => {
-        setAmountA(balanceOfTokenA * BigInt(rangeValue) / BigInt(100));
-    }, [rangeValue, tokenA])
-
 
     return useMemo(() => {
         return {
             getAmountOut,
-            updateInput,
-            amountA,
-            amountB,
             balanceOfTokenA,
             balanceOfTokenB,
             reserveA,

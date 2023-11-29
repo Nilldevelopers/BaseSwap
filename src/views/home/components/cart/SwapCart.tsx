@@ -2,7 +2,7 @@ import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
 import {Token} from "@/interfaces/IToken";
-import {useEffect, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import SettingModal from "@/views/home/components/modals/SettingModal";
 import {formatEther} from "viem";
@@ -20,6 +20,8 @@ function SwapCart(props: ISwapCart) {
     const [gasStatus, setGasStatus] = useState<boolean>(false);
     const [tokenA, setTokenA] = useState<Token>(initialToken0);
     const [tokenB, setTokenB] = useState<Token>(initialToken1);
+    const [amountA, setAmountA] = useState<bigint>(BigInt(1000000000000000000));
+    const [amountB, setAmountB] = useState<bigint>(BigInt(0));
 
     const [historySelect, setHistorySelect] = useState<Token>(initialToken0);
 
@@ -37,14 +39,22 @@ function SwapCart(props: ISwapCart) {
     const {
         balanceOfTokenA,
         balanceOfTokenB,
-        amountA,
-        amountB,
         swapTokens,
         getAmountOut,
-        updateInput,
         reserveA,
         reserveB
-    } = useSwap(tokenA, tokenB, deadline, rangeValue)
+    } = useSwap(tokenA, tokenB, deadline, amountA, amountB)
+    useEffect(() => {
+        setAmountB(getAmountOut(amountA, reserveA, reserveB));
+    }, [amountA])
+
+    function updateInput(e: ChangeEvent<HTMLInputElement>) {
+        setAmountA(BigInt(Number(e.target.value) * 1000000000000000000));
+    }
+
+    useEffect(() => {
+        setAmountA(balanceOfTokenA * BigInt(rangeValue) / BigInt(100));
+    }, [rangeValue, tokenA])
 
 
     return (
@@ -120,7 +130,7 @@ function SwapCart(props: ISwapCart) {
                             <SelectTokenModal
                                 tokenName="first_token_modal"
                                 fetchSelectToken={(dataToken) => {
-                                    dataToken === tokenB ? toast.error("token the same !",{
+                                    dataToken === tokenB ? toast.error("token the same !", {
                                             position: "top-right",
                                             autoClose: 5000,
                                             hideProgressBar: false,
@@ -181,7 +191,7 @@ function SwapCart(props: ISwapCart) {
                                 tokenName="second_token_modal"
                                 fetchSelectToken={(dataToken) => {
 
-                                    dataToken === tokenA ? toast.error("token the same !",{
+                                    dataToken === tokenA ? toast.error("token the same !", {
                                             position: "top-right",
                                             autoClose: 5000,
                                             hideProgressBar: false,
