@@ -97,7 +97,7 @@ const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
                     <td>
                         <div className='flex row gap-2 items-center'>
                                      <span
-                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{balanceOfList[index].toFixed(2)}</span>
+                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{balanceOfList[index]}</span>
 
                         </div>
                     </td>
