@@ -18,12 +18,28 @@ const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
         token1: `0x000`,
         data: [BigInt(0), BigInt(0), 0]
     })
+
     return <>
         {
             props.rows.map((data, index) => {
                 const token0 = props.tokenData.tokens.find((token) => token.address === data.token0);
                 const token1 = props.tokenData.tokens.find((token) => token.address === data.token1);
+                function getAmountOut(amountIn: bigint, reserveIn: bigint, reserveOut: bigint):bigint {
+                    if (Number(amountIn) <= 0) {
+                        return BigInt(0);
+                    }
 
+                    if (Number(reserveIn) <= 0 || Number(reserveOut) <= 0) {
+                        return BigInt(0);
+                    }
+
+                    const amountInWithFee = Number(amountIn) * 9975;
+                    const numerator = amountInWithFee * Number(reserveOut);
+                    const denominator = Number(reserveIn) * 10000 + amountInWithFee;
+                    const amountOut = BigInt(numerator / denominator);
+
+                    return amountOut;
+                }
                 return <tr key={index} className='border-none py-5 px-5'>
                     <td>
                         <div className='flex flex-row items-center gap-[7px]'>
@@ -49,25 +65,25 @@ const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
                                      {token1 ? token1.symbol : 'Token1'}
                                  </span>
                                 <span
-                                    className="capitalize text-neutral leading-[12px] text-sm font-['Inter'] font-normal not-italic">Stable Pool</span>
+                                    className="capitalize text-neutral leading-[12px] text-sm font-['Inter'] font-normal not-italic">V1 Pool</span>
                             </div>
                         </div>
                     </td>
                     <td>
                                              <span
-                                                 className="text-sm text-accent font-['Arial'] font-normal not-italic">5.6%</span>
+                                                 className="text-sm text-accent font-['Arial'] font-normal not-italic">1&nbsp;{token0 ? token0.symbol:'token0'}&nbsp;=&nbsp;{Number(formatEther(getAmountOut(BigInt(1000000000000000000),data.data[0],data.data[1]))).toFixed(7)}&nbsp;{token1 ? token1.symbol:'token1'}</span>
                     </td>
                     <td>
                         <div className='flex row gap-2 items-center'>
                                      <span
-                                         className="text-sm text-accent font-['Arial'] font-normal not-italic"> ${formatEther(data.data[0]).slice(0, 6)}4</span>
+                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{Number(formatEther(data.data[0])).toFixed(7)}&nbsp;{token0 ? token0.symbol:'token0'}</span>
 
                         </div>
                     </td>
                     <td>
                         <div className='flex row gap-2 items-center'>
                                      <span
-                                         className="text-sm text-accent font-['Arial'] font-normal not-italic"> ${formatEther(data.data[1]).slice(0, 6)}</span>
+                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{Number(formatEther(data.data[1])).toFixed(7)}&nbsp;{token1 ? token1.symbol:'token1'}</span>
 
                         </div>
                     </td>
