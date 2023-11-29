@@ -15,6 +15,7 @@ const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenMod
 
 
 function SwapCart(props: ISwapCart) {
+    // test version
     const [rangeValue, setRangeValue] = useState<number>(0);
     const [gasStatus, setGasStatus] = useState<boolean>(false);
     const [tokenA, setTokenA] = useState<Token>(initialToken0);
