@@ -1,47 +1,21 @@
 import Layout from "@/layouts/BaseLayout";
 import HomeView from "@/views/home/HomeView";
 import dynamic from "next/dynamic";
-import {IChartData} from "@/interfaces/IChartData";
-import ChartData from "@/data/chart/ChartData";
+import chartData from "@/data/chart/ChartData";
 import {NextPage} from "next";
-import {fetchGitHubImages, IGithubFetchResponseType} from "@/utils/fetchGitHubImages";
-import {fetchGitHubTokens} from "@/utils/fetchGitHubTokens";
 import {IToken} from "@/interfaces/IToken";
+import {Octokit} from "@octokit/rest";
 
 const WelcomeModal = dynamic(() => import('@/views/home/components/modals/WelcomeModal'));
 
 interface HomeProps {
-    chartData: IChartData[],
     contractAddress: string,
-    images: IGithubFetchResponseType[]
     tokenData: IToken
 }
 
-const Home: NextPage<HomeProps> = ({images, contractAddress, chartData, tokenData}) => {
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const data = await fetch(tokens[0].download_url)
-    //             console.log(data)
-    //
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //
-    //         }
-    //     };
-    //     fetchData();
-    // }, [tokens]);
-    // console.log(tokenData)
-
-
+const Home: NextPage<HomeProps> = ({contractAddress, tokenData}) => {
     return (
         <Layout title="Swap">
-            {/*{*/}
-            {/*    images.map((data: IGithubFetchResponseType, index: number) => {*/}
-            {/*        return <ImageImporter key={index} src={data.download_url as string} alt={data.name} w={121}*/}
-            {/*                              h={121}/>*/}
-            {/*    })*/}
-            {/*}*/}
             <WelcomeModal/>
             <HomeView
                 tokenData={tokenData}
@@ -52,38 +26,42 @@ const Home: NextPage<HomeProps> = ({images, contractAddress, chartData, tokenDat
     );
 }
 
+// export async function getStaticProps() {
 export async function getServerSideProps() {
+
+    const octokit = new Octokit();
+    const owner = process.env.REPO_OWNER!;
+    const repo = process.env.REPO_NAME!;
+    const contractAddress = process.env.BTC_CONTRACT_ADDRESS!;
+
     try {
-        const {images} = await fetchGitHubImages();
-        const {tokens} = await fetchGitHubTokens();
+        const response = await octokit.repos.getContent({
+            owner,
+            repo,
+            path: '/token', // path to the directory, empty for the root
+        });
 
-        // Fetch data from the external URL
-        const response = await fetch(tokens[0].download_url);
+        if (Array.isArray(response.data)) {
+            const tokens = response.data
+                .filter((item) => item.type === 'file' && item.name.match(/\.(json)$/i))
+                .map((item): any => ({
+                    name: item.name,
+                    download_url: item.download_url,
+                }));
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch data');
+            const tokenData = await tokens[0].download_url.json() as IToken;
+            return {
+                props: {
+                    tokenData,
+                    contractAddress: contractAddress,
+                },
+            };
+        } else {
+            throw new Error('Unexpected response from GitHub API');
         }
-
-        // Parse the JSON data
-        const tokenData = await response.json() as IToken;
-
-        return {
-            props: {
-                images,
-                tokenData,
-                chartData: ChartData,
-                contractAddress: process.env.BTC_CONTRACT_ADDRESS,
-            },
-        };
     } catch (error) {
         console.error(error);
-        return {
-            props: {
-                images: [],
-                chartData: ChartData,
-                contractAddress: process.env.BTC_CONTRACT_ADDRESS,
-            },
-        };
+        throw new Error('Error fetching data from GitHub API');
     }
 }
 
