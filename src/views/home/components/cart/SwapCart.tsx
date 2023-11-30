@@ -1,22 +1,19 @@
 import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
-import {GetAccountResult} from "@wagmi/core";
 import {IToken, Token} from "@/interfaces/IToken";
 import {ChangeEvent, useEffect, useState} from "react";
 import {toast} from "react-toastify";
-import SettingModal from "@/views/home/components/modals/SettingModal";
 import {erc20, pair, swapPairFactory, swapRouter, weth} from "@/lib/ContractFunctions";
 import {useBalance, usePublicClient, useWalletClient} from "wagmi";
 import {formatEther} from "viem";
 
 
-
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
+const SettingModal = dynamic(() => import("@/views/home/components/modals/SettingModal"));
 
 interface ISwapCart {
     contractAddress: string,
-    walletInfo: GetAccountResult,
     tokenData: IToken
 }
 
@@ -82,7 +79,7 @@ function SwapCart(props: ISwapCart) {
     const router = swapRouter(publicClient, walletClient.data, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a');
     const wETH = weth(publicClient, walletClient.data, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80');
 
-    function getAmountOut(amountIn: bigint, reserveIn: bigint, reserveOut: bigint):bigint {
+    function getAmountOut(amountIn: bigint, reserveIn: bigint, reserveOut: bigint): bigint {
         if (
             (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee' &&
                 tokenB.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') ||

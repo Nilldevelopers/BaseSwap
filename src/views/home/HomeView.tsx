@@ -1,24 +1,21 @@
 import SwapCart from "@/views/home/components/cart/SwapCart";
-import {GetAccountResult} from "@wagmi/core";
-import {INetworkInfo} from "@/interfaces/INetworkInfo";
-import ChartComponent from "@/views/home/components/chart/ChartComponent";
-import {IChartData} from "@/interfaces/IChartData";
 import {IToken} from "@/interfaces/IToken";
-import {tokenize} from "@csstools/css-tokenizer";
+import chartData from "@/data/chart/ChartData";
+import dynamic from "next/dynamic";
 
+const ChartComponent = dynamic(() => import("@/views/home/components/chart/ChartComponent"), {
+    ssr: false,
+    loading: () => <progress className="progress w-56"></progress>,
+});
 
 const HomeView = (props: {
     contractAddress: string,
-    walletInfo: GetAccountResult,
-    networkInfo: INetworkInfo,
-    blockNumber: number,
-    chartData: IChartData[] // Adjust the type according to your chart data structure
     tokenData: IToken
 }) => {
     return (
         <section className="w-full flex flex-wrap md:p-10 mb-28 md:pb-0">
-            <SwapCart tokenData={props.tokenData} walletInfo={props.walletInfo} contractAddress={props.contractAddress}/>
-            <ChartComponent data={props.chartData}/>
+            <SwapCart tokenData={props.tokenData} contractAddress={props.contractAddress}/>
+            <ChartComponent data={chartData}/>
         </section>
     );
 };
