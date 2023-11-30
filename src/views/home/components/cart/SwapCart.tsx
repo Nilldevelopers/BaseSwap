@@ -100,7 +100,7 @@ function SwapCart(props: ISwapCart) {
         const amountInWithFee = Number(amountIn) * 9975;
         const numerator = amountInWithFee * Number(reserveOut);
         const denominator = Number(reserveIn) * 10000 + amountInWithFee;
-        const amountOut = BigInt(numerator / denominator);
+        const amountOut = BigInt(Math.floor(numerator / denominator));
 
         return amountOut;
     }
@@ -234,7 +234,7 @@ function SwapCart(props: ISwapCart) {
                     try {
                         // @ts-ignore
                         let swapTransaction = router.write.swapETHForExactTokens(
-                            [(Number(amountB) * 999 / 1000), ['0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80', tokenB.address], userAddress, Date.now() + deadline * 60],
+                            [(amountB * 999n / 1000n), ['0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80', tokenB.address], userAddress, Date.now() + deadline * 60],
                             {value: amountA}
                         )
                     } catch (e) {
@@ -258,7 +258,7 @@ function SwapCart(props: ISwapCart) {
                         }
                         // @ts-ignore
                         let swapTransaction = router.write.swapTokensForExactETH(
-                            [(Number(amountB) * 999 / 1000), amountA, [tokenA.address, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'], userAddress, Date.now() + deadline * 60]
+                            [(amountB * 999n / 1000n), amountA, [tokenA.address, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'], userAddress, Date.now() + deadline * 60]
                         );
                     } catch (e) {
                         console.log(e)
@@ -273,7 +273,7 @@ function SwapCart(props: ISwapCart) {
                     }
                     // @ts-ignore
                     let swapTransaction = router.write.swapTokensForExactTokens(
-                        [(Number(amountB) * 999 / 1000), amountA, [tokenA.address, tokenB.address], userAddress, Date.now() + deadline * 60]
+                        [(amountB * 999n / 1000n), amountA, [tokenA.address, tokenB.address], userAddress, Date.now() + deadline * 60]
                     );
                 } catch (e) {
                     console.log(e)
@@ -450,7 +450,7 @@ function SwapCart(props: ISwapCart) {
                         </div>
                         <div className="flex flex-wrap w-full justify-between items-center py-2 my-1 ">
                             <div className="text-gray-400">Minimum output</div>
-                            <div>{Number(formatEther(BigInt(Number(amountB) * 999 / 1000))).toFixed(10)} {tokenB.symbol}</div>
+                            <div>{Number(formatEther(amountB * 999n / 1000n)).toFixed(10)} {tokenB.symbol}</div>
                         </div>
                         <div className="flex flex-wrap w-full justify-between items-center py-2 my-1 ">
                             <div className="text-gray-400">Expected output</div>
