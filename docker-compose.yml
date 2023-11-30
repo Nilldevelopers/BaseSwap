@@ -2,14 +2,14 @@ version: '3'
 services:
   app:
     build:
-      context: ../
-      dockerfile: ./docker/Dockerfile # Adjust the context to the root of your project
+      context: .  # Adjust the context to the root of your project
+      dockerfile: ./Dockerfile
     container_name: "baseswap-app"
 
   app1:
     build:
-      context: ../
-      dockerfile: ./docker/Dockerfile # Adjust the context to the root of your project
+      context: .  # Adjust the context to the root of your project
+      dockerfile: ./Dockerfile
     container_name: "baseswap-2"
 
   nginx:
