@@ -80,15 +80,37 @@ const Home: NextPage<HomeProps> = ({contractAddress, tokenData}) => {
 export default Home;
 
 export async function getServerSideProps({req, res}: any) {
-    const { tokens } = await fetchGitHubTokens();
-    const response = await fetch(tokens[0].download_url);
+    const tokenDataFromCookies = res.getHeader("tokenData")
+    let tokenData;
+            if (tokenDataFromCookies) {
+            // If token exists in cookies, use it
+            const tokenData = JSON.parse(tokenDataFromCookies) as IToken;
 
-    const tokenData = await response.json();
-    console.log(tokenData)
-    res.setHeader('Set-Cookie', `tokenData=${tokenData}; Path=/`);
-    return {
-        props: {
-            contractAddress: process.env.BTC_CONTRACT_ADDRESS,
-        },
-    };
+            return {
+                props: {
+                    tokenData,
+                    contractAddress: process.env.BTC_CONTRACT_ADDRESS,
+                },
+            };
+        }
+    else{
+        try {
+            const { tokens } = await fetchGitHubTokens();
+            const response = await fetch(tokens[0].download_url);
+            tokenData = await response.json();
+            res.setHeader('Set-Cookie', `tokenData=${tokenData}; Path=/`);
+        }catch (e){
+
+        }
+    }
+
+
+
+
+        return {
+            props: {
+                tokenData,
+                contractAddress: process.env.BTC_CONTRACT_ADDRESS,
+            },
+        };
 }
