@@ -227,6 +227,7 @@ function SwapCart(props: ISwapCart) {
                 if (tokenB.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
                     try {
                   
+                        // @ts-ignore
                         let swapTransaction = wETH.write.deposit([], {value: amountA})
                     } catch (e) {
                         console.log(e)
@@ -234,6 +235,7 @@ function SwapCart(props: ISwapCart) {
                 } else {
                     try {
                   
+                        // @ts-ignore
                         let swapTransaction = router.write.swapETHForExactTokens(
                             [(amountB * 999n / 1000n), ['0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80', tokenB.address], userAddress, Date.now() + deadline * 60],
                             {value: amountA}
@@ -246,6 +248,7 @@ function SwapCart(props: ISwapCart) {
                 if (tokenA.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
                     try {
                   
+                        // @ts-ignore
                         let swapTransaction = wETH.write.withdraw([amountA])
                     } catch (e) {
                         console.log(e)
@@ -255,9 +258,11 @@ function SwapCart(props: ISwapCart) {
                         let allowance = await token0.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
                         if (allowance < amountA) {
                       
+                            // @ts-ignore
                             let approveTransaction = token0.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountA]);
                         }
                   
+                        // @ts-ignore
                         let swapTransaction = router.write.swapTokensForExactETH(
                             [(amountB * 999n / 1000n), amountA, [tokenA.address, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'], userAddress, Date.now() + deadline * 60]
                         );
@@ -270,9 +275,11 @@ function SwapCart(props: ISwapCart) {
                     let allowance = await token0.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
                     if (allowance < amountA) {
                   
+                        // @ts-ignore
                         let approveTransaction = token0.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountA]);
                     }
               
+                    // @ts-ignore
                     let swapTransaction = router.write.swapTokensForExactTokens(
                         [(amountB * 999n / 1000n), amountA, [tokenA.address, tokenB.address], userAddress, Date.now() + deadline * 60]
                     );
