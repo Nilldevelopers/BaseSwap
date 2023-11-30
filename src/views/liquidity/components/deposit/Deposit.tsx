@@ -44,8 +44,8 @@ const Deposit = (props: { tokenData: IToken }) => {
 
     const [buttonText, setButtonText] = useState<string>('Enter an amount');
 
-    const [amountA, setAmountA] = useState<BigInt>(BigInt(0));
-    const [amountB, setAmountB] = useState<BigInt>(BigInt(0));
+    const [amountA, setAmountA] = useState<bigint>(BigInt(0));
+    const [amountB, setAmountB] = useState<bigint>(BigInt(0));
 
     const token0 = erc20(publicClient, walletClient.data, tokenA.address);
     const token1 = erc20(publicClient, walletClient.data, tokenB.address);
