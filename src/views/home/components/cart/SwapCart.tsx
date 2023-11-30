@@ -287,7 +287,7 @@ function SwapCart(props: ISwapCart) {
     const [deadline, setDeadline] = useState<any>(5);
 
     return (
-        <section className="md:w-4/12  p-2 flex flex-wrap">
+        <div>
             <div className="w-full flex justify-between items-center">
                 <h4 className="text-xl font-bold text-white">
                     Swap
@@ -473,7 +473,7 @@ function SwapCart(props: ISwapCart) {
             <div className="w-full flex">
                 <button className="btn w-full bg-custom-red" onClick={() => swapTokens()}>Swap</button>
             </div>
-        </section>
+        </div>
     );
 }
 
