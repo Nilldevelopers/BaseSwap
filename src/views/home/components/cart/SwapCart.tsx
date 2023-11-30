@@ -1,3 +1,4 @@
+/* eslint-disable */
 import ImageImporter from "@/plugin/ImageImporter";
 import {FaAngleDown} from "react-icons/fa";
 import dynamic from "next/dynamic";
@@ -225,16 +226,16 @@ function SwapCart(props: ISwapCart) {
             if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
                 if (tokenB.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
                     try {
-                        // @ts-ignore
+                  
                         let swapTransaction = wETH.write.deposit([], {value: amountA})
                     } catch (e) {
                         console.log(e)
                     }
                 } else {
                     try {
-                        // @ts-ignore
+                  
                         let swapTransaction = router.write.swapETHForExactTokens(
-                            [BigInt(Number(amountB) * 999 / 1000), ['0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80', tokenB.address], userAddress, Date.now() + deadline * 60],
+                            [(amountB * 999n / 1000n), ['0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80', tokenB.address], userAddress, Date.now() + deadline * 60],
                             {value: amountA}
                         )
                     } catch (e) {
@@ -244,7 +245,7 @@ function SwapCart(props: ISwapCart) {
             } else if (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
                 if (tokenA.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
                     try {
-                        // @ts-ignore
+                  
                         let swapTransaction = wETH.write.withdraw([amountA])
                     } catch (e) {
                         console.log(e)
@@ -253,12 +254,12 @@ function SwapCart(props: ISwapCart) {
                     try {
                         let allowance = await token0.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
                         if (allowance < amountA) {
-                            // @ts-ignore
+                      
                             let approveTransaction = token0.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountA]);
                         }
-                        // @ts-ignore
+                  
                         let swapTransaction = router.write.swapTokensForExactETH(
-                            [BigInt(Number(amountB) * 999 / 1000), amountA, [tokenA.address, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'], userAddress, Date.now() + deadline * 60]
+                            [(amountB * 999n / 1000n), amountA, [tokenA.address, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'], userAddress, Date.now() + deadline * 60]
                         );
                     } catch (e) {
                         console.log(e)
@@ -268,12 +269,12 @@ function SwapCart(props: ISwapCart) {
                 try {
                     let allowance = await token0.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
                     if (allowance < amountA) {
-                        // @ts-ignore
+                  
                         let approveTransaction = token0.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountA]);
                     }
-                    // @ts-ignore
+              
                     let swapTransaction = router.write.swapTokensForExactTokens(
-                        [(BigInt(Number(amountB) * 999 / 1000)), amountA, [tokenA.address, tokenB.address], userAddress, Date.now() + deadline * 60]
+                        [(amountB * 999n / 1000n), amountA, [tokenA.address, tokenB.address], userAddress, Date.now() + deadline * 60]
                     );
                 } catch (e) {
                     console.log(e)
@@ -286,6 +287,7 @@ function SwapCart(props: ISwapCart) {
     const [speed, setSpeed] = useState<any>("Fast");
     const [deadline, setDeadline] = useState<any>(5);
 
+    // @ts-ignore
     return (
         <div>
             <div className="w-full flex justify-between items-center">
@@ -450,7 +452,7 @@ function SwapCart(props: ISwapCart) {
                         </div>
                         <div className="flex flex-wrap w-full justify-between items-center py-2 my-1 ">
                             <div className="text-gray-400">Minimum output</div>
-                            <div>{Number(formatEther(BigInt(Number(amountB) * 999 / 1000))).toFixed(10)} {tokenB.symbol}</div>
+                            <div>{Number(formatEther(amountB * 999n / 1000n)).toFixed(10)} {tokenB.symbol}</div>
                         </div>
                         <div className="flex flex-wrap w-full justify-between items-center py-2 my-1 ">
                             <div className="text-gray-400">Expected output</div>
