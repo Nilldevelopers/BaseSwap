@@ -8,6 +8,8 @@ import {toast} from "react-toastify";
 import {erc20, pair, swapPairFactory, swapRouter, weth} from "@/lib/ContractFunctions";
 import {useBalance, usePublicClient, useWalletClient} from "wagmi";
 import {formatEther} from "viem";
+import {useAppDispatch} from "@/hooks/useAppDispatch";
+import {setTokenData} from "@/store/actions/tokenChart";
 
 
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
@@ -59,7 +61,7 @@ function SwapCart(props: ISwapCart) {
 
     const publicClient = usePublicClient();
     const walletClient = useWalletClient();
-
+    const dispatch = useAppDispatch()
     const [balanceOfTokenA, setBalanceOfTokenA] = useState<bigint>(BigInt(0));
     const [balanceOfTokenB, setBalanceOfTokenB] = useState<bigint>(BigInt(0));
 
@@ -226,7 +228,7 @@ function SwapCart(props: ISwapCart) {
             if (tokenA.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
                 if (tokenB.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
                     try {
-                  
+
                         // @ts-ignore
                         let swapTransaction = wETH.write.deposit([], {value: amountA})
                     } catch (e) {
@@ -234,7 +236,7 @@ function SwapCart(props: ISwapCart) {
                     }
                 } else {
                     try {
-                  
+
                         // @ts-ignore
                         let swapTransaction = router.write.swapETHForExactTokens(
                             [(amountB * 999n / 1000n), ['0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80', tokenB.address], userAddress, Date.now() + deadline * 60],
@@ -247,7 +249,7 @@ function SwapCart(props: ISwapCart) {
             } else if (tokenB.address == '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
                 if (tokenA.address == '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80') {
                     try {
-                  
+
                         // @ts-ignore
                         let swapTransaction = wETH.write.withdraw([amountA])
                     } catch (e) {
@@ -257,11 +259,11 @@ function SwapCart(props: ISwapCart) {
                     try {
                         let allowance = await token0.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
                         if (allowance < amountA) {
-                      
+
                             // @ts-ignore
                             let approveTransaction = token0.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountA]);
                         }
-                  
+
                         // @ts-ignore
                         let swapTransaction = router.write.swapTokensForExactETH(
                             [(amountB * 999n / 1000n), amountA, [tokenA.address, '0x041638a7D668Bb96121Eb0D7fF0C9241AB9d2f80'], userAddress, Date.now() + deadline * 60]
@@ -274,11 +276,11 @@ function SwapCart(props: ISwapCart) {
                 try {
                     let allowance = await token0.read.allowance([userAddress, '0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a']);
                     if (allowance < amountA) {
-                  
+
                         // @ts-ignore
                         let approveTransaction = token0.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountA]);
                     }
-              
+
                     // @ts-ignore
                     let swapTransaction = router.write.swapTokensForExactTokens(
                         [(amountB * 999n / 1000n), amountA, [tokenA.address, tokenB.address], userAddress, Date.now() + deadline * 60]
@@ -368,6 +370,7 @@ function SwapCart(props: ISwapCart) {
                             <SelectTokenModal
                                 tokenName="first_token_modal"
                                 fetchSelectToken={(dataToken) => {
+                                    dispatch(setTokenData(dataToken))
                                     dataToken === tokenB ? toast.error("token the same !") :
                                         setTokenA(dataToken)
                                 }}
