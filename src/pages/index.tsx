@@ -14,6 +14,8 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({ contractAddress, tokenData }) => {
+    const tokenDataFromCookies = Cookies.get('Set-Cookie');
+    console.log( "cookie" + tokenDataFromCookies)
     return (
         <Layout title="Swap">
             <WelcomeModal />
@@ -25,10 +27,10 @@ const Home: NextPage<HomeProps> = ({ contractAddress, tokenData }) => {
     );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({req , res} : any) {
     try {
         // Check if token is stored in cookies
-        const tokenDataFromCookies = Cookies.get('tokenData');
+        const tokenDataFromCookies = res.getHeader("tokenData")
 
         if (tokenDataFromCookies) {
             // If token exists in cookies, use it
@@ -56,7 +58,7 @@ export async function getServerSideProps() {
         const tokenData = await response.json() as IToken;
 
         // Set tokenData in cookies for future visits
-        Cookies.set('tokenData', JSON.stringify(tokenData));
+        res.setHeader('Set-Cookie', `tokenData=${JSON.stringify(tokenData)}; Path=/`);
 
         return {
             props: {
