@@ -55,15 +55,15 @@ const LiquidityView = (props: {
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="final_modal">final</label>
-                        <FinalModal/>
-                        /
-                        <label htmlFor="Successfully_modal">Successfully_modal</label>
-                        <Successfully/>
-                        /
-                        <label htmlFor="failed_modal">failed_modal</label>
-                        <Failed/>
-                        /
+                        {/*<label htmlFor="final_modal">final</label>*/}
+                        {/*<FinalModal/>*/}
+                        {/*/*/}
+                        {/*<label htmlFor="Successfully_modal">Successfully_modal</label>*/}
+                        {/*<Successfully/>*/}
+                        {/*/*/}
+                        {/*<label htmlFor="failed_modal">failed_modal</label>*/}
+                        {/*<Failed/>*/}
+                        {/*/*/}
 
                         <label htmlFor="deposit_modal"
                                className="btn btn-primary rounded-[18px] py-[13px] px-[20px] mt-5 md:mt-0">
