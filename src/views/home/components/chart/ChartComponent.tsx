@@ -1,7 +1,6 @@
 import {ColorType, createChart} from 'lightweight-charts';
-import {memo, useEffect, useRef, useState} from 'react';
+import {memo, useEffect, useRef} from 'react';
 import {IChartData} from "@/interfaces/IChartData";
-import {useAppSelector} from "@/hooks/useAppSelector";
 
 
 const ChartComponent = (props: {
@@ -24,11 +23,11 @@ const ChartComponent = (props: {
             areaBottomColor = 'rgba(239,35,60,0)',
         } = {},
     } = props;
-    const tokenData = useAppSelector((state) => state.tokenChartReducer);
+    // const tokenData = useAppSelector((state) => state.tokenChartReducer);
 
-    function fetchPrice(){
-        console.log(tokenData)
-    }
+    // function fetchPrice(){
+    //     console.log(tokenData)
+    // }
 
     const chartContainerRef = useRef<any>();
     useEffect(
@@ -67,7 +66,7 @@ const ChartComponent = (props: {
     );
     useEffect(() => {
             console.log(data[0]?.time);
-    }, [])
+    }, [data])
 
 
     return (
