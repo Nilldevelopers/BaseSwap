@@ -96,7 +96,7 @@ const TableRows = (props: { rows: ILiquidity[], tokenData: IToken, }) => {
                     <td>
                         <div className='flex row gap-2 items-center'>
                                      <span
-                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{!wallet.walletInfo.isConnected ? "0.00" : balanceOfList[index]}</span>
+                                         className="text-sm text-accent font-['Arial'] font-normal not-italic">{!wallet.walletInfo.isConnected ? "0.00" : Number(formatEther(BigInt(balanceOfList[index] || 0))).toFixed(4)}</span>
 
                         </div>
                     </td>

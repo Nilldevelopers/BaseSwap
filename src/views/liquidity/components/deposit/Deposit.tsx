@@ -44,8 +44,8 @@ const Deposit = (props: { tokenData: IToken }) => {
 
     const [buttonText, setButtonText] = useState<string>('Enter an amount');
 
-    const [amountA, setAmountA] = useState<BigInt>(BigInt(0));
-    const [amountB, setAmountB] = useState<BigInt>(BigInt(0));
+    const [amountA, setAmountA] = useState<bigint>(BigInt(0));
+    const [amountB, setAmountB] = useState<bigint>(BigInt(0));
 
     const token0 = erc20(publicClient, walletClient.data, tokenA.address);
     const token1 = erc20(publicClient, walletClient.data, tokenB.address);
@@ -67,9 +67,9 @@ const Deposit = (props: { tokenData: IToken }) => {
             let transaction = await token1.write.approve(['0xb8C8A49b1dc525Dbde457c0a045b1316Ecd7aD9a', amountB]);
         }
         if (token0Allowance >= parseFloat(amountA.toString()) && token1Allowance >= parseFloat(amountB.toString())) {
-            console.log([tokenA.address, tokenB.address, amountA, amountB, parseFloat(amountA.toString()) * 99 / 100, parseFloat(amountB.toString()) * 99 / 100, userAddress, 17010009590])
+            console.log([tokenA.address, tokenB.address, amountA, amountB, parseFloat(amountA.toString()) * 99 / 100, parseFloat(amountB.toString()) * 99 / 100, userAddress, Date.now() + 5 * 60])
             // @ts-ignore
-            let transaction = await router.write.addLiquidity([tokenA.address, tokenB.address, amountA, amountB, parseFloat(amountA.toString()) * 99 / 100, parseFloat(amountB.toString()) * 99 / 100, userAddress, 17110009590]);
+            let transaction = await router.write.addLiquidity([tokenA.address, tokenB.address, amountA, amountB, parseFloat(amountA.toString()) * 99 / 100, parseFloat(amountB.toString()) * 99 / 100, userAddress, Date.now() + 5 * 60]);
         }
     }
 
@@ -125,16 +125,16 @@ const Deposit = (props: { tokenData: IToken }) => {
                         </div>
 
                         <div className="flex flex-row items-center gap-4">
-                            <button onClick={() => setAmountA(balanceOfTokenB * BigInt(80) / BigInt(100))}
+                            <button onClick={() => setAmountA(balanceOfTokenA * BigInt(80) / BigInt(100))}
                                     className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">20%
                             </button>
-                            <button onClick={() => setAmountA(balanceOfTokenB * BigInt(50) / BigInt(100))}
+                            <button onClick={() => setAmountA(balanceOfTokenA * BigInt(50) / BigInt(100))}
                                     className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">50%
                             </button>
-                            <button onClick={() => setAmountA(balanceOfTokenB * BigInt(25) / BigInt(100))}
+                            <button onClick={() => setAmountA(balanceOfTokenA * BigInt(25) / BigInt(100))}
                                     className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">75%
                             </button>
-                            <button onClick={() => setAmountA(balanceOfTokenB)}
+                            <button onClick={() => setAmountA(balanceOfTokenA)}
                                     className="w-1/6 p-2 hover:[text-shadow:_0px_5px_8px_#EF233C] flex items-center text-gray-400">MAX
                             </button>
                         </div>
@@ -157,7 +157,7 @@ const Deposit = (props: { tokenData: IToken }) => {
                                 />
                             </div>
                             <div>
-                                <input defaultValue={amountA.toString()} type="number" placeholder="Type here"
+                                <input value={Number(formatEther(amountA)).toFixed(10)} type="number" placeholder="Type here"
                                        className="input w-full max-w-xs bg-transparent"/>
                             </div>
                         </div>
@@ -223,14 +223,29 @@ const Deposit = (props: { tokenData: IToken }) => {
                                 />
                             </div>
                             <div>
-                                <input defaultValue={amountB.toString()} type="number" placeholder="Type here"
+                                <input value={Number(formatEther(amountB)).toFixed(10)} type="number" placeholder="Type here"
                                        className="input w-full max-w-xs bg-transparent"/>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <ReverseInfo/>
+                <div className='w-full p-2 flex flex-wrap mt-5'>
+                    <div className="flex flex-col w-full py-1">
+                        <div className="divider divider-primary">Reserve Info</div>
+                    </div>
+                    <div className="w-full flex justify-between">
+                        <span className="px-2">{Number(formatEther(amountA)).toFixed(2)}</span>
+                        <span className="px-2">{Number(formatEther(amountB)).toFixed(2)}</span>
+                        <span className="px-2">0.1%</span>
+                    </div>
+                    <div className="w-full flex justify-between">
+                        <span className="px-2">{tokenA.symbol}</span>
+                        <span className="px-2">{tokenB.symbol}</span>
+                        <span className="px-2">Slippage</span>
+                    </div>
+                </div>
+                {/*<ReverseInfo />*/}
                 {/*<Balance/>*/}
                 <div className="w-full my-2">
                     <button className="btn w-full bg-custom-red" onClick={addLiquidity}>

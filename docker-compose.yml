@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .  # Adjust the context to the root of your project
+      dockerfile: ./Dockerfile
+    container_name: "baseswap-app"
+
+  app1:
+    build:
+      context: .  # Adjust the context to the root of your project
+      dockerfile: ./Dockerfile
+    container_name: "baseswap-2"
+
+  nginx:
+    container_name: "baseswap-app-NGINX"
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Specify the path to the NGINX config file

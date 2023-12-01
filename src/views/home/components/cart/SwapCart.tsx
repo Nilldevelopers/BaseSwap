@@ -9,9 +9,7 @@ import {erc20, pair, swapPairFactory, swapRouter, weth} from "@/lib/ContractFunc
 import {useBalance, usePublicClient, useWalletClient} from "wagmi";
 import {formatEther} from "viem";
 import {useAppDispatch} from "@/hooks/useAppDispatch";
-import {initialToken0, initialToken1} from "@/views/home/components/cart/initialSwap";
-import {setTokenAData, setTokenBData} from "@/store/actions/tokenChartAction";
-
+import {setTokenData} from "@/store/actions/tokenChart";
 
 
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
@@ -22,7 +20,28 @@ interface ISwapCart {
     tokenData: IToken
 }
 
-
+const initialToken0: Token = {
+    address: `0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee`,
+    chainId: 84531,
+    decimals: 18,
+    extensions: {
+        bridgeInfo: {}
+    },
+    logoURI: "/img/icons/eth.svg",
+    name: "Ethereum",
+    symbol: "ETH"
+}
+const initialToken1: Token = {
+    address: `0xB66540499d050fFA30e5a5D275bDA0E1176F1963`,
+    chainId: 84531,
+    decimals: 18,
+    extensions: {
+        bridgeInfo: {}
+    },
+    logoURI: "https://raw.githubusercontent.com/ve33-dex/SwapArchiveData/main/icon/0xB66540499d050fFA30e5a5D275bDA0E1176F1963.png",
+    name: "BaseSwap",
+    symbol: "BASES"
+}
 
 function SwapCart(props: ISwapCart) {
     const [rangeValue, setRangeValue] = useState<number>(0);
@@ -351,7 +370,7 @@ function SwapCart(props: ISwapCart) {
                             <SelectTokenModal
                                 tokenName="first_token_modal"
                                 fetchSelectToken={(dataToken) => {
-                                    dispatch(setTokenAData(dataToken))
+                                    dispatch(setTokenData(dataToken))
                                     dataToken === tokenB ? toast.error("token the same !") :
                                         setTokenA(dataToken)
                                 }}
@@ -403,7 +422,7 @@ function SwapCart(props: ISwapCart) {
                             <SelectTokenModal
                                 tokenName="second_token_modal"
                                 fetchSelectToken={(dataToken) => {
-                                    dispatch(setTokenBData(dataToken))
+
                                     dataToken === tokenA ? toast.error("token the same !") :
                                         setTokenB(dataToken)
                                 }}
@@ -471,3 +490,4 @@ function SwapCart(props: ISwapCart) {
 }
 
 export default SwapCart;
+

@@ -1,8 +1,10 @@
-import {tokenAReducer, tokenBReducer} from "@/store/reducers/tokenChartReducer";
+// index.ts
+
+
+import tokenChartReducer from "@/store/reducers/tokenChartReducer";
 
 const reducer = {
-    tokenAReducer,
-    tokenBReducer
+    tokenChartReducer
 };
 
 export default reducer;
