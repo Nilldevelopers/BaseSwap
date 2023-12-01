@@ -1,10 +1,12 @@
 // index.ts
 
 
-import tokenChartReducer from "@/store/reducers/tokenChartReducer";
+import {tokenAReducer, tokenBReducer} from "@/store/reducers/tokenChartReducer";
+import {combineReducers} from "redux";
 
-const reducer = {
-    tokenChartReducer
-};
+const reducer = combineReducers({
+    tokenA: tokenAReducer,
+    tokenB: tokenBReducer,
+});
 
 export default reducer;

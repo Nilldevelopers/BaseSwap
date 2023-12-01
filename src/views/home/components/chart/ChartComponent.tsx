@@ -22,8 +22,8 @@ const ChartComponent = (props: {
     const walletClient = useWalletClient();
     const factory = swapPairFactory(publicClient, walletClient.data, '0xDFE9d201CC5865b45024C799Be47D11Db2E326ad');
     const [pairAddress, setPairAddress] = useState<`0x${string}`>('0x0000000000000000000000000000000000000000');
-    const tokenA = useAppSelector(state => state.tokenAReducer)
-    const tokenB = useAppSelector(state => state.tokenBReducer)
+    const tokenA = useAppSelector(state => state.tokenA)
+    const tokenB = useAppSelector(state => state.tokenB)
     const [reserveA, setReserveA] = useState<bigint>(BigInt(0));
     const [reserveB, setReserveB] = useState<bigint>(BigInt(0));
 
