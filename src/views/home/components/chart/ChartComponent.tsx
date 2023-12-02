@@ -24,7 +24,7 @@ const ChartComponent = (props: {
             areaBottomColor = 'rgba(239,35,60,0)',
         } = {},
     } = props;
-    const tokenData = useAppSelector((state) => state.tokenChartReducer);
+    const tokenData = useAppSelector((state) => state.tokenA);
 
     function fetchPrice(){
         console.log(tokenData)

@@ -9,7 +9,8 @@ import {erc20, pair, swapPairFactory, swapRouter, weth} from "@/lib/ContractFunc
 import {useBalance, usePublicClient, useWalletClient} from "wagmi";
 import {formatEther} from "viem";
 import {useAppDispatch} from "@/hooks/useAppDispatch";
-import {setTokenData} from "@/store/actions/tokenChart";
+import {setTokenAData, setTokenBData} from "@/store/actions/tokenChartAction";
+
 
 
 const SelectTokenModal = dynamic(() => import('@/components/extra/SelectTokenModal'));
@@ -370,7 +371,7 @@ function SwapCart(props: ISwapCart) {
                             <SelectTokenModal
                                 tokenName="first_token_modal"
                                 fetchSelectToken={(dataToken) => {
-                                    dispatch(setTokenData(dataToken))
+                                    dispatch(setTokenAData(dataToken))
                                     dataToken === tokenB ? toast.error("token the same !") :
                                         setTokenA(dataToken)
                                 }}
@@ -422,7 +423,7 @@ function SwapCart(props: ISwapCart) {
                             <SelectTokenModal
                                 tokenName="second_token_modal"
                                 fetchSelectToken={(dataToken) => {
-
+                                    dispatch(setTokenBData(dataToken))
                                     dataToken === tokenA ? toast.error("token the same !") :
                                         setTokenB(dataToken)
                                 }}
