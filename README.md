@@ -27,7 +27,7 @@ Developed with passion and expertise by the NILL Developers team:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/nilldevelopers/baseswap.git
+   git clone https://github.com/Nilldevelopers/BaseSwap.git
    cd baseswap
    ```
 
